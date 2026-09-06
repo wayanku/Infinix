@@ -3,8 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#000000">
-<title>XWatch H5 Pro Companion</title>
+<meta name="theme-color" content="#070707">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<title>XWatch H5 Pro</title>
 
 <style>
 *{
@@ -12,76 +15,185 @@
   -webkit-tap-highlight-color:transparent;
 }
 
+html{
+  background:#050505;
+}
+
 body{
   margin:0;
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  background:#080808;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",
+  "Segoe UI",sans-serif;
+  background:
+    radial-gradient(circle at 50% -10%,#252525 0,#0b0b0b 34%,#050505 70%);
   color:#fff;
+  min-height:100vh;
+  padding-bottom:env(safe-area-inset-bottom);
 }
 
-header{
-  position:sticky;
-  top:0;
-  z-index:10;
-  padding:18px 16px;
-  padding-top:calc(18px + env(safe-area-inset-top));
-  background:#111;
-  border-bottom:1px solid #292929;
-}
-
-h1{
-  margin:0;
-  font-size:21px;
-}
-
-.sub{
-  color:#888;
-  font-size:12px;
-  margin-top:4px;
+button,
+input,
+select{
+  font:inherit;
 }
 
 button{
   border:0;
-  border-radius:12px;
-  padding:13px 16px;
-  font-size:14px;
-  font-weight:600;
-  background:#fff;
-  color:#000;
   cursor:pointer;
 }
 
 button:disabled{
-  opacity:.4;
+  opacity:.38;
   cursor:not-allowed;
 }
 
-.nav{
-  display:flex;
-  overflow-x:auto;
-  gap:8px;
-  padding:10px;
-  background:#101010;
+/* ================= HEADER ================= */
+
+header{
   position:sticky;
-  top:73px;
-  z-index:9;
+  top:0;
+  z-index:50;
+
+  padding:
+    calc(14px + env(safe-area-inset-top))
+    16px 14px;
+
+  background:rgba(7,7,7,.84);
+  backdrop-filter:blur(22px);
+  -webkit-backdrop-filter:blur(22px);
+
+  border-bottom:1px solid rgba(255,255,255,.07);
+}
+
+.headerTop{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.watchIcon{
+  width:38px;
+  height:38px;
+  border-radius:12px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:linear-gradient(145deg,#252525,#101010);
+  border:1px solid #303030;
+
+  font-size:21px;
+}
+
+.brand h1{
+  margin:0;
+  font-size:18px;
+  font-weight:750;
+  letter-spacing:-.4px;
+}
+
+.brand p{
+  margin:2px 0 0;
+  font-size:10px;
+  color:#777;
+}
+
+.connectionBadge{
+  display:flex;
+  align-items:center;
+  gap:6px;
+
+  padding:7px 10px;
+
+  border-radius:999px;
+
+  background:#111;
+  border:1px solid #282828;
+
+  color:#777;
+  font-size:10px;
+  font-weight:700;
+}
+
+.connectionBadge .dot{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:#555;
+}
+
+.connectionBadge.connected{
+  color:#8ee59b;
+  border-color:rgba(80,200,100,.25);
+}
+
+.connectionBadge.connected .dot{
+  background:#39d353;
+  box-shadow:0 0 9px rgba(57,211,83,.8);
+}
+
+/* ================= NAV ================= */
+
+.nav{
+  position:sticky;
+  top:67px;
+  z-index:40;
+
+  display:flex;
+  gap:7px;
+
+  overflow-x:auto;
+
+  padding:9px 12px;
+
+  background:rgba(8,8,8,.88);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+
+  scrollbar-width:none;
+
+  border-bottom:1px solid rgba(255,255,255,.05);
+}
+
+.nav::-webkit-scrollbar{
+  display:none;
 }
 
 .nav button{
-  background:#202020;
-  color:#aaa;
-  white-space:nowrap;
+  flex:0 0 auto;
+
   padding:9px 12px;
+
+  border-radius:999px;
+
+  background:#151515;
+  border:1px solid #242424;
+
+  color:#777;
+
+  font-size:11px;
+  font-weight:700;
 }
 
 .nav button.active{
   background:#fff;
   color:#000;
+  border-color:#fff;
 }
 
+/* ================= MAIN ================= */
+
 main{
-  padding:14px;
-  padding-bottom:40px;
+  max-width:760px;
+  margin:auto;
+
+  padding:16px 14px 45px;
 }
 
 .page{
@@ -92,219 +204,643 @@ main{
   display:block;
 }
 
-.status{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  margin-bottom:14px;
-  color:#aaa;
-  font-size:13px;
+/* ================= HERO ================= */
+
+.hero{
+  position:relative;
+
+  padding:20px;
+
+  border-radius:25px;
+
+  background:
+    radial-gradient(circle at 80% 0%,#292929 0,#171717 35%,#101010 75%);
+
+  border:1px solid #2b2b2b;
+
+  overflow:hidden;
+
+  box-shadow:
+    0 20px 60px rgba(0,0,0,.35);
 }
 
-.dot{
-  width:9px;
-  height:9px;
+.hero:after{
+  content:"";
+
+  position:absolute;
+  width:180px;
+  height:180px;
+  right:-80px;
+  top:-100px;
+
+  border-radius:50%;
+
+  background:rgba(255,255,255,.035);
+}
+
+.heroLabel{
+  color:#777;
+  font-size:11px;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:1px;
+}
+
+.heroDevice{
+  margin-top:5px;
+
+  font-size:22px;
+  font-weight:800;
+  letter-spacing:-.7px;
+}
+
+.heroStatus{
+  display:flex;
+  align-items:center;
+  gap:7px;
+
+  margin-top:10px;
+
+  color:#777;
+  font-size:11px;
+}
+
+.heroStatus .liveDot{
+  width:7px;
+  height:7px;
   border-radius:50%;
   background:#555;
 }
 
-.dot.on{
-  background:#39d353;
+.heroStatus.connected{
+  color:#8ee59b;
 }
 
-.grid{
+.heroStatus.connected .liveDot{
+  background:#39d353;
+  box-shadow:0 0 10px rgba(57,211,83,.8);
+}
+
+.heroButtons{
+  display:flex;
+  gap:8px;
+  margin-top:17px;
+}
+
+.primaryBtn{
+  flex:1;
+
+  padding:13px 15px;
+
+  border-radius:14px;
+
+  background:#fff;
+  color:#000;
+
+  font-size:12px;
+  font-weight:800;
+}
+
+.secondaryBtn{
+  padding:13px 15px;
+
+  border-radius:14px;
+
+  background:#202020;
+  color:#fff;
+
+  border:1px solid #333;
+
+  font-size:12px;
+  font-weight:700;
+}
+
+/* ================= SYNC ================= */
+
+.syncLine{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  margin:14px 3px 0;
+
+  color:#777;
+  font-size:10px;
+}
+
+.syncLine strong{
+  color:#aaa;
+}
+
+.syncPulse{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+}
+
+.syncPulse span{
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:#555;
+}
+
+.syncPulse.active span{
+  background:#fff;
+  animation:pulse 1s infinite;
+}
+
+@keyframes pulse{
+  0%,100%{opacity:.25}
+  50%{opacity:1}
+}
+
+/* ================= METRIC GRID ================= */
+
+.metricGrid{
   display:grid;
   grid-template-columns:repeat(2,1fr);
   gap:10px;
+
+  margin-top:12px;
 }
 
-.card{
-  background:#151515;
+.metric{
+  position:relative;
+
+  min-height:142px;
+
+  padding:16px;
+
+  border-radius:21px;
+
+  background:
+    linear-gradient(145deg,#181818,#101010);
+
   border:1px solid #272727;
-  border-radius:16px;
-  padding:15px;
-  min-height:105px;
+
+  overflow:hidden;
 }
 
-.card .icon{
-  font-size:22px;
-}
-
-.card .label{
-  color:#888;
-  font-size:12px;
-  margin-top:8px;
-}
-
-.card .value{
-  font-size:28px;
-  font-weight:700;
-  margin-top:3px;
-}
-
-.card .unit{
-  color:#777;
-  font-size:12px;
-}
-
-.big{
+.metric.wide{
   grid-column:span 2;
 }
 
-.big .value{
-  font-size:42px;
-}
-
-.section{
-  margin-top:15px;
-  background:#121212;
-  border:1px solid #272727;
-  border-radius:16px;
-  padding:15px;
-}
-
-.section h2{
-  font-size:15px;
-  margin:0 0 12px;
-}
-
-pre{
-  white-space:pre-wrap;
-  word-break:break-all;
-  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
-  font-size:11px;
-  line-height:1.55;
-  color:#bbb;
-  max-height:65vh;
-  overflow:auto;
-  margin:0;
-}
-
-.row{
+.metricTop{
   display:flex;
-  gap:8px;
-  flex-wrap:wrap;
+  align-items:center;
+  justify-content:space-between;
 }
 
-.info{
-  color:#888;
+.metricIcon{
+  width:34px;
+  height:34px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:11px;
+
+  background:#202020;
+
+  font-size:17px;
+}
+
+.metricTag{
+  color:#555;
+  font-size:9px;
+  font-weight:800;
+  text-transform:uppercase;
+}
+
+.metricLabel{
+  margin-top:13px;
+
+  color:#777;
+
+  font-size:11px;
+  font-weight:600;
+}
+
+.metricValue{
+  margin-top:2px;
+
+  font-size:32px;
+  line-height:1;
+
+  font-weight:800;
+
+  letter-spacing:-1px;
+}
+
+.metricUnit{
+  margin-top:5px;
+
+  color:#666;
+
+  font-size:10px;
+}
+
+.metricGlow{
+  position:absolute;
+
+  width:110px;
+  height:110px;
+
+  right:-50px;
+  bottom:-65px;
+
+  border-radius:50%;
+
+  background:rgba(255,255,255,.025);
+}
+
+/* ================= STEPS ================= */
+
+.stepsCard{
+  margin-top:10px;
+
+  padding:18px;
+
+  border-radius:22px;
+
+  background:#121212;
+
+  border:1px solid #282828;
+}
+
+.stepsHeader{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.stepsTitle{
+  font-size:13px;
+  font-weight:750;
+}
+
+.stepsTarget{
+  color:#666;
+  font-size:10px;
+}
+
+.progressTrack{
+  height:8px;
+
+  margin-top:15px;
+
+  border-radius:999px;
+
+  background:#252525;
+
+  overflow:hidden;
+}
+
+.progressBar{
+  height:100%;
+  width:0%;
+
+  border-radius:999px;
+
+  background:#fff;
+
+  transition:width .5s ease;
+}
+
+.stepsFooter{
+  display:flex;
+  justify-content:space-between;
+
+  margin-top:8px;
+
+  color:#666;
+
+  font-size:10px;
+}
+
+/* ================= INFO CARD ================= */
+
+.infoCard{
+  margin-top:10px;
+
+  padding:15px;
+
+  border-radius:18px;
+
+  background:#111;
+
+  border:1px solid #242424;
+}
+
+.infoTitle{
   font-size:12px;
+  font-weight:750;
+}
+
+.infoText{
+  margin-top:6px;
+
+  color:#777;
+
+  font-size:10px;
   line-height:1.6;
 }
 
-.warn{
-  color:#f0b429;
-}
+/* ================= SECTION ================= */
 
-.ok{
-  color:#39d353;
-}
-
-.danger{
-  color:#ff6b6b;
-}
-
-.syncBox{
+.section{
   margin-top:12px;
-  padding:12px;
-  border-radius:12px;
-  background:#090909;
+
+  padding:16px;
+
+  border-radius:20px;
+
+  background:#111;
+
+  border:1px solid #252525;
+}
+
+.sectionTitle{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  margin-bottom:13px;
+}
+
+.sectionTitle h2{
+  margin:0;
+
+  font-size:14px;
+  font-weight:800;
+}
+
+.sectionTitle span{
+  color:#555;
+  font-size:10px;
+}
+
+/* ================= HEALTH ================= */
+
+.healthHero{
+  padding:22px;
+
+  border-radius:24px;
+
+  background:linear-gradient(145deg,#1a1a1a,#101010);
+
   border:1px solid #292929;
+
+  text-align:center;
 }
 
-.syncTitle{
-  font-size:13px;
-  font-weight:700;
-  margin-bottom:7px;
+.healthHeroIcon{
+  font-size:30px;
 }
 
-.syncDesc{
-  color:#777;
+.healthHeroValue{
+  margin-top:5px;
+
+  font-size:52px;
+  font-weight:850;
+  letter-spacing:-2px;
+}
+
+.healthHeroUnit{
+  color:#666;
   font-size:11px;
-  line-height:1.5;
 }
 
-.scanGrid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:8px;
-  margin-top:12px;
-}
-
-.scanGrid button{
-  background:#202020;
-  color:#fff;
-  border:1px solid #333;
-  font-size:12px;
-  padding:11px 8px;
-}
-
-.scanGrid button.primary{
-  background:#fff;
-  color:#000;
-}
-
-.scanGrid button.dangerBtn{
-  background:#241010;
-  color:#ff8c8c;
-}
+/* ================= TABLE ================= */
 
 table{
   width:100%;
   border-collapse:collapse;
-  font-size:12px;
+
+  font-size:11px;
 }
 
-td,th{
-  padding:9px 5px;
-  border-bottom:1px solid #292929;
+td,
+th{
+  padding:10px 4px;
+
+  border-bottom:1px solid #222;
+
   text-align:left;
 }
 
 th{
-  color:#888;
+  color:#555;
+  font-size:9px;
+  text-transform:uppercase;
 }
 
-.small{
-  font-size:11px;
+.ok{
+  color:#70dc84;
+}
+
+.warn{
+  color:#e0b75c;
+}
+
+.muted{
+  color:#555;
+}
+
+/* ================= SLEEP ================= */
+
+.emptyState{
+  padding:35px 15px;
+
+  text-align:center;
+
   color:#666;
 }
 
-input{
-  width:100%;
-  padding:12px;
-  border-radius:10px;
-  border:1px solid #333;
-  background:#090909;
-  color:white;
-  outline:none;
+.emptyState .bigIcon{
+  font-size:38px;
 }
 
-input:focus{
-  border-color:#777;
+.emptyState h3{
+  margin:10px 0 5px;
+
+  color:#aaa;
+
+  font-size:14px;
+}
+
+.emptyState p{
+  margin:0;
+
+  font-size:10px;
+  line-height:1.6;
+}
+
+/* ================= DEVELOPER ================= */
+
+.devButtonGrid{
+  display:grid;
+
+  grid-template-columns:repeat(2,1fr);
+
+  gap:8px;
+}
+
+.devButton{
+  padding:12px 8px;
+
+  border-radius:13px;
+
+  background:#1b1b1b;
+
+  color:#aaa;
+
+  border:1px solid #292929;
+
+  font-size:10px;
+  font-weight:700;
+}
+
+.devButton.primary{
+  background:#fff;
+  color:#000;
+}
+
+.devButton.dangerBtn{
+  background:#211010;
+  color:#e88;
+}
+
+pre{
+  margin:0;
+
+  white-space:pre-wrap;
+  word-break:break-all;
+
+  font-family:
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    monospace;
+
+  font-size:9px;
+  line-height:1.55;
+
+  color:#999;
+
+  max-height:65vh;
+
+  overflow:auto;
+}
+
+input,
+select{
+  width:100%;
+
+  padding:12px;
+
+  border-radius:12px;
+
+  border:1px solid #2c2c2c;
+
+  background:#090909;
+
+  color:#fff;
+
+  outline:none;
+
+  font-size:11px;
+}
+
+input:focus,
+select:focus{
+  border-color:#666;
 }
 
 .commandRow{
   display:grid;
+
   grid-template-columns:1fr auto;
-  gap:8px;
-  margin-top:10px;
+
+  gap:7px;
+
+  margin-top:8px;
 }
 
 .commandRow button{
-  padding:11px 14px;
+  padding:11px 15px;
+
+  border-radius:12px;
+
+  background:#fff;
+  color:#000;
+
+  font-size:10px;
+  font-weight:800;
 }
 
 .result{
-  margin-top:10px;
-  padding:10px;
-  background:#090909;
-  border-radius:10px;
-  color:#aaa;
-  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
-  font-size:11px;
+  margin-top:9px;
+
+  padding:11px;
+
+  border-radius:11px;
+
+  background:#080808;
+
+  border:1px solid #222;
+
+  color:#777;
+
+  font-family:ui-monospace,monospace;
+
+  font-size:9px;
+
+  min-height:38px;
+}
+
+.small{
+  color:#555;
+
+  font-size:9px;
   line-height:1.5;
-  min-height:40px;
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:390px){
+
+  .metric{
+    min-height:130px;
+    padding:14px;
+  }
+
+  .metricValue{
+    font-size:29px;
+  }
+
+  .heroDevice{
+    font-size:20px;
+  }
+
+}
+
+/* ================= LIGHT ANIMATION ================= */
+
+.connectedGlow{
+  animation:connectedGlow 2.5s ease-in-out infinite;
+}
+
+@keyframes connectedGlow{
+  0%,100%{
+    box-shadow:0 0 0 rgba(57,211,83,0);
+  }
+
+  50%{
+    box-shadow:0 0 22px rgba(57,211,83,.08);
+  }
 }
 </style>
 </head>
@@ -312,88 +848,433 @@ input:focus{
 <body>
 
 <header>
-  <h1>⌚ XWatch H5 Pro Companion</h1>
-  <div class="sub">BLE reverse engineering dashboard</div>
+
+  <div class="headerTop">
+
+    <div class="brand">
+
+      <div class="watchIcon">
+        ⌚
+      </div>
+
+      <div>
+        <h1>XWatch H5 Pro</h1>
+        <p>Companion • BLE</p>
+      </div>
+
+    </div>
+
+    <div
+      id="connectionBadge"
+      class="connectionBadge">
+
+      <span class="dot"></span>
+
+      <span id="badgeText">
+        OFFLINE
+      </span>
+
+    </div>
+
+  </div>
+
 </header>
 
-<div class="nav">
-  <button class="active" data-page="dashboard">📊 Dashboard</button>
-  <button data-page="health">❤️ Kesehatan</button>
-  <button data-page="activity">🏃 Aktivitas</button>
-  <button data-page="sleep">😴 Tidur</button>
-  <button data-page="sync">🔄 Sync Scanner</button>
-  <button data-page="gatt">📡 GATT</button>
-  <button data-page="log">🧪 Log</button>
-</div>
+
+<nav class="nav">
+
+  <button
+    class="active"
+    data-page="dashboard">
+    🏠 Home
+  </button>
+
+  <button data-page="health">
+    ❤️ Health
+  </button>
+
+  <button data-page="activity">
+    👟 Activity
+  </button>
+
+  <button data-page="sleep">
+    😴 Sleep
+  </button>
+
+  <button data-page="sync">
+    🔄 Sync
+  </button>
+
+  <button data-page="gatt">
+    📡 GATT
+  </button>
+
+  <button data-page="log">
+    🧪 Debug
+  </button>
+
+</nav>
+
 
 <main>
 
+
 <!-- =====================================================
-     DASHBOARD
+     HOME
 ===================================================== -->
 
-<section id="dashboard" class="page active">
+<section
+  id="dashboard"
+  class="page active">
 
-  <div class="status">
-    <span id="statusDot" class="dot"></span>
-    <span id="statusText">Belum terhubung</span>
-  </div>
+  <div
+    id="hero"
+    class="hero">
 
-  <div class="row">
-    <button id="connectBtn">🔵 Connect XWatch</button>
-    <button id="disconnectBtn" disabled>Disconnect</button>
-  </div>
-
-  <div style="height:14px"></div>
-
-  <div class="grid">
-
-    <div class="card">
-      <div class="icon">❤️</div>
-      <div class="label">Heart Rate</div>
-      <div class="value" id="hr">--</div>
-      <div class="unit">BPM</div>
+    <div class="heroLabel">
+      SMARTWATCH
     </div>
 
-    <div class="card">
-      <div class="icon">🩸</div>
-      <div class="label">SpO₂</div>
-      <div class="value" id="spo2">--</div>
-      <div class="unit">%</div>
+    <div
+      id="heroDevice"
+      class="heroDevice">
+      XWatch H5 Pro
     </div>
 
-    <div class="card">
-      <div class="icon">💨</div>
-      <div class="label">Pressure</div>
-      <div class="value" id="pressure">--</div>
-      <div class="unit">nilai perangkat</div>
+    <div
+      id="heroStatus"
+      class="heroStatus">
+
+      <span class="liveDot"></span>
+
+      <span id="statusText">
+        Belum terhubung
+      </span>
+
     </div>
 
-    <div class="card">
-      <div class="icon">👟</div>
-      <div class="label">Steps</div>
-      <div class="value" id="steps">--</div>
-      <div class="unit">steps</div>
-    </div>
+    <div class="heroButtons">
 
-    <div class="card">
-      <div class="icon">🔥</div>
-      <div class="label">Calories</div>
-      <div class="value" id="calories">--</div>
-      <div class="unit">belum dikunci</div>
-    </div>
+      <button
+        id="connectBtn"
+        class="primaryBtn">
+        🔵 Connect
+      </button>
 
-    <div class="card">
-      <div class="icon">📡</div>
-      <div class="label">BLE</div>
-      <div class="value" id="blePackets">0</div>
-      <div class="unit">packets</div>
+      <button
+        id="syncNowBtn"
+        class="secondaryBtn"
+        disabled>
+        ↻ Sync
+      </button>
+
+      <button
+        id="disconnectBtn"
+        class="secondaryBtn"
+        disabled>
+        ×
+      </button>
+
     </div>
 
   </div>
+
+
+  <div class="syncLine">
+
+    <span class="syncPulse" id="syncPulse">
+      <span></span>
+      <strong id="syncText">
+        Menunggu koneksi
+      </strong>
+    </span>
+
+    <span>
+      Last sync:
+      <strong id="lastSync">
+        --
+      </strong>
+    </span>
+
+  </div>
+
+
+  <div class="metricGrid">
+
+    <div class="metric">
+
+      <div class="metricTop">
+
+        <div class="metricIcon">
+          ❤️
+        </div>
+
+        <div class="metricTag">
+          LIVE
+        </div>
+
+      </div>
+
+      <div class="metricLabel">
+        Heart Rate
+      </div>
+
+      <div
+        id="hr"
+        class="metricValue">
+        --
+      </div>
+
+      <div class="metricUnit">
+        BPM
+      </div>
+
+      <div class="metricGlow"></div>
+
+    </div>
+
+
+    <div class="metric">
+
+      <div class="metricTop">
+
+        <div class="metricIcon">
+          🩸
+        </div>
+
+        <div class="metricTag">
+          LIVE
+        </div>
+
+      </div>
+
+      <div class="metricLabel">
+        SpO₂
+      </div>
+
+      <div
+        id="spo2"
+        class="metricValue">
+        --
+      </div>
+
+      <div class="metricUnit">
+        %
+      </div>
+
+      <div class="metricGlow"></div>
+
+    </div>
+
+
+    <div class="metric">
+
+      <div class="metricTop">
+
+        <div class="metricIcon">
+          👟
+        </div>
+
+        <div class="metricTag">
+          TODAY
+        </div>
+
+      </div>
+
+      <div class="metricLabel">
+        Steps
+      </div>
+
+      <div
+        id="steps"
+        class="metricValue">
+        --
+      </div>
+
+      <div class="metricUnit">
+        langkah
+      </div>
+
+      <div class="metricGlow"></div>
+
+    </div>
+
+
+    <div class="metric">
+
+      <div class="metricTop">
+
+        <div class="metricIcon">
+          🔥
+        </div>
+
+        <div class="metricTag">
+          TODAY
+        </div>
+
+      </div>
+
+      <div class="metricLabel">
+        Kkal
+      </div>
+
+      <div
+        id="calories"
+        class="metricValue">
+        --
+      </div>
+
+      <div
+        id="calorieUnit"
+        class="metricUnit">
+        belum terkonfirmasi
+      </div>
+
+      <div class="metricGlow"></div>
+
+    </div>
+
+
+    <div class="metric">
+
+      <div class="metricTop">
+
+        <div class="metricIcon">
+          💨
+        </div>
+
+        <div class="metricTag">
+          DEVICE
+        </div>
+
+      </div>
+
+      <div class="metricLabel">
+        Pressure
+      </div>
+
+      <div
+        id="pressure"
+        class="metricValue">
+        --
+      </div>
+
+      <div class="metricUnit">
+        nilai perangkat
+      </div>
+
+      <div class="metricGlow"></div>
+
+    </div>
+
+
+    <div class="metric">
+
+      <div class="metricTop">
+
+        <div class="metricIcon">
+          🔋
+        </div>
+
+        <div class="metricTag">
+          POWER
+        </div>
+
+      </div>
+
+      <div class="metricLabel">
+        Battery
+      </div>
+
+      <div
+        id="battery"
+        class="metricValue">
+        --
+      </div>
+
+      <div
+        id="batteryUnit"
+        class="metricUnit">
+        menunggu data
+      </div>
+
+      <div class="metricGlow"></div>
+
+    </div>
+
+  </div>
+
+
+  <div class="stepsCard">
+
+    <div class="stepsHeader">
+
+      <div class="stepsTitle">
+        👟 Aktivitas hari ini
+      </div>
+
+      <div class="stepsTarget">
+        Target 10.000
+      </div>
+
+    </div>
+
+    <div class="progressTrack">
+
+      <div
+        id="stepsProgress"
+        class="progressBar">
+      </div>
+
+    </div>
+
+    <div class="stepsFooter">
+
+      <span id="stepsProgressText">
+        0%
+      </span>
+
+      <span>
+        XWatch
+      </span>
+
+    </div>
+
+  </div>
+
+
+  <div class="infoCard">
+
+    <div class="infoTitle">
+      🔄 Sinkronisasi otomatis
+    </div>
+
+    <div
+      id="autoSyncInfo"
+      class="infoText">
+
+      Setelah jam tersambung, companion akan
+      mengaktifkan notification dan melakukan
+      handshake otomatis melalui AE01.
+
+    </div>
+
+  </div>
+
 
   <div class="section">
-    <h2>🧬 Protocol yang sudah diketahui</h2>
+
+    <div class="sectionTitle">
+
+      <h2>
+        🧬 Protocol
+      </h2>
+
+      <span>
+        VERIFIED
+      </span>
+
+    </div>
 
     <table>
 
@@ -405,35 +1286,46 @@ input:focus{
 
       <tr>
         <td>D2</td>
-        <td>HR</td>
-        <td class="ok">CONFIRMED</td>
+        <td>Heart Rate</td>
+        <td class="ok">
+          CONFIRMED
+        </td>
       </tr>
 
       <tr>
         <td>D3</td>
         <td>SpO₂</td>
-        <td class="ok">CONFIRMED</td>
+        <td class="ok">
+          CONFIRMED
+        </td>
       </tr>
 
       <tr>
         <td>E5</td>
         <td>Pressure</td>
-        <td class="ok">CONFIRMED</td>
+        <td class="ok">
+          CONFIRMED
+        </td>
       </tr>
 
       <tr>
         <td>D6</td>
         <td>Steps</td>
-        <td class="ok">CONFIRMED</td>
+        <td class="ok">
+          CONFIRMED
+        </td>
       </tr>
 
       <tr>
         <td>DB</td>
-        <td>Calories?</td>
-        <td class="warn">TESTING</td>
+        <td>Kkal</td>
+        <td class="warn">
+          TESTING
+        </td>
       </tr>
 
     </table>
+
   </div>
 
 </section>
@@ -443,39 +1335,97 @@ input:focus{
      HEALTH
 ===================================================== -->
 
-<section id="health" class="page">
+<section
+  id="health"
+  class="page">
 
-  <div class="grid">
+  <div class="healthHero">
 
-    <div class="card big">
-      <div class="icon">❤️</div>
-      <div class="label">Heart Rate</div>
-      <div class="value" id="hr2">--</div>
-      <div class="unit">BPM</div>
+    <div class="healthHeroIcon">
+      ❤️
     </div>
 
-    <div class="card">
-      <div class="icon">🩸</div>
-      <div class="label">SpO₂</div>
-      <div class="value" id="spo22">--</div>
-      <div class="unit">%</div>
+    <div
+      id="hr2"
+      class="healthHeroValue">
+      --
     </div>
 
-    <div class="card">
-      <div class="icon">💨</div>
-      <div class="label">Pressure</div>
-      <div class="value" id="pressure2">--</div>
-      <div class="unit">nilai</div>
+    <div class="healthHeroUnit">
+      HEART RATE • BPM
     </div>
 
   </div>
 
+
+  <div class="metricGrid">
+
+    <div class="metric">
+
+      <div class="metricIcon">
+        🩸
+      </div>
+
+      <div class="metricLabel">
+        SpO₂
+      </div>
+
+      <div
+        id="spo22"
+        class="metricValue">
+        --
+      </div>
+
+      <div class="metricUnit">
+        %
+      </div>
+
+    </div>
+
+
+    <div class="metric">
+
+      <div class="metricIcon">
+        💨
+      </div>
+
+      <div class="metricLabel">
+        Pressure
+      </div>
+
+      <div
+        id="pressure2"
+        class="metricValue">
+        --
+      </div>
+
+      <div class="metricUnit">
+        device value
+      </div>
+
+    </div>
+
+  </div>
+
+
   <div class="section">
 
-    <h2>Data terakhir</h2>
+    <div class="sectionTitle">
+      <h2>
+        Data terakhir
+      </h2>
 
-    <div id="healthInfo" class="info">
+      <span>
+        LIVE
+      </span>
+    </div>
+
+    <div
+      id="healthInfo"
+      class="infoText">
+
       Belum ada data kesehatan.
+
     </div>
 
   </div>
@@ -487,53 +1437,170 @@ input:focus{
      ACTIVITY
 ===================================================== -->
 
-<section id="activity" class="page">
+<section
+  id="activity"
+  class="page">
 
-  <div class="grid">
+  <div class="metricGrid">
 
-    <div class="card">
-      <div class="icon">👟</div>
-      <div class="label">Steps</div>
-      <div class="value" id="steps2">--</div>
-      <div class="unit">steps</div>
+    <div class="metric wide">
+
+      <div class="metricTop">
+
+        <div class="metricIcon">
+          👟
+        </div>
+
+        <div class="metricTag">
+          TODAY
+        </div>
+
+      </div>
+
+      <div class="metricLabel">
+        Steps
+      </div>
+
+      <div
+        id="steps2"
+        class="metricValue">
+        --
+      </div>
+
+      <div class="metricUnit">
+        langkah
+      </div>
+
     </div>
 
-    <div class="card">
-      <div class="icon">🔥</div>
-      <div class="label">Calories</div>
-      <div class="value" id="calories2">--</div>
-      <div class="unit">kcal</div>
+
+    <div class="metric wide">
+
+      <div class="metricTop">
+
+        <div class="metricIcon">
+          🔥
+        </div>
+
+        <div class="metricTag">
+          TESTING
+        </div>
+
+      </div>
+
+      <div class="metricLabel">
+        Kkal
+      </div>
+
+      <div
+        id="calories2"
+        class="metricValue">
+        --
+      </div>
+
+      <div
+        id="calorieUnit2"
+        class="metricUnit">
+        belum terkonfirmasi
+      </div>
+
     </div>
 
   </div>
 
+
+  <div class="stepsCard">
+
+    <div class="stepsHeader">
+
+      <div class="stepsTitle">
+        Progress
+      </div>
+
+      <div class="stepsTarget">
+        10.000
+      </div>
+
+    </div>
+
+    <div class="progressTrack">
+
+      <div
+        id="stepsProgress2"
+        class="progressBar">
+      </div>
+
+    </div>
+
+  </div>
+
+
   <div class="section">
 
-    <h2>Activity decoder</h2>
+    <div class="sectionTitle">
+      <h2>
+        👟 Steps Decoder
+      </h2>
 
-    <div class="info">
+      <span class="ok">
+        CONFIRMED
+      </span>
+    </div>
 
-      Steps menggunakan record <b>D6</b>
-      dan field <b>08 XX</b>.
+    <div class="infoText">
+
+      Record type:
+
+      <b>D6</b>
 
       <br><br>
 
-      Contoh yang sudah terbukti:
+      Format:
+
+      <code>
+        D6 ... 12 02 08 XX
+      </code>
+
+      <br><br>
+
+      Contoh nyata:
 
       <br>
-      D6 → 05 = 5 steps
-
+      <b>05</b> → 5 langkah
       <br>
-      D6 → 2E = 46 steps
-
+      <b>2E</b> → 46 langkah
       <br>
-      D6 → 4E = 78 steps
-
+      <b>4E</b> → 78 langkah
       <br>
-      D6 → 62 = 98 steps
-
+      <b>62</b> → 98 langkah
       <br>
-      D6 → 71 = 113 steps
+      <b>71</b> → 113 langkah
+
+    </div>
+
+  </div>
+
+
+  <div class="section">
+
+    <div class="sectionTitle">
+      <h2>
+        🔥 Kkal
+      </h2>
+
+      <span class="warn">
+        TESTING
+      </span>
+    </div>
+
+    <div class="infoText">
+
+      Record <b>DB</b> memang membawa angka,
+      tetapi belum kita konfirmasi sebagai Kkal.
+
+      Jadi aplikasi tidak akan menganggapnya sebagai
+      Kkal sampai kita mendapatkan korelasi langsung
+      dengan angka Kkal yang tampil di jam.
 
     </div>
 
@@ -546,27 +1613,28 @@ input:focus{
      SLEEP
 ===================================================== -->
 
-<section id="sleep" class="page">
+<section
+  id="sleep"
+  class="page">
 
   <div class="section">
 
-    <h2>😴 Sleep</h2>
+    <div class="emptyState">
 
-    <div class="info">
+      <div class="bigIcon">
+        😴
+      </div>
 
-      Data tidur belum kita decode.
+      <h3>
+        Sleep belum ter-decode
+      </h3>
 
-      <br><br>
-
-      Sekarang kita mencoba mencari command
-      yang meminta jam mengirim data yang tersimpan.
-
-      <br><br>
-
-      <span class="warn">
-        Jangan melakukan pengukuran manual dulu ketika
-        menguji Sync Scanner.
-      </span>
+      <p>
+        Data tidur kemungkinan berada di
+        history/sync protocol. Kita akan decode
+        setelah struktur packet history berhasil
+        dipetakan.
+      </p>
 
     </div>
 
@@ -576,76 +1644,49 @@ input:focus{
 
 
 <!-- =====================================================
-     SYNC SCANNER
+     SYNC
 ===================================================== -->
 
-<section id="sync" class="page">
+<section
+  id="sync"
+  class="page">
 
   <div class="section">
 
-    <h2>🔄 Sync Scanner</h2>
+    <div class="sectionTitle">
 
-    <div class="info">
+      <h2>
+        🔄 Automatic Sync
+      </h2>
 
-      Tujuan:
-      mencari command yang membuat XWatch
-      mengirim data yang sudah tersimpan di memori.
-
-      <br><br>
-
-      <b>9231</b> sangat menarik karena memiliki
-      READ + WRITE WITHOUT RESPONSE + NOTIFY.
-
-      <br><br>
-
-      Scanner di bawah <b>tidak menjalankan pengukuran</b>.
-      Ia hanya mengirim command kandidat yang aman
-      untuk melihat apakah jam memberikan respons.
+      <span id="syncPageStatus">
+        IDLE
+      </span>
 
     </div>
 
-    <div class="syncBox">
+    <div
+      id="syncStatus"
+      class="infoText">
 
-      <div class="syncTitle">
-        Status Scanner
-      </div>
-
-      <div id="syncStatus" class="syncDesc">
-        Belum dijalankan.
-      </div>
+      Belum tersambung.
 
     </div>
 
-    <div class="scanGrid">
+    <div
+      class="devButtonGrid"
+      style="margin-top:12px">
 
       <button
-        id="sync9231Read"
-        class="primary">
-        📖 READ 9231
+        id="syncManual"
+        class="devButton primary"
+        disabled>
+        🔄 SYNC NOW
       </button>
 
       <button
-        id="sync9233Read">
-        📖 READ 9233
-      </button>
-
-      <button
-        id="syncFEA1Read">
-        📖 READ FEA1
-      </button>
-
-      <button
-        id="syncFEC9Read">
-        📖 READ FEC9
-      </button>
-
-      <button
-        id="syncAllReads">
-        📚 READ ALL
-      </button>
-
-      <button
-        id="syncListen">
+        id="syncListen"
+        class="devButton">
         👂 LISTEN 10s
       </button>
 
@@ -656,52 +1697,94 @@ input:focus{
 
   <div class="section">
 
-    <h2>🧪 Command Tester</h2>
+    <div class="sectionTitle">
 
-    <div class="info">
+      <h2>
+        📖 READ
+      </h2>
 
-      Masukkan HEX tanpa spasi atau dengan spasi.
-      Contoh:
-
-      <br><br>
-
-      <code>01</code>
-
-      <br>
-
-      <code>01 00</code>
-
-      <br>
-
-      <code>01 02 03</code>
-
-      <br><br>
-
-      Untuk tahap awal pilih characteristic
-      yang memang mempunyai WRITE WITHOUT RESPONSE.
+      <span>
+        DEBUG
+      </span>
 
     </div>
 
-    <div style="height:10px"></div>
+    <div class="devButtonGrid">
 
-    <select
-      id="commandTarget"
-      style="
-        width:100%;
-        padding:12px;
-        border-radius:10px;
-        border:1px solid #333;
-        background:#090909;
-        color:#fff;
-      "
-    >
+      <button
+        id="sync9231Read"
+        class="devButton primary">
+        READ 9231
+      </button>
 
-      <option value="9231">9231</option>
-      <option value="9232">9232</option>
-      <option value="8801">8801</option>
-      <option value="6601">6601</option>
-      <option value="AF01">AF01</option>
-      <option value="AE01">AE01</option>
+      <button
+        id="sync9233Read"
+        class="devButton">
+        READ 9233
+      </button>
+
+      <button
+        id="syncFEA1Read"
+        class="devButton">
+        READ FEA1
+      </button>
+
+      <button
+        id="syncFEC9Read"
+        class="devButton">
+        READ FEC9
+      </button>
+
+      <button
+        id="syncAllReads"
+        class="devButton">
+        READ ALL
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div class="section">
+
+    <div class="sectionTitle">
+
+      <h2>
+        🧪 Command Tester
+      </h2>
+
+      <span>
+        EXPERIMENTAL
+      </span>
+
+    </div>
+
+    <select id="commandTarget">
+
+      <option value="9231">
+        9231
+      </option>
+
+      <option value="9232">
+        9232
+      </option>
+
+      <option value="8801">
+        8801
+      </option>
+
+      <option value="6601">
+        6601
+      </option>
+
+      <option value="AF01">
+        AF01
+      </option>
+
+      <option value="AE01">
+        AE01
+      </option>
 
     </select>
 
@@ -709,13 +1792,11 @@ input:focus{
 
       <input
         id="hexCommand"
-        placeholder="HEX command, contoh: 01"
+        placeholder="HEX contoh: 01"
         autocomplete="off"
-        spellcheck="false"
-      >
+        spellcheck="false">
 
-      <button
-        id="sendCommand">
+      <button id="sendCommand">
         SEND
       </button>
 
@@ -724,7 +1805,9 @@ input:focus{
     <div
       id="commandResult"
       class="result">
+
       Belum ada command.
+
     </div>
 
   </div>
@@ -732,71 +1815,67 @@ input:focus{
 
   <div class="section">
 
-    <h2>🔬 Kandidat Sync</h2>
+    <div class="sectionTitle">
 
-    <div class="info">
+      <h2>
+        🔬 Candidate Sync
+      </h2>
 
-      Tombol berikut mengirim command kandidat
-      satu per satu ke <b>9231</b>.
-
-      <br><br>
-
-      <span class="warn">
-        Penting: kita belum tahu command resmi
-        dari firmware. Hasil harus dilihat dari RAW LOG.
+      <span>
+        TESTING
       </span>
 
     </div>
 
-    <div class="scanGrid">
+    <div class="small">
+      Jangan gunakan kandidat ini saat pemakaian normal.
+      Ini hanya untuk reverse engineering.
+    </div>
 
-      <button class="candidate"
+    <div
+      class="devButtonGrid"
+      style="margin-top:10px">
+
+      <button class="devButton candidate"
         data-hex="01">
         9231 → 01
       </button>
 
-      <button class="candidate"
+      <button class="devButton candidate"
         data-hex="00">
         9231 → 00
       </button>
 
-      <button class="candidate"
+      <button class="devButton candidate"
         data-hex="02">
         9231 → 02
       </button>
 
-      <button class="candidate"
+      <button class="devButton candidate"
         data-hex="03">
         9231 → 03
       </button>
 
-      <button class="candidate"
+      <button class="devButton candidate"
         data-hex="10">
         9231 → 10
       </button>
 
-      <button class="candidate"
+      <button class="devButton candidate"
         data-hex="11">
         9231 → 11
       </button>
 
-      <button class="candidate"
+      <button class="devButton candidate"
         data-hex="20">
         9231 → 20
       </button>
 
-      <button class="candidate"
+      <button class="devButton candidate"
         data-hex="FF">
         9231 → FF
       </button>
 
-    </div>
-
-    <div
-      class="small"
-      style="margin-top:10px">
-      Jangan tekan semuanya sekaligus. Kirim satu,
-      tunggu respons, lalu lihat RAW LOG.
     </div>
 
   </div>
@@ -808,11 +1887,23 @@ input:focus{
      GATT
 ===================================================== -->
 
-<section id="gatt" class="page">
+<section
+  id="gatt"
+  class="page">
 
   <div class="section">
 
-    <h2>📡 GATT Services</h2>
+    <div class="sectionTitle">
+
+      <h2>
+        📡 GATT
+      </h2>
+
+      <span>
+        DEVICE
+      </span>
+
+    </div>
 
     <pre id="gattOutput">
 Belum connect.
@@ -827,20 +1918,26 @@ Belum connect.
      LOG
 ===================================================== -->
 
-<section id="log" class="page">
+<section
+  id="log"
+  class="page">
 
   <div class="section">
 
     <div
-      class="row"
-      style="margin-bottom:12px">
+      class="devButtonGrid"
+      style="margin-bottom:10px">
 
-      <button id="clearLog">
-        Clear Log
+      <button
+        id="clearLog"
+        class="devButton">
+        CLEAR
       </button>
 
-      <button id="copyLog">
-        Copy Log
+      <button
+        id="copyLog"
+        class="devButton primary">
+        COPY LOG
       </button>
 
     </div>
@@ -874,7 +1971,6 @@ const UUID = {
   char9233:
     "00009233-0000-1000-8000-00805f9b34fb",
 
-
   serviceAE:
     "0000ae00-0000-1000-8000-00805f9b34fb",
 
@@ -883,7 +1979,6 @@ const UUID = {
 
   charAE02:
     "0000ae02-0000-1000-8000-00805f9b34fb",
-
 
   service88:
     "00008800-0000-1000-8000-00805f9b34fb",
@@ -894,7 +1989,6 @@ const UUID = {
   char8802:
     "00008802-0000-1000-8000-00805f9b34fb",
 
-
   service66:
     "00006600-0000-1000-8000-00805f9b34fb",
 
@@ -903,7 +1997,6 @@ const UUID = {
 
   char6602:
     "00006602-0000-1000-8000-00805f9b34fb",
-
 
   serviceFEE7:
     "0000fee7-0000-1000-8000-00805f9b34fb",
@@ -914,7 +2007,6 @@ const UUID = {
   charFEC9:
     "0000fec9-0000-1000-8000-00805f9b34fb",
 
-
   serviceAF:
     "0000af00-0000-1000-8000-00805f9b34fb",
 
@@ -923,7 +2015,6 @@ const UUID = {
 
   charAF02:
     "0000af02-0000-1000-8000-00805f9b34fb",
-
 
   genericAccess:
     "00001800-0000-1000-8000-00805f9b34fb",
@@ -934,6 +2025,10 @@ const UUID = {
 };
 
 
+/* =========================================================
+   STATE
+========================================================= */
+
 let device = null;
 let server = null;
 
@@ -943,23 +2038,23 @@ let packetCount = 0;
 
 let listenTimer = null;
 
+let autoSyncTimer = null;
+
+let isSyncing = false;
+
+let lastSyncDate = null;
+
 
 /* =========================================================
-   ELEMENTS
+   HELPERS
 ========================================================= */
 
 const $ = id =>
   document.getElementById(id);
 
-const connectBtn =
-  $("connectBtn");
-
-const disconnectBtn =
-  $("disconnectBtn");
-
 
 /* =========================================================
-   LOG
+   TIME
 ========================================================= */
 
 function timestamp(){
@@ -973,6 +2068,10 @@ function timestamp(){
 
 }
 
+
+/* =========================================================
+   LOG
+========================================================= */
 
 function log(message){
 
@@ -998,9 +2097,10 @@ function toHex(data){
 
   return [...new Uint8Array(data)]
     .map(x =>
-      x.toString(16)
-       .padStart(2,"0")
-       .toUpperCase()
+      x
+        .toString(16)
+        .padStart(2,"0")
+        .toUpperCase()
     )
     .join(" ");
 
@@ -1021,7 +2121,7 @@ function ascii(data){
 
 
 /* =========================================================
-   HEX STRING → BYTES
+   PARSE HEX
 ========================================================= */
 
 function parseHex(text){
@@ -1070,14 +2170,14 @@ function parseHex(text){
 
 
 /* =========================================================
-   PAGE NAVIGATION
+   PAGE NAV
 ========================================================= */
 
 document
   .querySelectorAll(".nav button")
-  .forEach(btn => {
+  .forEach(button => {
 
-    btn.addEventListener(
+    button.addEventListener(
       "click",
       () => {
 
@@ -1093,9 +2193,9 @@ document
             x.classList.remove("active")
           );
 
-        btn.classList.add("active");
+        button.classList.add("active");
 
-        $(btn.dataset.page)
+        $(button.dataset.page)
           .classList.add("active");
 
       }
@@ -1105,7 +2205,120 @@ document
 
 
 /* =========================================================
-   UPDATE DASHBOARD
+   CONNECTION UI
+========================================================= */
+
+function setConnectedUI(name){
+
+  $("connectionBadge")
+    .classList.add("connected");
+
+  $("badgeText").textContent =
+    "CONNECTED";
+
+  $("hero")
+    .classList.add("connectedGlow");
+
+  $("heroStatus")
+    .classList.add("connected");
+
+  $("statusText").textContent =
+    `Terhubung • ${name}`;
+
+  $("heroDevice").textContent =
+    name || "XWatch H5 Pro";
+
+  $("connectBtn").disabled =
+    true;
+
+  $("disconnectBtn").disabled =
+    false;
+
+  $("syncNowBtn").disabled =
+    false;
+
+  $("syncManual").disabled =
+    false;
+
+}
+
+
+function setDisconnectedUI(){
+
+  $("connectionBadge")
+    .classList.remove("connected");
+
+  $("badgeText").textContent =
+    "OFFLINE";
+
+  $("hero")
+    .classList.remove("connectedGlow");
+
+  $("heroStatus")
+    .classList.remove("connected");
+
+  $("statusText").textContent =
+    "Belum terhubung";
+
+  $("connectBtn").disabled =
+    false;
+
+  $("disconnectBtn").disabled =
+    true;
+
+  $("syncNowBtn").disabled =
+    true;
+
+  $("syncManual").disabled =
+    true;
+
+  stopAutoSync();
+
+}
+
+
+/* =========================================================
+   SYNC UI
+========================================================= */
+
+function setSyncUI(text,active=false){
+
+  $("syncText").textContent =
+    text;
+
+  $("syncPulse")
+    .classList.toggle(
+      "active",
+      active
+    );
+
+  $("syncStatus").textContent =
+    text;
+
+  $("syncPageStatus").textContent =
+    active ? "SYNCING" : "READY";
+
+}
+
+
+function updateLastSync(){
+
+  lastSyncDate =
+    new Date();
+
+  $("lastSync").textContent =
+    lastSyncDate.toLocaleTimeString(
+      "id-ID",
+      {
+        hour12:false
+      }
+    );
+
+}
+
+
+/* =========================================================
+   METRIC SETTERS
 ========================================================= */
 
 function setHR(value){
@@ -1117,8 +2330,8 @@ function setHR(value){
     value;
 
   $("healthInfo").innerHTML =
-    `Heart Rate: <b>${value} BPM</b><br>` +
-    `Last update: ${timestamp()}`;
+    `❤️ Heart Rate: <b>${value} BPM</b><br>` +
+    `Update: ${timestamp()}`;
 
 }
 
@@ -1147,11 +2360,35 @@ function setPressure(value){
 
 function setSteps(value){
 
+  value =
+    Number(value);
+
+  if(!Number.isFinite(value))
+    return;
+
   $("steps").textContent =
     value;
 
   $("steps2").textContent =
     value;
+
+  const percentage =
+    Math.min(
+      100,
+      Math.max(
+        0,
+        value / 10000 * 100
+      )
+    );
+
+  $("stepsProgress").style.width =
+    percentage + "%";
+
+  $("stepsProgress2").style.width =
+    percentage + "%";
+
+  $("stepsProgressText").textContent =
+    Math.round(percentage) + "%";
 
 }
 
@@ -1163,6 +2400,46 @@ function setCalories(value){
 
   $("calories2").textContent =
     value;
+
+  $("calorieUnit").textContent =
+    "Kkal";
+
+  $("calorieUnit2").textContent =
+    "Kkal";
+
+}
+
+
+/* =========================================================
+   BATTERY
+   =========================================================
+
+   Belum ada mapping packet battery yang confirmed.
+   UI disiapkan supaya ketika packet battery ditemukan,
+   decoder dapat memanggil setBattery(value).
+
+========================================================= */
+
+function setBattery(value){
+
+  value =
+    Number(value);
+
+  if(
+    !Number.isFinite(value) ||
+    value < 0 ||
+    value > 100
+  ){
+
+    return;
+
+  }
+
+  $("battery").textContent =
+    Math.round(value);
+
+  $("batteryUnit").textContent =
+    "%";
 
 }
 
@@ -1178,16 +2455,13 @@ function decode9232(data){
 
   packetCount++;
 
-  $("blePackets").textContent =
-    packetCount;
-
-
-  if(b.length < 9)
-    return;
-
+  $("packetCount") &&
+    ($("packetCount").textContent =
+      packetCount);
 
   /*
-    Struktur umum:
+    Struktur measurement yang sudah kita
+    buktikan:
 
     EE
     length
@@ -1198,7 +2472,12 @@ function decode9232(data){
     0F
     12
     ...
+
   */
+
+  if(b.length < 7)
+    return;
+
 
   const typeIndex =
     b.indexOf(0x08,5);
@@ -1218,12 +2497,14 @@ function decode9232(data){
     b[typeIndex + 1];
 
 
-  /*
-    VALUE 10
-  */
-
   let value10 = null;
 
+  let value08 = null;
+
+
+  /*
+    Cari field 10.
+  */
 
   for(
     let i=0;
@@ -1242,11 +2523,8 @@ function decode9232(data){
 
 
   /*
-    VALUE 08
+    Cari field 08 setelah type.
   */
-
-  let value08 = null;
-
 
   for(
     let i=typeIndex+2;
@@ -1266,7 +2544,7 @@ function decode9232(data){
   }
 
 
-  /* D2 = HEART RATE */
+  /* D2 = HR */
 
   if(type === 0xD2){
 
@@ -1285,7 +2563,7 @@ function decode9232(data){
   }
 
 
-  /* D3 = SPO2 */
+  /* D3 = SpO2 */
 
   if(type === 0xD3){
 
@@ -1304,7 +2582,7 @@ function decode9232(data){
   }
 
 
-  /* E5 = PRESSURE */
+  /* E5 = Pressure */
 
   if(type === 0xE5){
 
@@ -1323,7 +2601,7 @@ function decode9232(data){
   }
 
 
-  /* D6 = STEPS */
+  /* D6 = Steps */
 
   if(type === 0xD6){
 
@@ -1342,15 +2620,17 @@ function decode9232(data){
   }
 
 
-  /* DB = POSSIBLE CALORIES */
+  /*
+    DB belum dianggap Kkal.
+  */
 
   if(type === 0xDB){
 
     if(value10 !== null){
 
       log(
-        `🔥 DB CANDIDATE CALORIES = ${value10}` +
-        ` (BELUM DIKONFIRMASI)`
+        `🔥 DB VALUE=${value10} ` +
+        `(BELUM DIKONFIRMASI SEBAGAI KKAL)`
       );
 
     }
@@ -1366,19 +2646,25 @@ function decode9232(data){
       .toString(16)
       .toUpperCase()
       .padStart(2,"0") +
-    (value10 !== null
-      ? ` VALUE10=${value10}`
-      : "") +
-    (value08 !== null
-      ? ` VALUE08=${value08}`
-      : "")
+
+    (
+      value10 !== null
+        ? ` VALUE10=${value10}`
+        : ""
+    ) +
+
+    (
+      value08 !== null
+        ? ` VALUE08=${value08}`
+        : ""
+    )
   );
 
 }
 
 
 /* =========================================================
-   NOTIFICATION HANDLER
+   NOTIFICATION
 ========================================================= */
 
 function notificationHandler(event){
@@ -1421,6 +2707,15 @@ async function enableNotify(char){
 
   try{
 
+    /*
+      Hindari memasang listener berkali-kali.
+    */
+
+    char.removeEventListener(
+      "characteristicvaluechanged",
+      notificationHandler
+    );
+
     await char.startNotifications();
 
     char.addEventListener(
@@ -1435,7 +2730,8 @@ async function enableNotify(char){
   }catch(error){
 
     log(
-      `⚠ NOTIFY GAGAL ${char.uuid}: ${error.message}`
+      `⚠ NOTIFY GAGAL ${char.uuid}: ` +
+      error.message
     );
 
   }
@@ -1515,28 +2811,30 @@ async function connect(){
     );
 
 
-    $("statusDot")
-      .classList.add("on");
-
-
-    $("statusText").textContent =
-      `Terhubung: ${device.name}`;
-
-
-    connectBtn.disabled =
-      true;
-
-    disconnectBtn.disabled =
-      false;
+    setConnectedUI(
+      device.name
+    );
 
 
     await discoverServices();
+
+
+    /*
+      Mulai auto sync setelah discovery.
+    */
+
+    startAutoSync();
 
 
   }catch(error){
 
     log(
       `ERROR: ${error.name} - ${error.message}`
+    );
+
+    setSyncUI(
+      "Connection gagal",
+      false
     );
 
   }
@@ -1582,7 +2880,7 @@ async function discoverServices(){
     }catch(error){
 
       log(
-        `  ERROR CHAR: ${error.message}`
+        `ERROR CHAR: ${error.message}`
       );
 
       continue;
@@ -1605,9 +2903,7 @@ async function discoverServices(){
         props.push("WRITE");
 
 
-      if(
-        char.properties.writeWithoutResponse
-      )
+      if(char.properties.writeWithoutResponse)
         props.push(
           "WRITE_NO_RESPONSE"
         );
@@ -1622,7 +2918,7 @@ async function discoverServices(){
 
 
       log(
-        `  CHAR ${char.uuid} ` +
+        `CHAR ${char.uuid} ` +
         `[${props.join(", ")}]`
       );
 
@@ -1648,6 +2944,10 @@ async function discoverServices(){
 
   renderGatt();
 
+
+  /*
+    AE01 handshake.
+  */
 
   await testAE();
 
@@ -1677,27 +2977,23 @@ function renderGatt(){
     if(p.read)
       props.push("READ");
 
-
     if(p.write)
       props.push("WRITE");
-
 
     if(p.writeWithoutResponse)
       props.push(
         "WRITE_NO_RESPONSE"
       );
 
-
     if(p.notify)
       props.push("NOTIFY");
-
 
     if(p.indicate)
       props.push("INDICATE");
 
 
     rows.push(
-      `${uuid}\n  [${props.join(", ")}]`
+      `${uuid}\n[${props.join(", ")}]`
     );
 
   }
@@ -1710,7 +3006,7 @@ function renderGatt(){
 
 
 /* =========================================================
-   AE01 TEST
+   AE01 HANDSHAKE
 ========================================================= */
 
 async function testAE(){
@@ -1719,6 +3015,7 @@ async function testAE(){
     characteristics.get(
       UUID.charAE01
     );
+
 
   const rx =
     characteristics.get(
@@ -1737,11 +3034,6 @@ async function testAE(){
   }
 
 
-  log(
-    "✓ AE01 TX ditemukan"
-  );
-
-
   if(rx){
 
     log(
@@ -1753,6 +3045,13 @@ async function testAE(){
 
   try{
 
+    /*
+      Ini adalah command yang sudah terbukti:
+      AE01 → 01
+      menghasilkan:
+      AE02 → 02 70 61 73 73
+    */
+
     await tx.writeValueWithoutResponse(
       new Uint8Array([0x01])
     );
@@ -1760,14 +3059,210 @@ async function testAE(){
 
     log(
       "TX AE01 → 01 " +
-      "(WRITE WITHOUT RESPONSE)"
+      "(AUTO SYNC HANDSHAKE)"
     );
+
+
+    setSyncUI(
+      "Handshake dikirim • menunggu data...",
+      true
+    );
+
+
+    /*
+      Beri waktu watch mengirim burst.
+    */
+
+    setTimeout(
+      () => {
+
+        setSyncUI(
+          "Sync aktif • menunggu notification",
+          false
+        );
+
+        updateLastSync();
+
+      },
+      1500
+    );
+
 
   }catch(error){
 
     log(
       `AE01 ERROR: ${error.message}`
     );
+
+    setSyncUI(
+      "Handshake gagal",
+      false
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   AUTO SYNC
+========================================================= */
+
+function startAutoSync(){
+
+  stopAutoSync();
+
+
+  /*
+    Sync pertama sudah dilakukan oleh testAE().
+    Berikutnya kita hanya mengirim ulang
+    handshake secara berkala.
+
+    Interval cukup panjang supaya tidak membebani
+    BLE/watch.
+  */
+
+  autoSyncTimer =
+    setInterval(
+      async () => {
+
+        if(
+          !device ||
+          !device.gatt ||
+          !device.gatt.connected
+        ){
+
+          return;
+
+        }
+
+        await performSync();
+
+      },
+      5 * 60 * 1000
+    );
+
+
+  log(
+    "✓ AUTO SYNC aktif • interval 5 menit"
+  );
+
+}
+
+
+function stopAutoSync(){
+
+  if(autoSyncTimer){
+
+    clearInterval(
+      autoSyncTimer
+    );
+
+    autoSyncTimer = null;
+
+  }
+
+}
+
+
+/* =========================================================
+   MANUAL SYNC
+========================================================= */
+
+async function performSync(){
+
+  if(isSyncing)
+    return;
+
+
+  if(
+    !device ||
+    !device.gatt ||
+    !device.gatt.connected
+  ){
+
+    return;
+
+  }
+
+
+  const tx =
+    characteristics.get(
+      UUID.charAE01
+    );
+
+
+  if(!tx){
+
+    log(
+      "⚠ Sync gagal: AE01 tidak ditemukan"
+    );
+
+    return;
+
+  }
+
+
+  isSyncing = true;
+
+
+  try{
+
+    setSyncUI(
+      "Sinkronisasi...",
+      true
+    );
+
+
+    await tx.writeValueWithoutResponse(
+      new Uint8Array([0x01])
+    );
+
+
+    log(
+      "TX AE01 → 01 " +
+      "(SYNC)"
+    );
+
+
+    updateLastSync();
+
+
+    /*
+      Tunggu sebentar agar packet burst masuk.
+    */
+
+    await new Promise(
+      resolve =>
+        setTimeout(
+          resolve,
+          1200
+        )
+    );
+
+
+    setSyncUI(
+      "Sinkronisasi selesai",
+      false
+    );
+
+
+  }catch(error){
+
+    log(
+      `SYNC ERROR: ${error.message}`
+    );
+
+
+    setSyncUI(
+      `Sync gagal: ${error.message}`,
+      false
+    );
+
+
+  }finally{
+
+    isSyncing = false;
 
   }
 
@@ -1816,12 +3311,6 @@ async function writeHexToCharacteristic(
   );
 
 
-  /*
-    Prioritaskan WRITE WITHOUT RESPONSE.
-    Ini penting karena AE01/9231/9232 dll
-    bisa menolak write-with-response.
-  */
-
   if(
     char.properties.writeWithoutResponse
   ){
@@ -1841,15 +3330,13 @@ async function writeHexToCharacteristic(
       bytes
     );
 
-    return;
-
   }
 
 }
 
 
 /* =========================================================
-   READ CHARACTERISTIC
+   READ
 ========================================================= */
 
 async function readCharacteristic(
@@ -1909,298 +3396,255 @@ async function readCharacteristic(
 
 
 /* =========================================================
-   SYNC STATUS
-========================================================= */
-
-function syncStatus(text){
-
-  $("syncStatus").textContent =
-    text;
-
-}
-
-
-/* =========================================================
-   READ 9231
+   READ BUTTONS
 ========================================================= */
 
 $("sync9231Read")
-  .addEventListener(
-    "click",
-    async () => {
+.addEventListener(
+  "click",
+  async () => {
 
-      try{
+    try{
 
-        syncStatus(
-          "Membaca 9231..."
-        );
+      setSyncUI(
+        "Membaca 9231...",
+        true
+      );
 
-        await readCharacteristic(
-          UUID.char9231,
-          "9231"
-        );
+      await readCharacteristic(
+        UUID.char9231,
+        "9231"
+      );
 
-        syncStatus(
-          "9231 berhasil dibaca. " +
-          "Lihat RAW LOG."
-        );
+      setSyncUI(
+        "9231 selesai",
+        false
+      );
 
-      }catch(error){
+    }catch(error){
 
-        syncStatus(
-          `9231 gagal: ${error.message}`
-        );
+      setSyncUI(
+        `9231 gagal: ${error.message}`,
+        false
+      );
 
-        log(
-          `SYNC READ 9231 ERROR: ${error.message}`
-        );
-
-      }
+      log(
+        `READ 9231 ERROR: ${error.message}`
+      );
 
     }
-  );
 
+  }
+);
 
-/* =========================================================
-   READ 9233
-========================================================= */
 
 $("sync9233Read")
-  .addEventListener(
-    "click",
-    async () => {
+.addEventListener(
+  "click",
+  async () => {
 
-      try{
+    try{
 
-        syncStatus(
-          "Membaca 9233..."
-        );
+      await readCharacteristic(
+        UUID.char9233,
+        "9233"
+      );
 
-        await readCharacteristic(
-          UUID.char9233,
-          "9233"
-        );
+    }catch(error){
 
-        syncStatus(
-          "9233 berhasil dibaca."
-        );
-
-      }catch(error){
-
-        syncStatus(
-          `9233 gagal: ${error.message}`
-        );
-
-        log(
-          `SYNC READ 9233 ERROR: ${error.message}`
-        );
-
-      }
+      log(
+        `READ 9233 ERROR: ${error.message}`
+      );
 
     }
-  );
 
+  }
+);
 
-/* =========================================================
-   READ FEA1
-========================================================= */
 
 $("syncFEA1Read")
-  .addEventListener(
-    "click",
-    async () => {
+.addEventListener(
+  "click",
+  async () => {
 
-      try{
+    try{
 
-        syncStatus(
-          "Membaca FEA1..."
-        );
+      await readCharacteristic(
+        UUID.charFEA1,
+        "FEA1"
+      );
 
-        await readCharacteristic(
-          UUID.charFEA1,
-          "FEA1"
-        );
+    }catch(error){
 
-        syncStatus(
-          "FEA1 berhasil dibaca."
-        );
-
-      }catch(error){
-
-        syncStatus(
-          `FEA1 gagal: ${error.message}`
-        );
-
-        log(
-          `SYNC READ FEA1 ERROR: ${error.message}`
-        );
-
-      }
+      log(
+        `READ FEA1 ERROR: ${error.message}`
+      );
 
     }
-  );
 
+  }
+);
 
-/* =========================================================
-   READ FEC9
-========================================================= */
 
 $("syncFEC9Read")
-  .addEventListener(
-    "click",
-    async () => {
+.addEventListener(
+  "click",
+  async () => {
+
+    try{
+
+      await readCharacteristic(
+        UUID.charFEC9,
+        "FEC9"
+      );
+
+    }catch(error){
+
+      log(
+        `READ FEC9 ERROR: ${error.message}`
+      );
+
+    }
+
+  }
+);
+
+
+$("syncAllReads")
+.addEventListener(
+  "click",
+  async () => {
+
+    const list = [
+
+      [UUID.char9231,"9231"],
+      [UUID.char9233,"9233"],
+      [UUID.charFEA1,"FEA1"],
+      [UUID.charFEC9,"FEC9"]
+
+    ];
+
+
+    setSyncUI(
+      "READ ALL...",
+      true
+    );
+
+
+    for(
+      const [uuid,label]
+      of list
+    ){
 
       try{
 
-        syncStatus(
-          "Membaca FEC9..."
-        );
-
         await readCharacteristic(
-          UUID.charFEC9,
-          "FEC9"
-        );
-
-        syncStatus(
-          "FEC9 berhasil dibaca."
+          uuid,
+          label
         );
 
       }catch(error){
 
-        syncStatus(
-          `FEC9 gagal: ${error.message}`
-        );
-
         log(
-          `SYNC READ FEC9 ERROR: ${error.message}`
+          `READ ${label} ERROR: ` +
+          error.message
         );
 
       }
 
     }
-  );
+
+
+    setSyncUI(
+      "READ ALL selesai",
+      false
+    );
+
+  }
+);
 
 
 /* =========================================================
-   READ ALL
+   SYNC BUTTONS
 ========================================================= */
 
-$("syncAllReads")
-  .addEventListener(
-    "click",
-    async () => {
-
-      const list = [
-
-        [UUID.char9231,"9231"],
-
-        [UUID.char9233,"9233"],
-
-        [UUID.charFEA1,"FEA1"],
-
-        [UUID.charFEC9,"FEC9"]
-
-      ];
+$("syncNowBtn")
+.addEventListener(
+  "click",
+  performSync
+);
 
 
-      syncStatus(
-        "READ ALL dimulai..."
-      );
-
-
-      for(
-        const [uuid,label]
-        of list
-      ){
-
-        try{
-
-          await readCharacteristic(
-            uuid,
-            label
-          );
-
-        }catch(error){
-
-          log(
-            `READ ${label} gagal: ` +
-            error.message
-          );
-
-        }
-
-      }
-
-
-      syncStatus(
-        "READ ALL selesai. " +
-        "Lihat RAW LOG."
-      );
-
-    }
-  );
+$("syncManual")
+.addEventListener(
+  "click",
+  performSync
+);
 
 
 /* =========================================================
-   LISTEN MODE
+   LISTEN
 ========================================================= */
 
 $("syncListen")
-  .addEventListener(
-    "click",
-    () => {
+.addEventListener(
+  "click",
+  () => {
 
-      if(listenTimer){
+    if(listenTimer){
 
-        clearTimeout(
-          listenTimer
-        );
-
-        listenTimer = null;
-
-        syncStatus(
-          "LISTEN dihentikan."
-        );
-
-        log(
-          "LISTEN MODE STOP"
-        );
-
-        return;
-
-      }
-
-
-      syncStatus(
-        "Mendengarkan notification selama 10 detik..."
+      clearTimeout(
+        listenTimer
       );
 
+      listenTimer = null;
+
+      setSyncUI(
+        "LISTEN dihentikan",
+        false
+      );
 
       log(
-        "LISTEN MODE START → 10 detik"
+        "LISTEN STOP"
       );
 
-
-      listenTimer =
-        setTimeout(
-          () => {
-
-            listenTimer = null;
-
-            syncStatus(
-              "LISTEN selesai."
-            );
-
-            log(
-              "LISTEN MODE END"
-            );
-
-          },
-          10000
-        );
+      return;
 
     }
-  );
+
+
+    setSyncUI(
+      "Mendengarkan notification 10 detik...",
+      true
+    );
+
+
+    log(
+      "LISTEN START → 10 detik"
+    );
+
+
+    listenTimer =
+      setTimeout(
+        () => {
+
+          listenTimer = null;
+
+          setSyncUI(
+            "LISTEN selesai",
+            false
+          );
+
+          log(
+            "LISTEN END"
+          );
+
+        },
+        10000
+      );
+
+  }
+);
 
 
 /* =========================================================
@@ -2208,82 +3652,88 @@ $("syncListen")
 ========================================================= */
 
 $("sendCommand")
-  .addEventListener(
-    "click",
-    async () => {
+.addEventListener(
+  "click",
+  async () => {
 
-      const target =
-        $("commandTarget").value;
+    const target =
+      $("commandTarget").value;
 
-      const hex =
-        $("hexCommand").value.trim();
-
-
-      let uuid = null;
+    const hex =
+      $("hexCommand").value.trim();
 
 
-      switch(target){
-
-        case "9231":
-          uuid = UUID.char9231;
-          break;
-
-        case "9232":
-          uuid = UUID.char9232;
-          break;
-
-        case "8801":
-          uuid = UUID.char8801;
-          break;
-
-        case "6601":
-          uuid = UUID.char6601;
-          break;
-
-        case "AF01":
-          uuid = UUID.charAF01;
-          break;
-
-        case "AE01":
-          uuid = UUID.charAE01;
-          break;
-
-      }
+    let uuid;
 
 
-      try{
+    switch(target){
 
-        const bytes =
-          parseHex(hex);
+      case "9231":
+        uuid = UUID.char9231;
+        break;
 
+      case "9232":
+        uuid = UUID.char9232;
+        break;
 
-        await writeHexToCharacteristic(
-          uuid,
-          bytes,
-          target
+      case "8801":
+        uuid = UUID.char8801;
+        break;
+
+      case "6601":
+        uuid = UUID.char6601;
+        break;
+
+      case "AF01":
+        uuid = UUID.charAF01;
+        break;
+
+      case "AE01":
+        uuid = UUID.charAE01;
+        break;
+
+      default:
+        throw new Error(
+          "Target tidak dikenal."
         );
-
-
-        $("commandResult").textContent =
-          `TX ${target} → ${toHex(bytes)} berhasil.`;
-
-      }catch(error){
-
-        $("commandResult").textContent =
-          `ERROR: ${error.message}`;
-
-        log(
-          `COMMAND ERROR ${target}: ${error.message}`
-        );
-
-      }
 
     }
-  );
+
+
+    try{
+
+      const bytes =
+        parseHex(hex);
+
+
+      await writeHexToCharacteristic(
+        uuid,
+        bytes,
+        target
+      );
+
+
+      $("commandResult").textContent =
+        `TX ${target} → ${toHex(bytes)} berhasil.`;
+
+    }catch(error){
+
+      $("commandResult").textContent =
+        `ERROR: ${error.message}`;
+
+      log(
+        `COMMAND ERROR ${target}: ` +
+        error.message
+      );
+
+    }
+
+  }
+);
 
 
 /* =========================================================
-   CANDIDATE COMMANDS
+   CANDIDATE
 ========================================================= */
 
 document
@@ -2300,11 +3750,6 @@ document
 
         try{
 
-          syncStatus(
-            `Mengirim kandidat 9231 → ${hex}...`
-          );
-
-
           const bytes =
             parseHex(hex);
 
@@ -2316,20 +3761,16 @@ document
           );
 
 
-          syncStatus(
-            `Kandidat 9231 → ${hex} terkirim. ` +
-            `Tunggu notification dan lihat RAW LOG.`
+          setSyncUI(
+            `9231 → ${hex} terkirim`,
+            false
           );
 
 
         }catch(error){
 
-          syncStatus(
-            `Gagal 9231 → ${hex}: ${error.message}`
-          );
-
           log(
-            `CANDIDATE ERROR 9231 → ${hex}: ` +
+            `CANDIDATE ERROR: ` +
             error.message
           );
 
@@ -2351,6 +3792,7 @@ function disconnect(){
 
     if(
       device &&
+      device.gatt &&
       device.gatt.connected
     ){
 
@@ -2371,20 +3813,12 @@ function disconnect(){
 
 function onDisconnected(){
 
-  $("statusDot")
-    .classList.remove("on");
+  setDisconnectedUI();
 
-
-  $("statusText").textContent =
-    "Terputus";
-
-
-  connectBtn.disabled =
-    false;
-
-
-  disconnectBtn.disabled =
-    true;
+  setSyncUI(
+    "Device terputus",
+    false
+  );
 
 
   log(
@@ -2398,60 +3832,67 @@ function onDisconnected(){
    BUTTONS
 ========================================================= */
 
-connectBtn.addEventListener(
+$("connectBtn")
+.addEventListener(
   "click",
   connect
 );
 
 
-disconnectBtn.addEventListener(
+$("disconnectBtn")
+.addEventListener(
   "click",
   disconnect
 );
 
 
+/* =========================================================
+   CLEAR LOG
+========================================================= */
+
 $("clearLog")
-  .addEventListener(
-    "click",
-    () => {
+.addEventListener(
+  "click",
+  () => {
 
-      $("rawLog").textContent =
-        "";
+    $("rawLog").textContent =
+      "";
 
-      packetCount = 0;
+    packetCount = 0;
 
-      $("blePackets").textContent =
-        "0";
+  }
+);
 
-    }
-  );
 
+/* =========================================================
+   COPY LOG
+========================================================= */
 
 $("copyLog")
-  .addEventListener(
-    "click",
-    async () => {
+.addEventListener(
+  "click",
+  async () => {
 
-      try{
+    try{
 
-        await navigator.clipboard.writeText(
-          $("rawLog").textContent
-        );
+      await navigator.clipboard.writeText(
+        $("rawLog").textContent
+      );
 
-        log(
-          "✓ RAW LOG berhasil dicopy"
-        );
+      log(
+        "✓ RAW LOG berhasil dicopy"
+      );
 
-      }catch(error){
+    }catch(error){
 
-        log(
-          `Copy gagal: ${error.message}`
-        );
-
-      }
+      log(
+        `Copy gagal: ${error.message}`
+      );
 
     }
-  );
+
+  }
+);
 
 
 /* =========================================================
@@ -2467,7 +3908,7 @@ log(
 );
 
 log(
-  "AE01 = TX"
+  "AE01 = TX / Handshake"
 );
 
 log(
@@ -2487,11 +3928,31 @@ log(
 );
 
 log(
-  "Mode discovery semua NOTIFY aktif."
+  "D2 = HR CONFIRMED"
 );
 
 log(
-  "Sync Scanner siap."
+  "D3 = SpO2 CONFIRMED"
+);
+
+log(
+  "E5 = Pressure CONFIRMED"
+);
+
+log(
+  "D6 = Steps CONFIRMED"
+);
+
+log(
+  "DB = Kkal candidate / NOT CONFIRMED"
+);
+
+log(
+  "✓ Automatic notification discovery aktif."
+);
+
+log(
+  "✓ Automatic AE01 handshake aktif."
 );
 
 </script>
