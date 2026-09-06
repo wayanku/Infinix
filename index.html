@@ -2,247 +2,234 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#07111f">
-
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#000000">
 <title>XWatch H5 Pro Companion</title>
 
 <style>
 *{
-    box-sizing:border-box;
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
 }
 
 body{
-    margin:0;
-    background:#07111f;
-    color:#fff;
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:#080808;
+  color:#fff;
 }
 
 header{
-    padding:18px;
-    background:#0b1b2d;
-    border-bottom:1px solid #20364e;
-    position:sticky;
-    top:0;
-    z-index:10;
+  position:sticky;
+  top:0;
+  z-index:10;
+  padding:18px 16px;
+  padding-top:calc(18px + env(safe-area-inset-top));
+  background:#111;
+  border-bottom:1px solid #292929;
 }
 
 h1{
-    margin:0;
-    font-size:21px;
+  margin:0;
+  font-size:21px;
 }
 
-.subtitle{
-    margin-top:5px;
-    color:#8fa7bd;
-    font-size:12px;
-}
-
-main{
-    max-width:1000px;
-    margin:auto;
-    padding:12px;
-}
-
-.card{
-    background:#0d1d2e;
-    border:1px solid #20364e;
-    border-radius:16px;
-    padding:15px;
-    margin-bottom:12px;
+.sub{
+  color:#888;
+  font-size:12px;
+  margin-top:4px;
 }
 
 button{
-    border:0;
-    border-radius:11px;
-    padding:11px 14px;
-    margin:4px 3px 4px 0;
-    font-weight:bold;
-    cursor:pointer;
-    background:#55b9ff;
-    color:#04101b;
+  border:0;
+  border-radius:12px;
+  padding:13px 16px;
+  font-size:14px;
+  font-weight:600;
+  background:#fff;
+  color:#000;
 }
 
-button.secondary{
-    background:#13283d;
-    color:#fff;
-    border:1px solid #29435d;
+button:disabled{
+  opacity:.4;
 }
 
-button.danger{
-    background:#572332;
-    color:#fff;
+.nav{
+  display:flex;
+  overflow-x:auto;
+  gap:8px;
+  padding:10px;
+  background:#101010;
+  position:sticky;
+  top:73px;
+  z-index:9;
+}
+
+.nav button{
+  background:#202020;
+  color:#aaa;
+  white-space:nowrap;
+  padding:9px 12px;
+}
+
+.nav button.active{
+  background:#fff;
+  color:#000;
+}
+
+main{
+  padding:14px;
+  padding-bottom:40px;
+}
+
+.page{
+  display:none;
+}
+
+.page.active{
+  display:block;
 }
 
 .status{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    padding:7px 11px;
-    background:#14283d;
-    border-radius:30px;
-    font-size:12px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-bottom:14px;
+  color:#aaa;
+  font-size:13px;
 }
 
 .dot{
-    width:9px;
-    height:9px;
-    border-radius:50%;
-    background:#ff647c;
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  background:#555;
 }
 
-.dot.ok{
-    background:#39d99a;
-    box-shadow:0 0 12px #39d99a;
+.dot.on{
+  background:#39d353;
 }
 
 .grid{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:10px;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
 }
 
-.metric{
-    min-height:120px;
+.card{
+  background:#151515;
+  border:1px solid #272727;
+  border-radius:16px;
+  padding:15px;
+  min-height:105px;
 }
 
-.icon{
-    font-size:25px;
+.card .icon{
+  font-size:22px;
 }
 
-.label{
-    color:#8fa7bd;
-    font-size:12px;
-    margin-top:5px;
+.card .label{
+  color:#888;
+  font-size:12px;
+  margin-top:8px;
 }
 
-.value{
-    font-size:25px;
-    font-weight:800;
-    margin-top:5px;
+.card .value{
+  font-size:28px;
+  font-weight:700;
+  margin-top:3px;
 }
 
-.unit{
-    color:#8fa7bd;
-    font-size:11px;
+.card .unit{
+  color:#777;
+  font-size:12px;
 }
 
-.tabs{
-    display:flex;
-    overflow-x:auto;
-    gap:5px;
-    margin-bottom:12px;
+.big{
+  grid-column:span 2;
 }
 
-.panel{
-    display:none;
+.big .value{
+  font-size:42px;
 }
 
-.panel.active{
-    display:block;
+.section{
+  margin-top:15px;
+  background:#121212;
+  border:1px solid #272727;
+  border-radius:16px;
+  padding:15px;
 }
 
-input{
-    width:100%;
-    padding:12px;
-    border-radius:10px;
-    border:1px solid #29435d;
-    background:#07131f;
-    color:#fff;
-    margin:5px 0;
+.section h2{
+  font-size:15px;
+  margin:0 0 12px;
 }
 
 pre{
-    background:#030a11;
-    border:1px solid #1c3349;
-    border-radius:12px;
-    padding:12px;
-    max-height:450px;
-    overflow:auto;
-    white-space:pre-wrap;
-    word-break:break-word;
-    font-size:11px;
-    font-family:monospace;
+  white-space:pre-wrap;
+  word-break:break-all;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:11px;
+  line-height:1.55;
+  color:#bbb;
+  max-height:65vh;
+  overflow:auto;
+  margin:0;
 }
 
-.service{
-    border:1px solid #263e57;
-    border-radius:12px;
-    margin:8px 0;
-    overflow:hidden;
+.row{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
 }
 
-.service summary{
-    padding:12px;
-    background:#10253a;
-    cursor:pointer;
-    font-weight:bold;
-    font-size:12px;
+.info{
+  color:#888;
+  font-size:12px;
+  line-height:1.6;
 }
 
-.characteristic{
-    padding:12px;
-    border-top:1px solid #20364e;
+.warn{
+  color:#f0b429;
 }
 
-.uuid{
-    font-family:monospace;
-    font-size:11px;
-    color:#a9d6f7;
-    word-break:break-all;
+.ok{
+  color:#39d353;
 }
 
-.badge{
-    display:inline-block;
-    padding:4px 7px;
-    border-radius:7px;
-    background:#172d44;
-    color:#9edaff;
-    font-size:10px;
-    margin:3px 3px 3px 0;
+.danger{
+  color:#ff6b6b;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:12px;
+}
+
+td,th{
+  padding:9px 5px;
+  border-bottom:1px solid #292929;
+  text-align:left;
+}
+
+th{
+  color:#888;
 }
 
 .small{
-    color:#8fa7bd;
-    font-size:11px;
-    line-height:1.5;
+  font-size:11px;
+  color:#666;
 }
 
-.kv{
-    display:grid;
-    grid-template-columns:140px 1fr;
-    gap:7px;
-    font-size:13px;
-}
-
-.kv b{
-    color:#8fa7bd;
-    font-weight:500;
-}
-
-canvas{
-    width:100%;
-    height:180px;
-    background:#07131f;
-    border:1px solid #20364e;
-    border-radius:12px;
-}
-
-@media(max-width:800px){
-    .grid{
-        grid-template-columns:repeat(2,1fr);
-    }
-}
-
-@media(max-width:500px){
-    .kv{
-        grid-template-columns:100px 1fr;
-    }
-
-    button{
-        padding:10px 11px;
-    }
+input{
+  width:100%;
+  padding:12px;
+  border-radius:10px;
+  border:1px solid #333;
+  background:#090909;
+  color:white;
 }
 </style>
 </head>
@@ -250,2728 +237,1043 @@ canvas{
 <body>
 
 <header>
-
-<h1>⌚ XWatch H5 Pro Companion</h1>
-
-<div class="subtitle">
-BLE • Heart Rate • SpO₂ • Sleep • Steps • Calories • GATT Explorer
-</div>
-
+  <h1>⌚ XWatch H5 Pro Companion</h1>
+  <div class="sub">BLE reverse engineering dashboard</div>
 </header>
 
+<div class="nav">
+  <button class="active" data-page="dashboard">📊 Dashboard</button>
+  <button data-page="health">❤️ Kesehatan</button>
+  <button data-page="activity">🏃 Aktivitas</button>
+  <button data-page="sleep">😴 Tidur</button>
+  <button data-page="gatt">📡 GATT</button>
+  <button data-page="log">🧪 Log</button>
+</div>
 
 <main>
 
-
-<!-- CONNECTION -->
-
-<section class="card">
-
-<div class="status">
-
-<span id="dot" class="dot"></span>
-
-<span id="status">
-BELUM TERHUBUNG
-</span>
-
-</div>
-
-<br>
-
-<button id="connect">
-🔵 Connect XWatch
-</button>
-
-<button id="disconnect" class="secondary">
-Disconnect
-</button>
-
-<button id="readAll" class="secondary">
-📥 Read Semua
-</button>
-
-<button id="clearLog" class="secondary">
-Clear Log
-</button>
-
-<div style="margin-top:12px">
-
-<div class="kv">
-
-<b>Device</b>
-<span id="deviceName">—</span>
-
-<b>ID</b>
-<span id="deviceId">—</span>
-
-<b>GATT</b>
-<span id="gatt">—</span>
-
-</div>
-
-</div>
-
-</section>
-
-
-
-<!-- TABS -->
-
-<div class="tabs">
-
-<button class="tab" data-tab="dashboard">
-📊 Dashboard
-</button>
-
-<button class="tab secondary" data-tab="health">
-❤️ Kesehatan
-</button>
-
-<button class="tab secondary" data-tab="sleep">
-😴 Tidur
-</button>
-
-<button class="tab secondary" data-tab="activity">
-🏃 Aktivitas
-</button>
-
-<button class="tab secondary" data-tab="gattPanel">
-📡 GATT
-</button>
-
-<button class="tab secondary" data-tab="logs">
-🧪 Log
-</button>
-
-</div>
-
-
-
 <!-- DASHBOARD -->
-
-<section id="dashboard" class="panel active">
-
-<div class="grid">
-
-
-<div class="card metric">
-
-<div class="icon">❤️</div>
-
-<div class="label">
-Heart Rate
-</div>
-
-<div class="value" id="hr">
-—
-</div>
-
-<div class="unit">
-bpm
-</div>
-
-</div>
-
-
-
-<div class="card metric">
-
-<div class="icon">🫁</div>
-
-<div class="label">
-SpO₂
-</div>
-
-<div class="value" id="spo2">
-—
-</div>
-
-<div class="unit">
-%
-</div>
-
-</div>
-
-
-
-<div class="card metric">
-
-<div class="icon">👣</div>
-
-<div class="label">
-Steps
-</div>
-
-<div class="value" id="steps">
-—
-</div>
-
-<div class="unit">
-steps
-</div>
-
-</div>
-
-
-
-<div class="card metric">
-
-<div class="icon">🔥</div>
-
-<div class="label">
-Calories
-</div>
-
-<div class="value" id="calories">
-—
-</div>
-
-<div class="unit">
-kcal
-</div>
-
-</div>
-
-
-
-<div class="card metric">
-
-<div class="icon">😴</div>
-
-<div class="label">
-Sleep
-</div>
-
-<div class="value" id="sleep">
-—
-</div>
-
-<div class="unit">
-jam
-</div>
-
-</div>
-
-
-
-<div class="card metric">
-
-<div class="icon">🌡️</div>
-
-<div class="label">
-Temperature
-</div>
-
-<div class="value" id="temperature">
-—
-</div>
-
-<div class="unit">
-°C
-</div>
-
-</div>
-
-
-
-<div class="card metric">
-
-<div class="icon">🔋</div>
-
-<div class="label">
-Battery
-</div>
-
-<div class="value" id="battery">
-—
-</div>
-
-<div class="unit">
-%
-</div>
-
-</div>
-
-
-
-<div class="card metric">
-
-<div class="icon">📡</div>
-
-<div class="label">
-Packets
-</div>
-
-<div class="value" id="packetCount">
-0
-</div>
-
-<div class="unit">
-received
-</div>
-
-</div>
-
-
-</div>
-
-
-<div class="card">
-
-<b>📊 Heart Rate History</b>
-
-<br><br>
-
-<canvas id="chart" width="900" height="180"></canvas>
-
-</div>
-
-
-<div class="card">
-
-<b>💾 Data BLE</b>
-
-<p class="small" id="storage">
-Belum ada packet.
-</p>
-
-<button id="exportJSON" class="secondary">
-Export JSON
-</button>
-
-<button id="exportCSV" class="secondary">
-Export CSV
-</button>
-
-<button id="deleteData" class="danger">
-Hapus Data
-</button>
-
-</div>
+<section id="dashboard" class="page active">
+
+  <div class="status">
+    <span id="statusDot" class="dot"></span>
+    <span id="statusText">Belum terhubung</span>
+  </div>
+
+  <div class="row">
+    <button id="connectBtn">🔵 Connect XWatch</button>
+    <button id="disconnectBtn" disabled>Disconnect</button>
+  </div>
+
+  <div style="height:14px"></div>
+
+  <div class="grid">
+
+    <div class="card">
+      <div class="icon">❤️</div>
+      <div class="label">Heart Rate</div>
+      <div class="value" id="hr">--</div>
+      <div class="unit">BPM</div>
+    </div>
+
+    <div class="card">
+      <div class="icon">🩸</div>
+      <div class="label">SpO₂</div>
+      <div class="value" id="spo2">--</div>
+      <div class="unit">%</div>
+    </div>
+
+    <div class="card">
+      <div class="icon">💨</div>
+      <div class="label">Pressure</div>
+      <div class="value" id="pressure">--</div>
+      <div class="unit">nilai perangkat</div>
+    </div>
+
+    <div class="card">
+      <div class="icon">👟</div>
+      <div class="label">Steps</div>
+      <div class="value" id="steps">--</div>
+      <div class="unit">steps</div>
+    </div>
+
+    <div class="card">
+      <div class="icon">🔥</div>
+      <div class="label">Calories</div>
+      <div class="value" id="calories">--</div>
+      <div class="unit">belum dikunci</div>
+    </div>
+
+    <div class="card">
+      <div class="icon">📡</div>
+      <div class="label">BLE</div>
+      <div class="value" id="blePackets">0</div>
+      <div class="unit">packets</div>
+    </div>
+
+  </div>
+
+  <div class="section">
+    <h2>🧬 Protocol yang sudah diketahui</h2>
+
+    <table>
+      <tr>
+        <th>Type</th>
+        <th>Data</th>
+        <th>Status</th>
+      </tr>
+
+      <tr>
+        <td>D2</td>
+        <td>HR</td>
+        <td class="ok">CONFIRMED</td>
+      </tr>
+
+      <tr>
+        <td>D3</td>
+        <td>SpO₂</td>
+        <td class="ok">CONFIRMED</td>
+      </tr>
+
+      <tr>
+        <td>E5</td>
+        <td>Pressure</td>
+        <td class="ok">CONFIRMED</td>
+      </tr>
+
+      <tr>
+        <td>D6</td>
+        <td>Steps</td>
+        <td class="ok">CONFIRMED</td>
+      </tr>
+
+      <tr>
+        <td>DB</td>
+        <td>Calories?</td>
+        <td class="warn">TESTING</td>
+      </tr>
+    </table>
+  </div>
 
 </section>
-
 
 
 <!-- HEALTH -->
+<section id="health" class="page">
 
-<section id="health" class="panel">
+  <div class="grid">
 
-<div class="card">
+    <div class="card big">
+      <div class="icon">❤️</div>
+      <div class="label">Heart Rate</div>
+      <div class="value" id="hr2">--</div>
+      <div class="unit">BPM</div>
+    </div>
 
-<h3>❤️ Kesehatan</h3>
+    <div class="card">
+      <div class="icon">🩸</div>
+      <div class="label">SpO₂</div>
+      <div class="value" id="spo22">--</div>
+      <div class="unit">%</div>
+    </div>
 
-<div class="grid">
+    <div class="card">
+      <div class="icon">💨</div>
+      <div class="label">Pressure</div>
+      <div class="value" id="pressure2">--</div>
+      <div class="unit">nilai</div>
+    </div>
 
-<div class="card metric">
+  </div>
 
-<div class="label">
-Heart Rate
-</div>
-
-<div class="value" id="hrHealth">
-—
-</div>
-
-</div>
-
-
-<div class="card metric">
-
-<div class="label">
-SpO₂
-</div>
-
-<div class="value" id="spo2Health">
-—
-</div>
-
-</div>
-
-
-<div class="card metric">
-
-<div class="label">
-Temperature
-</div>
-
-<div class="value" id="tempHealth">
-—
-</div>
-
-</div>
-
-
-<div class="card metric">
-
-<div class="label">
-Battery
-</div>
-
-<div class="value" id="batteryHealth">
-—
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-
-<div class="card">
-
-<div class="small">
-
-<strong>Penting:</strong>
-
-Data custom dari XWatch belum kita beri arti secara sembarangan.
-
-Program akan membaca BLE standard bila tersedia dan merekam seluruh packet custom untuk proses decoding berikutnya.
-
-</div>
-
-</div>
+  <div class="section">
+    <h2>Data terakhir</h2>
+    <div id="healthInfo" class="info">
+      Belum ada data kesehatan.
+    </div>
+  </div>
 
 </section>
-
-
-
-<!-- SLEEP -->
-
-<section id="sleep" class="panel">
-
-<div class="card">
-
-<h3>😴 Sleep</h3>
-
-<div class="grid">
-
-
-<div class="card metric">
-
-<div class="label">
-Durasi
-</div>
-
-<div class="value" id="sleepDuration">
-—
-</div>
-
-</div>
-
-
-<div class="card metric">
-
-<div class="label">
-Deep Sleep
-</div>
-
-<div class="value" id="deepSleep">
-—
-</div>
-
-</div>
-
-
-<div class="card metric">
-
-<div class="label">
-Light Sleep
-</div>
-
-<div class="value" id="lightSleep">
-—
-</div>
-
-</div>
-
-
-<div class="card metric">
-
-<div class="label">
-Awake
-</div>
-
-<div class="value" id="awakeSleep">
-—
-</div>
-
-</div>
-
-
-</div>
-
-</div>
-
-
-<div class="card">
-
-<h3>🌙 Sleep Packet</h3>
-
-<div class="small">
-
-Belum ada decoder resmi untuk format tidur XWatch H5 Pro.
-
-Saat jam mengirim data tidur, packet akan muncul di Log.
-
-Kita kemudian bisa menentukan byte mana yang berarti:
-
-<br><br>
-
-• waktu mulai tidur<br>
-• waktu bangun<br>
-• deep sleep<br>
-• light sleep<br>
-• awake<br>
-• sleep score
-
-</div>
-
-</div>
-
-</section>
-
 
 
 <!-- ACTIVITY -->
+<section id="activity" class="page">
 
-<section id="activity" class="panel">
+  <div class="grid">
 
-<div class="card">
+    <div class="card">
+      <div class="icon">👟</div>
+      <div class="label">Steps</div>
+      <div class="value" id="steps2">--</div>
+      <div class="unit">steps</div>
+    </div>
 
-<h3>🏃 Aktivitas</h3>
+    <div class="card">
+      <div class="icon">🔥</div>
+      <div class="label">Calories</div>
+      <div class="value" id="calories2">--</div>
+      <div class="unit">kcal</div>
+    </div>
 
-<div class="grid">
+  </div>
 
+  <div class="section">
+    <h2>Activity decoder</h2>
 
-<div class="card metric">
+    <div class="info">
+      Steps menggunakan record <b>D6</b> dan field <b>08 XX</b>.<br><br>
 
-<div class="label">
-Steps
-</div>
-
-<div class="value" id="stepsActivity">
-—
-</div>
-
-</div>
-
-
-<div class="card metric">
-
-<div class="label">
-Calories
-</div>
-
-<div class="value" id="calActivity">
-—
-</div>
-
-</div>
-
-
-<div class="card metric">
-
-<div class="label">
-Distance
-</div>
-
-<div class="value" id="distance">
-—
-</div>
-
-<div class="unit">
-km
-</div>
-
-</div>
-
-
-<div class="card metric">
-
-<div class="label">
-Active
-</div>
-
-<div class="value" id="activeMinutes">
-—
-</div>
-
-<div class="unit">
-min
-</div>
-
-</div>
-
-
-</div>
-
-</div>
+      Contoh yang sudah terbukti:
+      <br>
+      D6 → 05 = 5 steps
+      <br>
+      D6 → 2E = 46 steps
+      <br>
+      D6 → 4E = 78 steps
+      <br>
+      D6 → 62 = 98 steps
+      <br>
+      D6 → 71 = 113 steps
+    </div>
+  </div>
 
 </section>
 
+
+<!-- SLEEP -->
+<section id="sleep" class="page">
+
+  <div class="section">
+    <h2>😴 Sleep</h2>
+
+    <div class="info">
+      Data tidur belum kita decode.
+      <br><br>
+      Jangan khawatir—ini memang kemungkinan berbeda dari data realtime.
+      Jam bisa saja menyimpan histori tidur dan baru mengirimkannya setelah
+      aplikasi mengirim command request.
+      <br><br>
+      <span class="warn">
+        Belum ada command sleep yang akan dikirim otomatis.
+      </span>
+    </div>
+  </div>
+
+</section>
 
 
 <!-- GATT -->
+<section id="gatt" class="page">
 
-<section id="gattPanel" class="panel">
-
-<div class="card">
-
-<h3>📡 GATT Explorer</h3>
-
-<div class="kv">
-
-<b>Service</b>
-
-<span>
-0000AE00-0000-1000-8000-00805F9B34FB
-</span>
-
-
-<b>TX</b>
-
-<span>
-0000AE01-0000-1000-8000-00805F9B34FB
-</span>
-
-
-<b>RX</b>
-
-<span>
-0000AE02-0000-1000-8000-00805F9B34FB
-</span>
-
-</div>
-
-</div>
-
-
-<div class="card">
-
-<h3>✍️ Manual TX</h3>
-
-<input
-id="hexInput"
-value="01"
-placeholder="01"
-/>
-
-<button id="sendHex">
-Send HEX
-</button>
-
-<button id="test01" class="secondary">
-🧪 Test 01
-</button>
-
-<div class="small">
-
-AE01 akan memakai WRITE WITHOUT RESPONSE jika tersedia.
-
-Test yang sudah kita ketahui:
-
-<br><br>
-
-TX:
-
-<code>01</code>
-
-<br>
-
-RX:
-
-<code>02 70 61 73 73</code>
-
-<br>
-
-ASCII:
-
-<code>-pass</code>
-
-</div>
-
-</div>
-
-
-<div class="card">
-
-<h3>Services & Characteristics</h3>
-
-<div id="services">
-
-Connect dulu ke jam.
-
-</div>
-
-</div>
+  <div class="section">
+    <h2>📡 GATT Services</h2>
+    <pre id="gattOutput">Belum connect.</pre>
+  </div>
 
 </section>
-
 
 
 <!-- LOG -->
+<section id="log" class="page">
 
-<section id="logs" class="panel">
+  <div class="section">
 
-<div class="card">
+    <div class="row" style="margin-bottom:12px">
+      <button id="clearLog">Clear Log</button>
+      <button id="copyLog">Copy Log</button>
+    </div>
 
-<h3>🧪 BLE RAW LOG</h3>
+    <pre id="rawLog"></pre>
 
-<pre id="log"></pre>
-
-</div>
+  </div>
 
 </section>
 
-
 </main>
-
-
 
 <script>
 
-"use strict";
-
-
 /* =========================================================
-   UUID YANG SUDAH KITA TEMUKAN
-========================================================= */
+   XWATCH H5 PRO BLE
+   ========================================================= */
 
 const UUID = {
+  service9232: "0000fd35-0000-1000-8000-00805f9b34fb",
+  char9231: "00009231-0000-1000-8000-00805f9b34fb",
+  char9232: "00009232-0000-1000-8000-00805f9b34fb",
+  char9233: "00009233-0000-1000-8000-00805f9b34fb",
 
-    SERVICE:
-    "0000ae00-0000-1000-8000-00805f9b34fb",
+  serviceAE: "0000ae00-0000-1000-8000-00805f9b34fb",
+  charAE01: "0000ae01-0000-1000-8000-00805f9b34fb",
+  charAE02: "0000ae02-0000-1000-8000-00805f9b34fb",
 
-    TX:
-    "0000ae01-0000-1000-8000-00805f9b34fb",
+  service88: "00008800-0000-1000-8000-00805f9b34fb",
+  char8801: "00008801-0000-1000-8000-00805f9b34fb",
+  char8802: "00008802-0000-1000-8000-00805f9b34fb",
 
-    RX:
-    "0000ae02-0000-1000-8000-00805f9b34fb",
+  service66: "00006600-0000-1000-8000-00805f9b34fb",
+  char6601: "00006601-0000-1000-8000-00805f9b34fb",
+  char6602: "00006602-0000-1000-8000-00805f9b34fb",
 
-    BATTERY_SERVICE:
-    "0000180f-0000-1000-8000-00805f9b34fb",
+  serviceFEE7: "0000fee7-0000-1000-8000-00805f9b34fb",
+  charFEA1: "0000fea1-0000-1000-8000-00805f9b34fb",
+  charFEC9: "0000fec9-0000-1000-8000-00805f9b34fb",
 
-    BATTERY:
-    "00002a19-0000-1000-8000-00805f9b34fb",
+  serviceAF: "0000af00-0000-1000-8000-00805f9b34fb",
+  charAF01: "0000af01-0000-1000-8000-00805f9b34fb",
+  charAF02: "0000af02-0000-1000-8000-00805f9b34fb",
 
-    HEART_SERVICE:
-    "0000180d-0000-1000-8000-00805f9b34fb",
-
-    HEART:
-    "00002a37-0000-1000-8000-00805f9b34fb",
-
-    TEMP_SERVICE:
-    "00001809-0000-1000-8000-00805f9b34fb",
-
-    TEMP:
-    "00002a1c-0000-1000-8000-00805f9b34fb"
-
+  genericAccess: "00001800-0000-1000-8000-00805f9b34fb",
+  deviceName: "00002a00-0000-1000-8000-00805f9b34fb"
 };
 
-
 let device = null;
-
 let server = null;
-
-let txCharacteristic = null;
-
-let rxCharacteristic = null;
-
-let allCharacteristics = [];
-
-let allServices = [];
-
-let packets = [];
-
-let hrHistory = [];
+let characteristics = new Map();
+let packetCount = 0;
 
 
 /* =========================================================
-   ELEMENT
-========================================================= */
+   ELEMENTS
+   ========================================================= */
 
-function $(id){
-    return document.getElementById(id);
-}
+const $ = id => document.getElementById(id);
+
+const connectBtn = $("connectBtn");
+const disconnectBtn = $("disconnectBtn");
 
 
 /* =========================================================
    LOG
-========================================================= */
+   ========================================================= */
+
+function timestamp(){
+
+  return new Date().toLocaleTimeString("id-ID", {
+    hour12:false
+  });
+
+}
 
 function log(message){
 
-    const time =
-        new Date().toLocaleTimeString(
-            "id-ID",
-            {hour12:false}
-        );
+  const line = `[${timestamp()}] ${message}`;
 
-    $("log").textContent +=
-        "[" + time + "] " + message + "\n";
+  $("rawLog").textContent += line + "\n";
 
-    $("log").scrollTop =
-        $("log").scrollHeight;
+  $("rawLog").scrollTop = $("rawLog").scrollHeight;
+
+  console.log(line);
+
 }
 
 
 /* =========================================================
    HEX
-========================================================= */
+   ========================================================= */
 
-function toHex(buffer){
+function toHex(data){
 
-    return [...new Uint8Array(buffer)]
+  return [...new Uint8Array(data)]
+    .map(x => x.toString(16).padStart(2,"0").toUpperCase())
+    .join(" ");
 
-        .map(
-            byte =>
-            byte
-            .toString(16)
-            .padStart(2,"0")
-        )
+}
 
-        .join(" ")
+function ascii(data){
 
-        .toUpperCase();
+  return [...new Uint8Array(data)]
+    .map(x => x >= 32 && x <= 126 ? String.fromCharCode(x) : ".")
+    .join("");
 
 }
 
 
 /* =========================================================
-   ASCII
-========================================================= */
+   PAGE NAVIGATION
+   ========================================================= */
 
-function toASCII(buffer){
+document.querySelectorAll(".nav button").forEach(btn => {
 
-    return [...new Uint8Array(buffer)]
+  btn.addEventListener("click", () => {
 
-        .map(
-            byte =>
-            byte >= 32 && byte <= 126
-            ? String.fromCharCode(byte)
-            : "."
-        )
+    document.querySelectorAll(".nav button")
+      .forEach(x => x.classList.remove("active"));
 
-        .join("");
+    document.querySelectorAll(".page")
+      .forEach(x => x.classList.remove("active"));
+
+    btn.classList.add("active");
+
+    $(btn.dataset.page).classList.add("active");
+
+  });
+
+});
+
+
+/* =========================================================
+   UPDATE DASHBOARD
+   ========================================================= */
+
+function setHR(value){
+
+  $("hr").textContent = value;
+  $("hr2").textContent = value;
+
+  $("healthInfo").innerHTML =
+    `Heart Rate: <b>${value} BPM</b><br>` +
+    `Last update: ${timestamp()}`;
+
+}
+
+
+function setSpO2(value){
+
+  $("spo2").textContent = value;
+  $("spo22").textContent = value;
+
+}
+
+
+function setPressure(value){
+
+  $("pressure").textContent = value;
+  $("pressure2").textContent = value;
+
+}
+
+
+function setSteps(value){
+
+  $("steps").textContent = value;
+  $("steps2").textContent = value;
+
+}
+
+
+function setCalories(value){
+
+  $("calories").textContent = value;
+  $("calories2").textContent = value;
 
 }
 
 
 /* =========================================================
-   HEX STRING -> BYTES
-========================================================= */
+   9232 DECODER
+   ========================================================= */
 
-function parseHEX(text){
+function decode9232(data){
 
-    text =
-        text
-        .replace(/0x/gi,"")
-        .replace(/[^0-9a-f]/gi,"");
+  const b = [...new Uint8Array(data)];
 
-    if(
-        !text ||
-        text.length % 2 !== 0
-    ){
-        throw new Error(
-            "Format HEX tidak valid"
-        );
-    }
+  packetCount++;
 
-    const data =
-        new Uint8Array(
-            text.length / 2
-        );
+  $("blePackets").textContent = packetCount;
 
-    for(
-        let i = 0;
-        i < data.length;
-        i++
-    ){
+  if(b.length < 9) return;
 
-        data[i] =
-            parseInt(
-                text.substr(i*2,2),
-                16
-            );
+  /*
+    Struktur umum:
 
-    }
+    EE
+    length
+    91
+    00 00
+    08
+    TYPE
+    0F
+    12
+    ...
+  */
 
-    return data;
+  const typeIndex = b.indexOf(0x08,5);
 
-}
+  if(typeIndex < 0 || typeIndex + 1 >= b.length){
+    return;
+  }
 
+  const type = b[typeIndex + 1];
 
-/* =========================================================
-   STATUS
-========================================================= */
+  /*
+    HR / Pressure / Calories:
+    ...
+    10 XX
+  */
 
-function setStatus(text,connected=false){
+  let value10 = null;
 
-    $("status").textContent =
-        text;
+  for(let i=0;i<b.length-1;i++){
 
-    $("dot").className =
-        connected
-        ? "dot ok"
-        : "dot";
+    if(b[i] === 0x10){
 
-    $("gatt").textContent =
-        connected
-        ? "CONNECTED"
-        : "DISCONNECTED";
-
-}
-
-
-/* =========================================================
-   SIMPAN PACKET
-========================================================= */
-
-function savePackets(){
-
-    try{
-
-        localStorage.setItem(
-            "xwatch_packets",
-            JSON.stringify(
-                packets.slice(-3000)
-            )
-        );
-
-    }catch(e){
-
-        log(
-            "LocalStorage error: "
-            + e.message
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   LOAD PACKET
-========================================================= */
-
-function loadPackets(){
-
-    try{
-
-        packets =
-            JSON.parse(
-                localStorage.getItem(
-                    "xwatch_packets"
-                ) || "[]"
-            );
-
-    }catch(e){
-
-        packets = [];
+      value10 = b[i+1];
 
     }
 
-    updateStorage();
+  }
 
-}
+  /*
+    Steps:
+    ...
+    08 XX
+  */
 
+  let value08 = null;
 
-/* =========================================================
-   STORAGE INFO
-========================================================= */
+  for(let i=typeIndex+2;i<b.length-1;i++){
 
-function updateStorage(){
+    if(b[i] === 0x08){
 
-    $("packetCount").textContent =
-        packets.length;
+      value08 = b[i+1];
 
-    $("storage").textContent =
-        packets.length
-        ? packets.length +
-          " packet tersimpan di browser."
-        : "Belum ada packet.";
-
-}
-
-
-/* =========================================================
-   SIMPAN PACKET
-========================================================= */
-
-function addPacket(
-    direction,
-    uuid,
-    buffer
-){
-
-    const item = {
-
-        time:
-            new Date().toISOString(),
-
-        direction:
-
-            direction,
-
-        uuid:
-
-            uuid,
-
-        hex:
-
-            toHex(buffer),
-
-        ascii:
-
-            toASCII(buffer),
-
-        length:
-
-            new Uint8Array(buffer).length
-
-    };
-
-
-    packets.push(item);
-
-
-    if(
-        packets.length > 3000
-    ){
-
-        packets.shift();
+      break;
 
     }
 
+  }
 
-    savePackets();
 
-    updateStorage();
+  /* -----------------------------------------
+     D2 = HEART RATE
+     ----------------------------------------- */
+
+  if(type === 0xD2){
+
+    if(value10 !== null){
+
+      setHR(value10);
+
+      log(`❤️ D2 HEART RATE = ${value10} BPM`);
+
+    }
+
+    return;
+
+  }
+
+
+  /* -----------------------------------------
+     D3 = SPO2
+     ----------------------------------------- */
+
+  if(type === 0xD3){
+
+    if(value10 !== null){
+
+      setSpO2(value10);
+
+      log(`🩸 D3 SpO2 = ${value10}%`);
+
+    }
+
+    return;
+
+  }
+
+
+  /* -----------------------------------------
+     E5 = PRESSURE
+     ----------------------------------------- */
+
+  if(type === 0xE5){
+
+    if(value10 !== null){
+
+      setPressure(value10);
+
+      log(`💨 E5 PRESSURE = ${value10}`);
+
+    }
+
+    return;
+
+  }
+
+
+  /* -----------------------------------------
+     D6 = STEPS
+     ----------------------------------------- */
+
+  if(type === 0xD6){
+
+    if(value08 !== null){
+
+      setSteps(value08);
+
+      log(`👟 D6 STEPS = ${value08}`);
+
+    }
+
+    return;
+
+  }
+
+
+  /* -----------------------------------------
+     DB = POSSIBLE CALORIES
+     ----------------------------------------- */
+
+  if(type === 0xDB){
+
+    if(value10 !== null){
+
+      /*
+        IMPORTANT:
+
+        DB is NOT marked confirmed yet.
+
+        We only display the raw candidate.
+      */
+
+      log(
+        `🔥 DB CANDIDATE CALORIES = ${value10} ` +
+        `(BELUM DIKONFIRMASI)`
+      );
+
+    }
+
+    return;
+
+  }
+
+
+  /*
+    Unknown record.
+  */
+
+  log(
+    `🧬 UNKNOWN 9232 TYPE=${type.toString(16).toUpperCase().padStart(2,"0")}` +
+    (value10 !== null ? ` VALUE10=${value10}` : "") +
+    (value08 !== null ? ` VALUE08=${value08}` : "")
+  );
 
 }
 
 
 /* =========================================================
-   RECEIVE PACKET
-========================================================= */
+   NOTIFICATION HANDLER
+   ========================================================= */
 
-function receivePacket(
-    uuid,
-    buffer
-){
+function notificationHandler(event){
 
-    const hex =
-        toHex(buffer);
+  const char = event.target;
 
-    const ascii =
-        toASCII(buffer);
+  const data = event.target.value.buffer;
+
+  const uuid = char.uuid.toLowerCase();
+
+  const hex = toHex(data);
+
+  const asc = ascii(data);
+
+  log(
+    `RX ${uuid} → ${hex} | ASCII: ${asc}`
+  );
 
 
-    addPacket(
-        "RX",
-        uuid,
-        buffer
+  /*
+    9232 protocol decoder
+  */
+
+  if(uuid === UUID.char9232){
+
+    decode9232(data);
+
+  }
+
+}
+
+
+/* =========================================================
+   ENABLE NOTIFY
+   ========================================================= */
+
+async function enableNotify(char){
+
+  try{
+
+    await char.startNotifications();
+
+    char.addEventListener(
+      "characteristicvaluechanged",
+      notificationHandler
     );
 
+    log(`✓ NOTIFY AKTIF: ${char.uuid}`);
+
+  }catch(error){
 
     log(
-        "RX "
-        + uuid
-        + " → "
-        + hex
-        + " | ASCII: "
-        + ascii
+      `⚠ NOTIFY GAGAL ${char.uuid}: ${error.message}`
     );
 
-
-    decodePacket(
-        uuid,
-        buffer
-    );
-
-
-    /*
-       RESPONSE YANG SUDAH TERKONFIRMASI
-    */
-
-    if(
-        hex ===
-        "02 70 61 73 73"
-    ){
-
-        log(
-            "✓ RESPONSE -pass TERKONFIRMASI"
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   NOTIFY
-========================================================= */
-
-function onNotification(event){
-
-    const characteristic =
-        event.target;
-
-    const buffer =
-        characteristic.value.buffer;
-
-    receivePacket(
-        characteristic.uuid,
-        buffer
-    );
-
-}
-
-
-/* =========================================================
-   DECODE DATA STANDARD
-========================================================= */
-
-function decodePacket(
-    uuid,
-    buffer
-){
-
-    const bytes =
-        new Uint8Array(buffer);
-
-
-    const u =
-        uuid.toLowerCase();
-
-
-    /*
-       BATTERY
-    */
-
-    if(
-        u === UUID.BATTERY &&
-        bytes.length >= 1
-    ){
-
-        const value =
-            bytes[0];
-
-        if(
-            value <= 100
-        ){
-
-            $("battery").textContent =
-                value + "%";
-
-            $("batteryHealth").textContent =
-                value + "%";
-
-        }
-
-    }
-
-
-    /*
-       HEART RATE
-    */
-
-    if(
-        u === UUID.HEART &&
-        bytes.length >= 2
-    ){
-
-        const flags =
-            bytes[0];
-
-        let heartRate;
-
-
-        if(flags & 1){
-
-            if(
-                bytes.length < 3
-            ) return;
-
-            heartRate =
-                bytes[1] |
-                (bytes[2] << 8);
-
-        }else{
-
-            heartRate =
-                bytes[1];
-
-        }
-
-
-        if(
-            heartRate >= 20 &&
-            heartRate <= 240
-        ){
-
-            updateHeartRate(
-                heartRate
-            );
-
-        }
-
-    }
-
-
-    /*
-       TEMPERATURE
-    */
-
-    if(
-        u === UUID.TEMP &&
-        bytes.length >= 5
-    ){
-
-        try{
-
-            const raw =
-                bytes[1] |
-                (bytes[2] << 8) |
-                (bytes[3] << 16) |
-                (bytes[4] << 24);
-
-
-            const mantissa =
-                raw & 0x00FFFFFF;
-
-
-            const exponent =
-                (raw >> 24) & 0xFF;
-
-
-            const signedMantissa =
-                mantissa & 0x800000
-                ? mantissa - 0x1000000
-                : mantissa;
-
-
-            const signedExponent =
-                exponent & 0x80
-                ? exponent - 256
-                : exponent;
-
-
-            const temp =
-                signedMantissa *
-                Math.pow(
-                    10,
-                    signedExponent
-                );
-
-
-            if(
-                temp > -50 &&
-                temp < 100
-            ){
-
-                $("temperature").textContent =
-                    temp.toFixed(1) + "°C";
-
-                $("tempHealth").textContent =
-                    temp.toFixed(1) + "°C";
-
-            }
-
-        }catch(e){}
-
-    }
-
-
-    /*
-       CUSTOM XWATCH
-
-       JANGAN MENGARANG DATA.
-
-       Semua packet custom tetap
-       disimpan dan ditampilkan di log.
-    */
-
-    if(
-        u === UUID.RX
-    ){
-
-        /*
-           Nanti decoder tidur,
-           steps, SpO2, calories
-           kita pasang setelah format
-           packet asli berhasil ditemukan.
-        */
-
-    }
-
-}
-
-
-/* =========================================================
-   HEART RATE
-========================================================= */
-
-function updateHeartRate(value){
-
-    $("hr").textContent =
-        value;
-
-    $("hrHealth").textContent =
-        value + " bpm";
-
-
-    hrHistory.push({
-
-        time:Date.now(),
-
-        value:value
-
-    });
-
-
-    if(
-        hrHistory.length > 60
-    ){
-
-        hrHistory.shift();
-
-    }
-
-
-    drawChart();
-
-}
-
-
-/* =========================================================
-   DRAW GRAPH
-========================================================= */
-
-function drawChart(){
-
-    const canvas =
-        $("chart");
-
-    const ctx =
-        canvas.getContext("2d");
-
-
-    const width =
-        canvas.width;
-
-    const height =
-        canvas.height;
-
-
-    ctx.clearRect(
-        0,
-        0,
-        width,
-        height
-    );
-
-
-    if(
-        hrHistory.length < 2
-    ){
-
-        return;
-
-    }
-
-
-    ctx.beginPath();
-
-    ctx.lineWidth = 3;
-
-
-    hrHistory.forEach(
-        (item,index)=>{
-
-            const x =
-                10 +
-                index *
-                (width-20) /
-                Math.max(
-                    1,
-                    hrHistory.length-1
-                );
-
-
-            const min = 40;
-
-            const max = 180;
-
-
-            const value =
-                Math.max(
-                    min,
-                    Math.min(
-                        max,
-                        item.value
-                    )
-                );
-
-
-            const y =
-                height -
-                15 -
-                (
-                    (value-min) /
-                    (max-min)
-                ) *
-                (height-30);
-
-
-            if(index === 0){
-
-                ctx.moveTo(x,y);
-
-            }else{
-
-                ctx.lineTo(x,y);
-
-            }
-
-        }
-    );
-
-
-    ctx.stroke();
+  }
 
 }
 
 
 /* =========================================================
    CONNECT
-========================================================= */
+   ========================================================= */
 
 async function connect(){
 
-    if(
-        !navigator.bluetooth
-    ){
+  try{
 
-        alert(
-            "Web Bluetooth tidak tersedia. Gunakan browser yang mendukung Web Bluetooth."
-        );
+    if(!navigator.bluetooth){
 
-        return;
+      throw new Error(
+        "Web Bluetooth tidak didukung browser ini."
+      );
 
     }
 
+    log("Membuka Bluetooth picker...");
 
-    try{
+    device = await navigator.bluetooth.requestDevice({
 
-        setStatus(
-            "MEMILIH XWATCH..."
-        );
-
-
-        log(
-            "Membuka Bluetooth picker..."
-        );
-
-
-        device =
-            await navigator.bluetooth.requestDevice({
-
-                filters:[
-                    {
-                        name:
-                        "XWatch H5 Pro"
-                    }
-                ],
-
-                optionalServices:[
-
-                    UUID.SERVICE,
-
-                    UUID.BATTERY_SERVICE,
-
-                    UUID.HEART_SERVICE,
-
-                    UUID.TEMP_SERVICE,
-
-                    "0000fee7-0000-1000-8000-00805f9b34fb",
-
-                    "0000fd35-0000-1000-8000-00805f9b34fb",
-
-                    "00006600-0000-1000-8000-00805f9b34fb",
-
-                    "0000af00-0000-1000-8000-00805f9b34fb",
-
-                    "00008800-0000-1000-8000-00805f9b34fb"
-
-                ]
-
-            });
-
-
-        $("deviceName").textContent =
-            device.name || "N/A";
-
-
-        $("deviceId").textContent =
-            device.id || "N/A";
-
-
-        device.addEventListener(
-            "gattserverdisconnected",
-            onDisconnected
-        );
-
-
-        log(
-            "Device ditemukan: "
-            + (
-                device.name ||
-                "N/A"
-            )
-        );
-
-
-        setStatus(
-            "MENGHUBUNGKAN..."
-        );
-
-
-        server =
-            await device.gatt.connect();
-
-
-        setStatus(
-            "TERHUBUNG",
-            true
-        );
-
-
-        log(
-            "✓ BERHASIL CONNECT"
-        );
-
-
-        /*
-           GET ALL SERVICES
-        */
-
-        allServices =
-            await server.getPrimaryServices();
-
-
-        log(
-            "Jumlah service: "
-            + allServices.length
-        );
-
-
-        allCharacteristics = [];
-
-
-        /*
-           GET ALL CHARACTERISTICS
-        */
-
-        for(
-            const service
-            of allServices
-        ){
-
-            log(
-                "SERVICE: "
-                + service.uuid
-            );
-
-
-            let characteristics = [];
-
-
-            try{
-
-                characteristics =
-                    await service.getCharacteristics();
-
-            }catch(error){
-
-                log(
-                    "Gagal membaca service "
-                    + service.uuid
-                    + ": "
-                    + error.message
-                );
-
-                continue;
-
-            }
-
-
-            for(
-                const characteristic
-                of characteristics
-            ){
-
-                allCharacteristics.push(
-                    characteristic
-                );
-
-
-                const props = [];
-
-
-                if(
-                    characteristic.properties.read
-                )
-                    props.push("READ");
-
-
-                if(
-                    characteristic.properties.write
-                )
-                    props.push("WRITE");
-
-
-                if(
-                    characteristic.properties.writeWithoutResponse
-                )
-                    props.push(
-                        "WRITE_NO_RESPONSE"
-                    );
-
-
-                if(
-                    characteristic.properties.notify
-                )
-                    props.push("NOTIFY");
-
-
-                if(
-                    characteristic.properties.indicate
-                )
-                    props.push("INDICATE");
-
-
-                log(
-                    "  CHAR "
-                    + characteristic.uuid
-                    + " ["
-                    + props.join(", ")
-                    + "]"
-                );
-
-            }
-
+      filters:[
+        {
+          name:"XWatch H5 Pro"
         }
+      ],
 
+      optionalServices:[
+        UUID.service9232,
+        UUID.service88,
+        UUID.service66,
+        UUID.serviceFEE7,
+        UUID.serviceAF,
+        UUID.serviceAE,
+        UUID.genericAccess
+      ]
 
-        /*
-           FIND TX / RX
-        */
+    });
 
-        txCharacteristic =
-            allCharacteristics.find(
-                c =>
-                c.uuid.toLowerCase()
-                ===
-                UUID.TX
-            );
 
+    log(`Device ditemukan: ${device.name}`);
 
-        rxCharacteristic =
-            allCharacteristics.find(
-                c =>
-                c.uuid.toLowerCase()
-                ===
-                UUID.RX
-            );
+    device.addEventListener(
+      "gattserverdisconnected",
+      onDisconnected
+    );
 
 
-        if(
-            txCharacteristic
-        ){
+    server = await device.gatt.connect();
 
-            log(
-                "✓ AE01 TX ditemukan"
-            );
+    log("✓ BERHASIL CONNECT");
 
-        }else{
 
-            log(
-                "⚠ AE01 TX tidak ditemukan"
-            );
+    $("statusDot").classList.add("on");
 
-        }
+    $("statusText").textContent =
+      `Terhubung: ${device.name}`;
 
+    connectBtn.disabled = true;
+    disconnectBtn.disabled = false;
 
-        if(
-            rxCharacteristic
-        ){
 
-            log(
-                "✓ AE02 RX ditemukan"
-            );
+    await discoverServices();
 
-        }else{
-
-            log(
-                "⚠ AE02 RX tidak ditemukan"
-            );
-
-        }
-
-
-        /*
-           AKTIFKAN SEMUA NOTIFY
-
-           Ini penting untuk menemukan
-           packet tidur, steps, SpO2,
-           calories dll.
-        */
-
-        for(
-            const characteristic
-            of allCharacteristics
-        ){
-
-            if(
-                characteristic.properties.notify ||
-                characteristic.properties.indicate
-            ){
-
-                try{
-
-                    await
-                    characteristic
-                    .startNotifications();
-
-
-                    characteristic
-                    .addEventListener(
-                        "characteristicvaluechanged",
-                        onNotification
-                    );
-
-
-                    log(
-                        "✓ NOTIFY AKTIF: "
-                        + characteristic.uuid
-                    );
-
-                }catch(error){
-
-                    log(
-                        "Notify gagal "
-                        + characteristic.uuid
-                        + ": "
-                        + error.message
-                    );
-
-                }
-
-            }
-
-        }
-
-
-        /*
-           RENDER GATT
-        */
-
-        renderServices();
-
-
-        /*
-           BACA BATTERY
-        */
-
-        await readKnownValues();
-
-    }catch(error){
-
-        setStatus(
-            "ERROR"
-        );
-
-
-        log(
-            "ERROR: "
-            + error.name
-            + " - "
-            + error.message
-        );
-
-
-        console.error(error);
-
-    }
-
-}
-
-
-/* =========================================================
-   READ KNOWN STANDARD VALUES
-========================================================= */
-
-async function readKnownValues(){
-
-    const battery =
-        allCharacteristics.find(
-            c =>
-            c.uuid.toLowerCase()
-            ===
-            UUID.BATTERY
-        );
-
-
-    if(
-        battery &&
-        battery.properties.read
-    ){
-
-        try{
-
-            const value =
-                await battery.readValue();
-
-
-            receivePacket(
-                battery.uuid,
-                value.buffer
-            );
-
-        }catch(error){
-
-            log(
-                "Battery read gagal: "
-                + error.message
-            );
-
-        }
-
-    }
-
-}
-
-
-/* =========================================================
-   READ ALL
-========================================================= */
-
-async function readAll(){
-
-    if(
-        allCharacteristics.length === 0
-    ){
-
-        alert(
-            "Connect ke XWatch dulu."
-        );
-
-        return;
-
-    }
-
-
-    let count = 0;
-
-
-    for(
-        const characteristic
-        of allCharacteristics
-    ){
-
-        if(
-            !characteristic.properties.read
-        ){
-
-            continue;
-
-        }
-
-
-        try{
-
-            const value =
-                await characteristic.readValue();
-
-
-            receivePacket(
-                characteristic.uuid,
-                value.buffer
-            );
-
-
-            count++;
-
-
-        }catch(error){
-
-            log(
-                "READ FAIL "
-                + characteristic.uuid
-                + ": "
-                + error.message
-            );
-
-        }
-
-    }
-
+  }catch(error){
 
     log(
-        "✓ READ selesai: "
-        + count
-        + " characteristic"
+      `ERROR: ${error.name} - ${error.message}`
     );
+
+  }
 
 }
 
 
 /* =========================================================
-   SEND BYTES
-========================================================= */
+   DISCOVER SERVICES
+   ========================================================= */
 
-async function sendBytes(bytes){
+async function discoverServices(){
 
-    if(
-        !txCharacteristic
-    ){
+  characteristics.clear();
 
-        throw new Error(
-            "TX AE01 belum ditemukan."
-        );
+  const services =
+    await server.getPrimaryServices();
 
-    }
+  log(`Jumlah service: ${services.length}`);
 
 
-    /*
-       PRIORITAS WRITE WITHOUT RESPONSE
+  for(const service of services){
 
-       Karena dari log kita,
-       AE01 mendukung metode ini.
-    */
+    log(`SERVICE: ${service.uuid}`);
 
-    if(
-        txCharacteristic
-        .properties
-        .writeWithoutResponse
-    ){
-
-        await
-        txCharacteristic
-        .writeValueWithoutResponse(
-            bytes
-        );
-
-
-        addPacket(
-            "TX",
-            txCharacteristic.uuid,
-            bytes
-        );
-
-
-        log(
-            "TX "
-            + toHex(bytes)
-            + " [WRITE WITHOUT RESPONSE]"
-        );
-
-
-        return;
-
-    }
-
-
-    /*
-       FALLBACK WRITE
-    */
-
-    if(
-        txCharacteristic.properties.write
-    ){
-
-        await
-        txCharacteristic
-        .writeValue(
-            bytes
-        );
-
-
-        addPacket(
-            "TX",
-            txCharacteristic.uuid,
-            bytes
-        );
-
-
-        log(
-            "TX "
-            + toHex(bytes)
-            + " [WRITE]"
-        );
-
-
-        return;
-
-    }
-
-
-    throw new Error(
-        "AE01 tidak memiliki permission WRITE."
-    );
-
-}
-
-
-/* =========================================================
-   TEST 01
-========================================================= */
-
-async function test01(){
+    let chars = [];
 
     try{
 
-        await sendBytes(
-            new Uint8Array([
-                0x01
-            ])
-        );
-
-
-        log(
-            "✓ TEST 01 terkirim."
-        );
-
-
-        log(
-            "Menunggu response..."
-        );
+      chars =
+        await service.getCharacteristics();
 
     }catch(error){
 
-        log(
-            "TX ERROR: "
-            + error.message
-        );
+      log(
+        `  ERROR CHAR: ${error.message}`
+      );
 
-
-        alert(
-            error.message
-        );
+      continue;
 
     }
 
-}
+
+    for(const char of chars){
+
+      const props = [];
+
+      if(char.properties.read)
+        props.push("READ");
+
+      if(char.properties.write)
+        props.push("WRITE");
+
+      if(char.properties.writeWithoutResponse)
+        props.push("WRITE_NO_RESPONSE");
+
+      if(char.properties.notify)
+        props.push("NOTIFY");
+
+      if(char.properties.indicate)
+        props.push("INDICATE");
 
 
-/* =========================================================
-   MANUAL HEX
-========================================================= */
-
-async function sendManual(){
-
-    try{
-
-        const bytes =
-            parseHEX(
-                $("hexInput").value
-            );
+      log(
+        `  CHAR ${char.uuid} [${props.join(", ")}]`
+      );
 
 
-        await sendBytes(
-            bytes
-        );
+      characteristics.set(
+        char.uuid.toLowerCase(),
+        char
+      );
 
 
-    }catch(error){
+      /*
+        Aktifkan notification
+      */
 
-        log(
-            "TX ERROR: "
-            + error.message
-        );
+      if(char.properties.notify){
 
+        await enableNotify(char);
 
-        alert(
-            error.message
-        );
+      }
 
     }
+
+  }
+
+
+  renderGatt();
+
+  await testAE();
 
 }
 
 
 /* =========================================================
    RENDER GATT
-========================================================= */
+   ========================================================= */
 
-function renderServices(){
+function renderGatt(){
 
-    $("services").innerHTML = "";
+  const rows = [];
 
+  for(const [uuid,char] of characteristics){
 
-    for(
-        const service
-        of allServices
-    ){
+    const p = char.properties;
 
-        const box =
-            document.createElement(
-                "details"
-            );
+    const props = [];
 
+    if(p.read) props.push("READ");
+    if(p.write) props.push("WRITE");
+    if(p.writeWithoutResponse)
+      props.push("WRITE_NO_RESPONSE");
+    if(p.notify) props.push("NOTIFY");
+    if(p.indicate) props.push("INDICATE");
 
-        box.className =
-            "service";
+    rows.push(
+      `${uuid}\n  [${props.join(", ")}]`
+    );
 
+  }
 
-        box.open = true;
+  $("gattOutput").textContent =
+    rows.join("\n\n");
 
+}
 
-        const summary =
-            document.createElement(
-                "summary"
-            );
 
+/* =========================================================
+   AE01 TEST
+   ========================================================= */
 
-        summary.textContent =
-            "SERVICE • "
-            + service.uuid;
+async function testAE(){
 
+  const tx =
+    characteristics.get(
+      UUID.charAE01
+    );
 
-        box.appendChild(
-            summary
-        );
+  const rx =
+    characteristics.get(
+      UUID.charAE02
+    );
 
 
-        const chars =
-            allCharacteristics.filter(
-                c =>
-                c.service &&
-                c.service.uuid
-                ===
-                service.uuid
-            );
+  if(!tx){
 
+    log("⚠ AE01 TX tidak ditemukan");
 
-        for(
-            const c
-            of chars
-        ){
+    return;
 
-            const div =
-                document.createElement(
-                    "div"
-                );
+  }
 
+  log("✓ AE01 TX ditemukan");
 
-            div.className =
-                "characteristic";
 
+  if(rx){
 
-            const uuid =
-                document.createElement(
-                    "div"
-                );
+    log("✓ AE02 RX ditemukan");
 
+  }
 
-            uuid.className =
-                "uuid";
 
+  /*
+    AE01 terbukti menggunakan
+    WRITE WITHOUT RESPONSE.
 
-            uuid.textContent =
-                c.uuid;
+    01 → RX "02 70 61 73 73"
+  */
 
+  try{
 
-            div.appendChild(
-                uuid
-            );
+    await tx.writeValueWithoutResponse(
+      new Uint8Array([0x01])
+    );
 
+    log(
+      "TX AE01 → 01 " +
+      "(WRITE WITHOUT RESPONSE)"
+    );
 
-            const props =
-                document.createElement(
-                    "div"
-                );
+  }catch(error){
 
+    log(
+      `AE01 ERROR: ${error.message}`
+    );
 
-            if(
-                c.properties.read
-            )
-                props.innerHTML +=
-                    '<span class="badge">READ</span>';
-
-
-            if(
-                c.properties.write
-            )
-                props.innerHTML +=
-                    '<span class="badge">WRITE</span>';
-
-
-            if(
-                c.properties.writeWithoutResponse
-            )
-                props.innerHTML +=
-                    '<span class="badge">WRITE_NO_RESPONSE</span>';
-
-
-            if(
-                c.properties.notify
-            )
-                props.innerHTML +=
-                    '<span class="badge">NOTIFY</span>';
-
-
-            if(
-                c.properties.indicate
-            )
-                props.innerHTML +=
-                    '<span class="badge">INDICATE</span>';
-
-
-            div.appendChild(
-                props
-            );
-
-
-            const buttons =
-                document.createElement(
-                    "div"
-                );
-
-
-            /*
-               READ BUTTON
-            */
-
-            if(
-                c.properties.read
-            ){
-
-                const read =
-                    document.createElement(
-                        "button"
-                    );
-
-
-                read.className =
-                    "secondary";
-
-
-                read.textContent =
-                    "READ";
-
-
-                read.onclick =
-                    async ()=>{
-
-                        try{
-
-                            const value =
-                                await c.readValue();
-
-
-                            receivePacket(
-                                c.uuid,
-                                value.buffer
-                            );
-
-                        }catch(error){
-
-                            log(
-                                "READ FAIL: "
-                                + error.message
-                            );
-
-                        }
-
-                    };
-
-
-                buttons.appendChild(
-                    read
-                );
-
-            }
-
-
-            /*
-               NOTIFY BUTTON
-            */
-
-            if(
-                c.properties.notify ||
-                c.properties.indicate
-            ){
-
-                const notify =
-                    document.createElement(
-                        "button"
-                    );
-
-
-                notify.className =
-                    "secondary";
-
-
-                notify.textContent =
-                    "NOTIFY";
-
-
-                notify.onclick =
-                    async ()=>{
-
-                        try{
-
-                            await
-                            c.startNotifications();
-
-
-                            c.addEventListener(
-                                "characteristicvaluechanged",
-                                onNotification
-                            );
-
-
-                            log(
-                                "NOTIFY aktif: "
-                                + c.uuid
-                            );
-
-                        }catch(error){
-
-                            log(
-                                "NOTIFY ERROR: "
-                                + error.message
-                            );
-
-                        }
-
-                    };
-
-
-                buttons.appendChild(
-                    notify
-                );
-
-            }
-
-
-            div.appendChild(
-                buttons
-            );
-
-
-            box.appendChild(
-                div
-            );
-
-        }
-
-
-        $("services").appendChild(
-            box
-        );
-
-    }
+  }
 
 }
 
 
 /* =========================================================
    DISCONNECT
-========================================================= */
-
-function onDisconnected(){
-
-    setStatus(
-        "TERPUTUS"
-    );
-
-
-    log(
-        "GATT DISCONNECTED"
-    );
-
-
-    txCharacteristic = null;
-
-    rxCharacteristic = null;
-
-}
-
-
-/* =========================================================
-   DISCONNECT BUTTON
-========================================================= */
+   ========================================================= */
 
 function disconnect(){
 
+  try{
+
+    if(device && device.gatt.connected){
+
+      device.gatt.disconnect();
+
+    }
+
+  }catch(error){
+
+    log(`Disconnect error: ${error.message}`);
+
+  }
+
+}
+
+
+function onDisconnected(){
+
+  $("statusDot").classList.remove("on");
+
+  $("statusText").textContent =
+    "Terputus";
+
+  connectBtn.disabled = false;
+  disconnectBtn.disabled = true;
+
+  log("✕ DEVICE DISCONNECTED");
+
+}
+
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+connectBtn.addEventListener(
+  "click",
+  connect
+);
+
+disconnectBtn.addEventListener(
+  "click",
+  disconnect
+);
+
+
+$("clearLog").addEventListener(
+  "click",
+  () => {
+
+    $("rawLog").textContent = "";
+
+  }
+);
+
+
+$("copyLog").addEventListener(
+  "click",
+  async () => {
+
     try{
 
-        if(
-            device &&
-            device.gatt &&
-            device.gatt.connected
-        ){
+      await navigator.clipboard.writeText(
+        $("rawLog").textContent
+      );
 
-            device.gatt.disconnect();
-
-        }
+      log("✓ RAW LOG berhasil dicopy");
 
     }catch(error){
 
-        log(
-            "Disconnect error: "
-            + error.message
-        );
+      log(
+        `Copy gagal: ${error.message}`
+      );
 
     }
 
-}
-
-
-/* =========================================================
-   EXPORT JSON
-========================================================= */
-
-function exportJSON(){
-
-    const data =
-        JSON.stringify(
-            {
-                exportedAt:
-                    new Date().toISOString(),
-
-                device:
-                    device
-                    ? device.name
-                    : "XWatch H5 Pro",
-
-                packets:
-                    packets
-
-            },
-            null,
-            2
-        );
-
-
-    download(
-        "xwatch-data.json",
-        data,
-        "application/json"
-    );
-
-}
-
-
-/* =========================================================
-   EXPORT CSV
-========================================================= */
-
-function exportCSV(){
-
-    let csv =
-        "time,direction,uuid,length,hex,ascii\n";
-
-
-    packets.forEach(
-        p => {
-
-            csv +=
-                csvEscape(p.time)
-                + ","
-                + csvEscape(p.direction)
-                + ","
-                + csvEscape(p.uuid)
-                + ","
-                + csvEscape(p.length)
-                + ","
-                + csvEscape(p.hex)
-                + ","
-                + csvEscape(p.ascii)
-                + "\n";
-
-        }
-    );
-
-
-    download(
-        "xwatch-packets.csv",
-        csv,
-        "text/csv"
-    );
-
-}
-
-
-function csvEscape(value){
-
-    return '"' +
-        String(value ?? "")
-        .replace(/"/g,'""')
-        +
-        '"';
-
-}
-
-
-/* =========================================================
-   DOWNLOAD
-========================================================= */
-
-function download(
-    filename,
-    text,
-    type
-){
-
-    const blob =
-        new Blob(
-            [text],
-            {type:type}
-        );
-
-
-    const url =
-        URL.createObjectURL(
-            blob
-        );
-
-
-    const a =
-        document.createElement(
-            "a"
-        );
-
-
-    a.href = url;
-
-    a.download =
-        filename;
-
-
-    document.body.appendChild(a);
-
-    a.click();
-
-    a.remove();
-
-
-    setTimeout(
-        ()=>{
-            URL.revokeObjectURL(
-                url
-            );
-        },
-        1000
-    );
-
-}
-
-
-/* =========================================================
-   DELETE DATA
-========================================================= */
-
-function deleteData(){
-
-    if(
-        !confirm(
-            "Hapus semua packet yang tersimpan?"
-        )
-    ){
-
-        return;
-
-    }
-
-
-    packets = [];
-
-
-    localStorage.removeItem(
-        "xwatch_packets"
-    );
-
-
-    updateStorage();
-
-
-    log(
-        "Data lokal dihapus."
-    );
-
-}
-
-
-/* =========================================================
-   CLEAR LOG
-========================================================= */
-
-function clearLog(){
-
-    $("log").textContent = "";
-
-}
-
-
-/* =========================================================
-   TABS
-========================================================= */
-
-document
-.querySelectorAll(
-    ".tab"
-)
-.forEach(
-    button => {
-
-        button.onclick =
-            ()=>{
-
-                document
-                .querySelectorAll(
-                    ".panel"
-                )
-                .forEach(
-                    panel =>
-                    panel
-                    .classList
-                    .remove("active")
-                );
-
-
-                $(
-                    button
-                    .dataset
-                    .tab
-                )
-                .classList
-                .add("active");
-
-
-                document
-                .querySelectorAll(
-                    ".tab"
-                )
-                .forEach(
-                    b =>
-                    b.classList
-                    .add("secondary")
-                );
-
-
-                button
-                .classList
-                .remove("secondary");
-
-            };
-
-    }
+  }
 );
 
 
 /* =========================================================
-   BUTTON EVENTS
-========================================================= */
+   STARTUP
+   ========================================================= */
 
-$("connect")
-.onclick =
-    connect;
+log("XWatch H5 Pro Companion siap.");
 
-
-$("disconnect")
-.onclick =
-    disconnect;
-
-
-$("readAll")
-.onclick =
-    readAll;
-
-
-$("test01")
-.onclick =
-    test01;
-
-
-$("sendHex")
-.onclick =
-    sendManual;
-
-
-$("clearLog")
-.onclick =
-    clearLog;
-
-
-$("exportJSON")
-.onclick =
-    exportJSON;
-
-
-$("exportCSV")
-.onclick =
-    exportCSV;
-
-
-$("deleteData")
-.onclick =
-    deleteData;
-
-
-/* =========================================================
-   START
-========================================================= */
-
-loadPackets();
-
+log("AE00 = Service");
+log("AE01 = TX");
+log("AE02 = RX / Notify");
 
 log(
-    "XWatch H5 Pro Companion siap."
+  "Mode discovery semua NOTIFY aktif."
 );
-
-
-log(
-    "AE00 = Service"
-);
-
-
-log(
-    "AE01 = TX"
-);
-
-
-log(
-    "AE02 = RX / Notify"
-);
-
-
-log(
-    "TX 01 → RX 02 70 61 73 73 = -pass"
-);
-
-
-log(
-    "Mode discovery semua NOTIFY aktif."
-);
-
-
-if(
-    !window.isSecureContext
-){
-
-    log(
-        "⚠ Web Bluetooth membutuhkan HTTPS."
-    );
-
-}
-
 
 </script>
 
