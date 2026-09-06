@@ -48,10 +48,12 @@ button{
   font-weight:600;
   background:#fff;
   color:#000;
+  cursor:pointer;
 }
 
 button:disabled{
   opacity:.4;
+  cursor:not-allowed;
 }
 
 .nav{
@@ -202,6 +204,51 @@ pre{
   color:#ff6b6b;
 }
 
+.syncBox{
+  margin-top:12px;
+  padding:12px;
+  border-radius:12px;
+  background:#090909;
+  border:1px solid #292929;
+}
+
+.syncTitle{
+  font-size:13px;
+  font-weight:700;
+  margin-bottom:7px;
+}
+
+.syncDesc{
+  color:#777;
+  font-size:11px;
+  line-height:1.5;
+}
+
+.scanGrid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:8px;
+  margin-top:12px;
+}
+
+.scanGrid button{
+  background:#202020;
+  color:#fff;
+  border:1px solid #333;
+  font-size:12px;
+  padding:11px 8px;
+}
+
+.scanGrid button.primary{
+  background:#fff;
+  color:#000;
+}
+
+.scanGrid button.dangerBtn{
+  background:#241010;
+  color:#ff8c8c;
+}
+
 table{
   width:100%;
   border-collapse:collapse;
@@ -230,6 +277,34 @@ input{
   border:1px solid #333;
   background:#090909;
   color:white;
+  outline:none;
+}
+
+input:focus{
+  border-color:#777;
+}
+
+.commandRow{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:8px;
+  margin-top:10px;
+}
+
+.commandRow button{
+  padding:11px 14px;
+}
+
+.result{
+  margin-top:10px;
+  padding:10px;
+  background:#090909;
+  border-radius:10px;
+  color:#aaa;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:11px;
+  line-height:1.5;
+  min-height:40px;
 }
 </style>
 </head>
@@ -246,13 +321,17 @@ input{
   <button data-page="health">❤️ Kesehatan</button>
   <button data-page="activity">🏃 Aktivitas</button>
   <button data-page="sleep">😴 Tidur</button>
+  <button data-page="sync">🔄 Sync Scanner</button>
   <button data-page="gatt">📡 GATT</button>
   <button data-page="log">🧪 Log</button>
 </div>
 
 <main>
 
-<!-- DASHBOARD -->
+<!-- =====================================================
+     DASHBOARD
+===================================================== -->
+
 <section id="dashboard" class="page active">
 
   <div class="status">
@@ -317,6 +396,7 @@ input{
     <h2>🧬 Protocol yang sudah diketahui</h2>
 
     <table>
+
       <tr>
         <th>Type</th>
         <th>Data</th>
@@ -352,13 +432,17 @@ input{
         <td>Calories?</td>
         <td class="warn">TESTING</td>
       </tr>
+
     </table>
   </div>
 
 </section>
 
 
-<!-- HEALTH -->
+<!-- =====================================================
+     HEALTH
+===================================================== -->
+
 <section id="health" class="page">
 
   <div class="grid">
@@ -387,16 +471,22 @@ input{
   </div>
 
   <div class="section">
+
     <h2>Data terakhir</h2>
+
     <div id="healthInfo" class="info">
       Belum ada data kesehatan.
     </div>
+
   </div>
 
 </section>
 
 
-<!-- ACTIVITY -->
+<!-- =====================================================
+     ACTIVITY
+===================================================== -->
+
 <section id="activity" class="page">
 
   <div class="grid">
@@ -418,69 +508,341 @@ input{
   </div>
 
   <div class="section">
+
     <h2>Activity decoder</h2>
 
     <div class="info">
-      Steps menggunakan record <b>D6</b> dan field <b>08 XX</b>.<br><br>
+
+      Steps menggunakan record <b>D6</b>
+      dan field <b>08 XX</b>.
+
+      <br><br>
 
       Contoh yang sudah terbukti:
+
       <br>
       D6 → 05 = 5 steps
+
       <br>
       D6 → 2E = 46 steps
+
       <br>
       D6 → 4E = 78 steps
+
       <br>
       D6 → 62 = 98 steps
+
       <br>
       D6 → 71 = 113 steps
+
     </div>
+
   </div>
 
 </section>
 
 
-<!-- SLEEP -->
+<!-- =====================================================
+     SLEEP
+===================================================== -->
+
 <section id="sleep" class="page">
 
   <div class="section">
+
     <h2>😴 Sleep</h2>
 
     <div class="info">
+
       Data tidur belum kita decode.
+
       <br><br>
-      Jangan khawatir—ini memang kemungkinan berbeda dari data realtime.
-      Jam bisa saja menyimpan histori tidur dan baru mengirimkannya setelah
-      aplikasi mengirim command request.
+
+      Sekarang kita mencoba mencari command
+      yang meminta jam mengirim data yang tersimpan.
+
       <br><br>
+
       <span class="warn">
-        Belum ada command sleep yang akan dikirim otomatis.
+        Jangan melakukan pengukuran manual dulu ketika
+        menguji Sync Scanner.
       </span>
+
     </div>
+
   </div>
 
 </section>
 
 
-<!-- GATT -->
+<!-- =====================================================
+     SYNC SCANNER
+===================================================== -->
+
+<section id="sync" class="page">
+
+  <div class="section">
+
+    <h2>🔄 Sync Scanner</h2>
+
+    <div class="info">
+
+      Tujuan:
+      mencari command yang membuat XWatch
+      mengirim data yang sudah tersimpan di memori.
+
+      <br><br>
+
+      <b>9231</b> sangat menarik karena memiliki
+      READ + WRITE WITHOUT RESPONSE + NOTIFY.
+
+      <br><br>
+
+      Scanner di bawah <b>tidak menjalankan pengukuran</b>.
+      Ia hanya mengirim command kandidat yang aman
+      untuk melihat apakah jam memberikan respons.
+
+    </div>
+
+    <div class="syncBox">
+
+      <div class="syncTitle">
+        Status Scanner
+      </div>
+
+      <div id="syncStatus" class="syncDesc">
+        Belum dijalankan.
+      </div>
+
+    </div>
+
+    <div class="scanGrid">
+
+      <button
+        id="sync9231Read"
+        class="primary">
+        📖 READ 9231
+      </button>
+
+      <button
+        id="sync9233Read">
+        📖 READ 9233
+      </button>
+
+      <button
+        id="syncFEA1Read">
+        📖 READ FEA1
+      </button>
+
+      <button
+        id="syncFEC9Read">
+        📖 READ FEC9
+      </button>
+
+      <button
+        id="syncAllReads">
+        📚 READ ALL
+      </button>
+
+      <button
+        id="syncListen">
+        👂 LISTEN 10s
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div class="section">
+
+    <h2>🧪 Command Tester</h2>
+
+    <div class="info">
+
+      Masukkan HEX tanpa spasi atau dengan spasi.
+      Contoh:
+
+      <br><br>
+
+      <code>01</code>
+
+      <br>
+
+      <code>01 00</code>
+
+      <br>
+
+      <code>01 02 03</code>
+
+      <br><br>
+
+      Untuk tahap awal pilih characteristic
+      yang memang mempunyai WRITE WITHOUT RESPONSE.
+
+    </div>
+
+    <div style="height:10px"></div>
+
+    <select
+      id="commandTarget"
+      style="
+        width:100%;
+        padding:12px;
+        border-radius:10px;
+        border:1px solid #333;
+        background:#090909;
+        color:#fff;
+      "
+    >
+
+      <option value="9231">9231</option>
+      <option value="9232">9232</option>
+      <option value="8801">8801</option>
+      <option value="6601">6601</option>
+      <option value="AF01">AF01</option>
+      <option value="AE01">AE01</option>
+
+    </select>
+
+    <div class="commandRow">
+
+      <input
+        id="hexCommand"
+        placeholder="HEX command, contoh: 01"
+        autocomplete="off"
+        spellcheck="false"
+      >
+
+      <button
+        id="sendCommand">
+        SEND
+      </button>
+
+    </div>
+
+    <div
+      id="commandResult"
+      class="result">
+      Belum ada command.
+    </div>
+
+  </div>
+
+
+  <div class="section">
+
+    <h2>🔬 Kandidat Sync</h2>
+
+    <div class="info">
+
+      Tombol berikut mengirim command kandidat
+      satu per satu ke <b>9231</b>.
+
+      <br><br>
+
+      <span class="warn">
+        Penting: kita belum tahu command resmi
+        dari firmware. Hasil harus dilihat dari RAW LOG.
+      </span>
+
+    </div>
+
+    <div class="scanGrid">
+
+      <button class="candidate"
+        data-hex="01">
+        9231 → 01
+      </button>
+
+      <button class="candidate"
+        data-hex="00">
+        9231 → 00
+      </button>
+
+      <button class="candidate"
+        data-hex="02">
+        9231 → 02
+      </button>
+
+      <button class="candidate"
+        data-hex="03">
+        9231 → 03
+      </button>
+
+      <button class="candidate"
+        data-hex="10">
+        9231 → 10
+      </button>
+
+      <button class="candidate"
+        data-hex="11">
+        9231 → 11
+      </button>
+
+      <button class="candidate"
+        data-hex="20">
+        9231 → 20
+      </button>
+
+      <button class="candidate"
+        data-hex="FF">
+        9231 → FF
+      </button>
+
+    </div>
+
+    <div
+      class="small"
+      style="margin-top:10px">
+      Jangan tekan semuanya sekaligus. Kirim satu,
+      tunggu respons, lalu lihat RAW LOG.
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     GATT
+===================================================== -->
+
 <section id="gatt" class="page">
 
   <div class="section">
+
     <h2>📡 GATT Services</h2>
-    <pre id="gattOutput">Belum connect.</pre>
+
+    <pre id="gattOutput">
+Belum connect.
+    </pre>
+
   </div>
 
 </section>
 
 
-<!-- LOG -->
+<!-- =====================================================
+     LOG
+===================================================== -->
+
 <section id="log" class="page">
 
   <div class="section">
 
-    <div class="row" style="margin-bottom:12px">
-      <button id="clearLog">Clear Log</button>
-      <button id="copyLog">Copy Log</button>
+    <div
+      class="row"
+      style="margin-bottom:12px">
+
+      <button id="clearLog">
+        Clear Log
+      </button>
+
+      <button id="copyLog">
+        Copy Log
+      </button>
+
     </div>
 
     <pre id="rawLog"></pre>
@@ -491,77 +853,137 @@ input{
 
 </main>
 
+
 <script>
 
 /* =========================================================
    XWATCH H5 PRO BLE
-   ========================================================= */
+========================================================= */
 
 const UUID = {
-  service9232: "0000fd35-0000-1000-8000-00805f9b34fb",
-  char9231: "00009231-0000-1000-8000-00805f9b34fb",
-  char9232: "00009232-0000-1000-8000-00805f9b34fb",
-  char9233: "00009233-0000-1000-8000-00805f9b34fb",
 
-  serviceAE: "0000ae00-0000-1000-8000-00805f9b34fb",
-  charAE01: "0000ae01-0000-1000-8000-00805f9b34fb",
-  charAE02: "0000ae02-0000-1000-8000-00805f9b34fb",
+  service9232:
+    "0000fd35-0000-1000-8000-00805f9b34fb",
 
-  service88: "00008800-0000-1000-8000-00805f9b34fb",
-  char8801: "00008801-0000-1000-8000-00805f9b34fb",
-  char8802: "00008802-0000-1000-8000-00805f9b34fb",
+  char9231:
+    "00009231-0000-1000-8000-00805f9b34fb",
 
-  service66: "00006600-0000-1000-8000-00805f9b34fb",
-  char6601: "00006601-0000-1000-8000-00805f9b34fb",
-  char6602: "00006602-0000-1000-8000-00805f9b34fb",
+  char9232:
+    "00009232-0000-1000-8000-00805f9b34fb",
 
-  serviceFEE7: "0000fee7-0000-1000-8000-00805f9b34fb",
-  charFEA1: "0000fea1-0000-1000-8000-00805f9b34fb",
-  charFEC9: "0000fec9-0000-1000-8000-00805f9b34fb",
+  char9233:
+    "00009233-0000-1000-8000-00805f9b34fb",
 
-  serviceAF: "0000af00-0000-1000-8000-00805f9b34fb",
-  charAF01: "0000af01-0000-1000-8000-00805f9b34fb",
-  charAF02: "0000af02-0000-1000-8000-00805f9b34fb",
 
-  genericAccess: "00001800-0000-1000-8000-00805f9b34fb",
-  deviceName: "00002a00-0000-1000-8000-00805f9b34fb"
+  serviceAE:
+    "0000ae00-0000-1000-8000-00805f9b34fb",
+
+  charAE01:
+    "0000ae01-0000-1000-8000-00805f9b34fb",
+
+  charAE02:
+    "0000ae02-0000-1000-8000-00805f9b34fb",
+
+
+  service88:
+    "00008800-0000-1000-8000-00805f9b34fb",
+
+  char8801:
+    "00008801-0000-1000-8000-00805f9b34fb",
+
+  char8802:
+    "00008802-0000-1000-8000-00805f9b34fb",
+
+
+  service66:
+    "00006600-0000-1000-8000-00805f9b34fb",
+
+  char6601:
+    "00006601-0000-1000-8000-00805f9b34fb",
+
+  char6602:
+    "00006602-0000-1000-8000-00805f9b34fb",
+
+
+  serviceFEE7:
+    "0000fee7-0000-1000-8000-00805f9b34fb",
+
+  charFEA1:
+    "0000fea1-0000-1000-8000-00805f9b34fb",
+
+  charFEC9:
+    "0000fec9-0000-1000-8000-00805f9b34fb",
+
+
+  serviceAF:
+    "0000af00-0000-1000-8000-00805f9b34fb",
+
+  charAF01:
+    "0000af01-0000-1000-8000-00805f9b34fb",
+
+  charAF02:
+    "0000af02-0000-1000-8000-00805f9b34fb",
+
+
+  genericAccess:
+    "00001800-0000-1000-8000-00805f9b34fb",
+
+  deviceName:
+    "00002a00-0000-1000-8000-00805f9b34fb"
+
 };
+
 
 let device = null;
 let server = null;
+
 let characteristics = new Map();
+
 let packetCount = 0;
+
+let listenTimer = null;
 
 
 /* =========================================================
    ELEMENTS
-   ========================================================= */
+========================================================= */
 
-const $ = id => document.getElementById(id);
+const $ = id =>
+  document.getElementById(id);
 
-const connectBtn = $("connectBtn");
-const disconnectBtn = $("disconnectBtn");
+const connectBtn =
+  $("connectBtn");
+
+const disconnectBtn =
+  $("disconnectBtn");
 
 
 /* =========================================================
    LOG
-   ========================================================= */
+========================================================= */
 
 function timestamp(){
 
-  return new Date().toLocaleTimeString("id-ID", {
-    hour12:false
-  });
+  return new Date().toLocaleTimeString(
+    "id-ID",
+    {
+      hour12:false
+    }
+  );
 
 }
 
+
 function log(message){
 
-  const line = `[${timestamp()}] ${message}`;
+  const line =
+    `[${timestamp()}] ${message}`;
 
-  $("rawLog").textContent += line + "\n";
+  $("rawLog").textContent +=
+    line + "\n";
 
-  $("rawLog").scrollTop = $("rawLog").scrollHeight;
+  $("rawLog").scrollTop =
+    $("rawLog").scrollHeight;
 
   console.log(line);
 
@@ -570,56 +992,129 @@ function log(message){
 
 /* =========================================================
    HEX
-   ========================================================= */
+========================================================= */
 
 function toHex(data){
 
   return [...new Uint8Array(data)]
-    .map(x => x.toString(16).padStart(2,"0").toUpperCase())
+    .map(x =>
+      x.toString(16)
+       .padStart(2,"0")
+       .toUpperCase()
+    )
     .join(" ");
 
 }
 
+
 function ascii(data){
 
   return [...new Uint8Array(data)]
-    .map(x => x >= 32 && x <= 126 ? String.fromCharCode(x) : ".")
+    .map(x =>
+      x >= 32 && x <= 126
+        ? String.fromCharCode(x)
+        : "."
+    )
     .join("");
 
 }
 
 
 /* =========================================================
+   HEX STRING → BYTES
+========================================================= */
+
+function parseHex(text){
+
+  const clean =
+    text
+      .replace(/0x/gi,"")
+      .replace(/[^0-9a-fA-F]/g,"");
+
+  if(!clean){
+
+    throw new Error(
+      "HEX kosong."
+    );
+
+  }
+
+  if(clean.length % 2 !== 0){
+
+    throw new Error(
+      "Jumlah digit HEX harus genap."
+    );
+
+  }
+
+  const bytes = [];
+
+  for(
+    let i=0;
+    i<clean.length;
+    i+=2
+  ){
+
+    bytes.push(
+      parseInt(
+        clean.substring(i,i+2),
+        16
+      )
+    );
+
+  }
+
+  return new Uint8Array(bytes);
+
+}
+
+
+/* =========================================================
    PAGE NAVIGATION
-   ========================================================= */
+========================================================= */
 
-document.querySelectorAll(".nav button").forEach(btn => {
+document
+  .querySelectorAll(".nav button")
+  .forEach(btn => {
 
-  btn.addEventListener("click", () => {
+    btn.addEventListener(
+      "click",
+      () => {
 
-    document.querySelectorAll(".nav button")
-      .forEach(x => x.classList.remove("active"));
+        document
+          .querySelectorAll(".nav button")
+          .forEach(x =>
+            x.classList.remove("active")
+          );
 
-    document.querySelectorAll(".page")
-      .forEach(x => x.classList.remove("active"));
+        document
+          .querySelectorAll(".page")
+          .forEach(x =>
+            x.classList.remove("active")
+          );
 
-    btn.classList.add("active");
+        btn.classList.add("active");
 
-    $(btn.dataset.page).classList.add("active");
+        $(btn.dataset.page)
+          .classList.add("active");
+
+      }
+    );
 
   });
-
-});
 
 
 /* =========================================================
    UPDATE DASHBOARD
-   ========================================================= */
+========================================================= */
 
 function setHR(value){
 
-  $("hr").textContent = value;
-  $("hr2").textContent = value;
+  $("hr").textContent =
+    value;
+
+  $("hr2").textContent =
+    value;
 
   $("healthInfo").innerHTML =
     `Heart Rate: <b>${value} BPM</b><br>` +
@@ -630,49 +1125,66 @@ function setHR(value){
 
 function setSpO2(value){
 
-  $("spo2").textContent = value;
-  $("spo22").textContent = value;
+  $("spo2").textContent =
+    value;
+
+  $("spo22").textContent =
+    value;
 
 }
 
 
 function setPressure(value){
 
-  $("pressure").textContent = value;
-  $("pressure2").textContent = value;
+  $("pressure").textContent =
+    value;
+
+  $("pressure2").textContent =
+    value;
 
 }
 
 
 function setSteps(value){
 
-  $("steps").textContent = value;
-  $("steps2").textContent = value;
+  $("steps").textContent =
+    value;
+
+  $("steps2").textContent =
+    value;
 
 }
 
 
 function setCalories(value){
 
-  $("calories").textContent = value;
-  $("calories2").textContent = value;
+  $("calories").textContent =
+    value;
+
+  $("calories2").textContent =
+    value;
 
 }
 
 
 /* =========================================================
    9232 DECODER
-   ========================================================= */
+========================================================= */
 
 function decode9232(data){
 
-  const b = [...new Uint8Array(data)];
+  const b =
+    [...new Uint8Array(data)];
 
   packetCount++;
 
-  $("blePackets").textContent = packetCount;
+  $("blePackets").textContent =
+    packetCount;
 
-  if(b.length < 9) return;
+
+  if(b.length < 9)
+    return;
+
 
   /*
     Struktur umum:
@@ -688,45 +1200,64 @@ function decode9232(data){
     ...
   */
 
-  const typeIndex = b.indexOf(0x08,5);
+  const typeIndex =
+    b.indexOf(0x08,5);
 
-  if(typeIndex < 0 || typeIndex + 1 >= b.length){
+
+  if(
+    typeIndex < 0 ||
+    typeIndex + 1 >= b.length
+  ){
+
     return;
+
   }
 
-  const type = b[typeIndex + 1];
+
+  const type =
+    b[typeIndex + 1];
+
 
   /*
-    HR / Pressure / Calories:
-    ...
-    10 XX
+    VALUE 10
   */
 
   let value10 = null;
 
-  for(let i=0;i<b.length-1;i++){
+
+  for(
+    let i=0;
+    i<b.length-1;
+    i++
+  ){
 
     if(b[i] === 0x10){
 
-      value10 = b[i+1];
+      value10 =
+        b[i+1];
 
     }
 
   }
 
+
   /*
-    Steps:
-    ...
-    08 XX
+    VALUE 08
   */
 
   let value08 = null;
 
-  for(let i=typeIndex+2;i<b.length-1;i++){
+
+  for(
+    let i=typeIndex+2;
+    i<b.length-1;
+    i++
+  ){
 
     if(b[i] === 0x08){
 
-      value08 = b[i+1];
+      value08 =
+        b[i+1];
 
       break;
 
@@ -735,9 +1266,7 @@ function decode9232(data){
   }
 
 
-  /* -----------------------------------------
-     D2 = HEART RATE
-     ----------------------------------------- */
+  /* D2 = HEART RATE */
 
   if(type === 0xD2){
 
@@ -745,91 +1274,8 @@ function decode9232(data){
 
       setHR(value10);
 
-      log(`❤️ D2 HEART RATE = ${value10} BPM`);
-
-    }
-
-    return;
-
-  }
-
-
-  /* -----------------------------------------
-     D3 = SPO2
-     ----------------------------------------- */
-
-  if(type === 0xD3){
-
-    if(value10 !== null){
-
-      setSpO2(value10);
-
-      log(`🩸 D3 SpO2 = ${value10}%`);
-
-    }
-
-    return;
-
-  }
-
-
-  /* -----------------------------------------
-     E5 = PRESSURE
-     ----------------------------------------- */
-
-  if(type === 0xE5){
-
-    if(value10 !== null){
-
-      setPressure(value10);
-
-      log(`💨 E5 PRESSURE = ${value10}`);
-
-    }
-
-    return;
-
-  }
-
-
-  /* -----------------------------------------
-     D6 = STEPS
-     ----------------------------------------- */
-
-  if(type === 0xD6){
-
-    if(value08 !== null){
-
-      setSteps(value08);
-
-      log(`👟 D6 STEPS = ${value08}`);
-
-    }
-
-    return;
-
-  }
-
-
-  /* -----------------------------------------
-     DB = POSSIBLE CALORIES
-     ----------------------------------------- */
-
-  if(type === 0xDB){
-
-    if(value10 !== null){
-
-      /*
-        IMPORTANT:
-
-        DB is NOT marked confirmed yet.
-
-        We only display the raw candidate.
-      */
-
       log(
-        `🔥 DB CANDIDATE CALORIES = ${value10} ` +
-        `(BELUM DIKONFIRMASI)`
+        `❤️ D2 HEART RATE = ${value10} BPM`
       );
 
     }
@@ -839,14 +1285,93 @@ function decode9232(data){
   }
 
 
-  /*
-    Unknown record.
-  */
+  /* D3 = SPO2 */
+
+  if(type === 0xD3){
+
+    if(value10 !== null){
+
+      setSpO2(value10);
+
+      log(
+        `🩸 D3 SpO2 = ${value10}%`
+      );
+
+    }
+
+    return;
+
+  }
+
+
+  /* E5 = PRESSURE */
+
+  if(type === 0xE5){
+
+    if(value10 !== null){
+
+      setPressure(value10);
+
+      log(
+        `💨 E5 PRESSURE = ${value10}`
+      );
+
+    }
+
+    return;
+
+  }
+
+
+  /* D6 = STEPS */
+
+  if(type === 0xD6){
+
+    if(value08 !== null){
+
+      setSteps(value08);
+
+      log(
+        `👟 D6 STEPS = ${value08}`
+      );
+
+    }
+
+    return;
+
+  }
+
+
+  /* DB = POSSIBLE CALORIES */
+
+  if(type === 0xDB){
+
+    if(value10 !== null){
+
+      log(
+        `🔥 DB CANDIDATE CALORIES = ${value10}` +
+        ` (BELUM DIKONFIRMASI)`
+      );
+
+    }
+
+    return;
+
+  }
+
 
   log(
-    `🧬 UNKNOWN 9232 TYPE=${type.toString(16).toUpperCase().padStart(2,"0")}` +
-    (value10 !== null ? ` VALUE10=${value10}` : "") +
-    (value08 !== null ? ` VALUE08=${value08}` : "")
+    `🧬 UNKNOWN 9232 TYPE=` +
+    type
+      .toString(16)
+      .toUpperCase()
+      .padStart(2,"0") +
+    (value10 !== null
+      ? ` VALUE10=${value10}`
+      : "") +
+    (value08 !== null
+      ? ` VALUE08=${value08}`
+      : "")
   );
 
 }
@@ -854,28 +1379,30 @@ function decode9232(data){
 
 /* =========================================================
    NOTIFICATION HANDLER
-   ========================================================= */
+========================================================= */
 
 function notificationHandler(event){
 
-  const char = event.target;
+  const char =
+    event.target;
 
-  const data = event.target.value.buffer;
+  const data =
+    event.target.value.buffer;
 
-  const uuid = char.uuid.toLowerCase();
+  const uuid =
+    char.uuid.toLowerCase();
 
-  const hex = toHex(data);
+  const hex =
+    toHex(data);
 
-  const asc = ascii(data);
+  const asc =
+    ascii(data);
+
 
   log(
     `RX ${uuid} → ${hex} | ASCII: ${asc}`
   );
 
-
-  /*
-    9232 protocol decoder
-  */
 
   if(uuid === UUID.char9232){
 
@@ -888,7 +1415,7 @@ function notificationHandler(event){
 
 /* =========================================================
    ENABLE NOTIFY
-   ========================================================= */
+========================================================= */
 
 async function enableNotify(char){
 
@@ -901,7 +1428,9 @@ async function enableNotify(char){
       notificationHandler
     );
 
-    log(`✓ NOTIFY AKTIF: ${char.uuid}`);
+    log(
+      `✓ NOTIFY AKTIF: ${char.uuid}`
+    );
 
   }catch(error){
 
@@ -916,7 +1445,7 @@ async function enableNotify(char){
 
 /* =========================================================
    CONNECT
-   ========================================================= */
+========================================================= */
 
 async function connect(){
 
@@ -930,30 +1459,46 @@ async function connect(){
 
     }
 
-    log("Membuka Bluetooth picker...");
 
-    device = await navigator.bluetooth.requestDevice({
-
-      filters:[
-        {
-          name:"XWatch H5 Pro"
-        }
-      ],
-
-      optionalServices:[
-        UUID.service9232,
-        UUID.service88,
-        UUID.service66,
-        UUID.serviceFEE7,
-        UUID.serviceAF,
-        UUID.serviceAE,
-        UUID.genericAccess
-      ]
-
-    });
+    log(
+      "Membuka Bluetooth picker..."
+    );
 
 
-    log(`Device ditemukan: ${device.name}`);
+    device =
+      await navigator.bluetooth.requestDevice({
+
+        filters:[
+          {
+            name:"XWatch H5 Pro"
+          }
+        ],
+
+        optionalServices:[
+
+          UUID.service9232,
+
+          UUID.service88,
+
+          UUID.service66,
+
+          UUID.serviceFEE7,
+
+          UUID.serviceAF,
+
+          UUID.serviceAE,
+
+          UUID.genericAccess
+
+        ]
+
+      });
+
+
+    log(
+      `Device ditemukan: ${device.name}`
+    );
+
 
     device.addEventListener(
       "gattserverdisconnected",
@@ -961,21 +1506,32 @@ async function connect(){
     );
 
 
-    server = await device.gatt.connect();
+    server =
+      await device.gatt.connect();
 
-    log("✓ BERHASIL CONNECT");
+
+    log(
+      "✓ BERHASIL CONNECT"
+    );
 
 
-    $("statusDot").classList.add("on");
+    $("statusDot")
+      .classList.add("on");
+
 
     $("statusText").textContent =
       `Terhubung: ${device.name}`;
 
-    connectBtn.disabled = true;
-    disconnectBtn.disabled = false;
+
+    connectBtn.disabled =
+      true;
+
+    disconnectBtn.disabled =
+      false;
 
 
     await discoverServices();
+
 
   }catch(error){
 
@@ -990,23 +1546,33 @@ async function connect(){
 
 /* =========================================================
    DISCOVER SERVICES
-   ========================================================= */
+========================================================= */
 
 async function discoverServices(){
 
   characteristics.clear();
 
+
   const services =
     await server.getPrimaryServices();
 
-  log(`Jumlah service: ${services.length}`);
+
+  log(
+    `Jumlah service: ${services.length}`
+  );
 
 
-  for(const service of services){
+  for(
+    const service of services
+  ){
 
-    log(`SERVICE: ${service.uuid}`);
+    log(
+      `SERVICE: ${service.uuid}`
+    );
+
 
     let chars = [];
+
 
     try{
 
@@ -1024,28 +1590,40 @@ async function discoverServices(){
     }
 
 
-    for(const char of chars){
+    for(
+      const char of chars
+    ){
 
       const props = [];
+
 
       if(char.properties.read)
         props.push("READ");
 
+
       if(char.properties.write)
         props.push("WRITE");
 
-      if(char.properties.writeWithoutResponse)
-        props.push("WRITE_NO_RESPONSE");
+
+      if(
+        char.properties.writeWithoutResponse
+      )
+        props.push(
+          "WRITE_NO_RESPONSE"
+        );
+
 
       if(char.properties.notify)
         props.push("NOTIFY");
+
 
       if(char.properties.indicate)
         props.push("INDICATE");
 
 
       log(
-        `  CHAR ${char.uuid} [${props.join(", ")}]`
+        `  CHAR ${char.uuid} ` +
+        `[${props.join(", ")}]`
       );
 
 
@@ -1055,13 +1633,11 @@ async function discoverServices(){
       );
 
 
-      /*
-        Aktifkan notification
-      */
-
       if(char.properties.notify){
 
-        await enableNotify(char);
+        await enableNotify(
+          char
+        );
 
       }
 
@@ -1072,6 +1648,7 @@ async function discoverServices(){
 
   renderGatt();
 
+
   await testAE();
 
 }
@@ -1079,30 +1656,52 @@ async function discoverServices(){
 
 /* =========================================================
    RENDER GATT
-   ========================================================= */
+========================================================= */
 
 function renderGatt(){
 
   const rows = [];
 
-  for(const [uuid,char] of characteristics){
 
-    const p = char.properties;
+  for(
+    const [uuid,char]
+    of characteristics
+  ){
+
+    const p =
+      char.properties;
 
     const props = [];
 
-    if(p.read) props.push("READ");
-    if(p.write) props.push("WRITE");
+
+    if(p.read)
+      props.push("READ");
+
+
+    if(p.write)
+      props.push("WRITE");
+
+
     if(p.writeWithoutResponse)
-      props.push("WRITE_NO_RESPONSE");
-    if(p.notify) props.push("NOTIFY");
-    if(p.indicate) props.push("INDICATE");
+      props.push(
+        "WRITE_NO_RESPONSE"
+      );
+
+
+    if(p.notify)
+      props.push("NOTIFY");
+
+
+    if(p.indicate)
+      props.push("INDICATE");
+
 
     rows.push(
       `${uuid}\n  [${props.join(", ")}]`
     );
 
   }
+
 
   $("gattOutput").textContent =
     rows.join("\n\n");
@@ -1112,7 +1711,7 @@ function renderGatt(){
 
 /* =========================================================
    AE01 TEST
-   ========================================================= */
+========================================================= */
 
 async function testAE(){
 
@@ -1129,34 +1728,35 @@ async function testAE(){
 
   if(!tx){
 
-    log("⚠ AE01 TX tidak ditemukan");
+    log(
+      "⚠ AE01 TX tidak ditemukan"
+    );
 
     return;
 
   }
 
-  log("✓ AE01 TX ditemukan");
+
+  log(
+    "✓ AE01 TX ditemukan"
+  );
 
 
   if(rx){
 
-    log("✓ AE02 RX ditemukan");
+    log(
+      "✓ AE02 RX ditemukan"
+    );
 
   }
 
-
-  /*
-    AE01 terbukti menggunakan
-    WRITE WITHOUT RESPONSE.
-
-    01 → RX "02 70 61 73 73"
-  */
 
   try{
 
     await tx.writeValueWithoutResponse(
       new Uint8Array([0x01])
     );
+
 
     log(
       "TX AE01 → 01 " +
@@ -1175,14 +1775,584 @@ async function testAE(){
 
 
 /* =========================================================
+   GENERIC WRITE
+========================================================= */
+
+async function writeHexToCharacteristic(
+  uuid,
+  bytes,
+  label=""
+){
+
+  const char =
+    characteristics.get(
+      uuid.toLowerCase()
+    );
+
+
+  if(!char){
+
+    throw new Error(
+      `${label || uuid} tidak ditemukan.`
+    );
+
+  }
+
+
+  if(
+    !char.properties.writeWithoutResponse &&
+    !char.properties.write
+  ){
+
+    throw new Error(
+      `${label || uuid} tidak memiliki WRITE.`
+    );
+
+  }
+
+
+  log(
+    `TX ${label || uuid} → ${toHex(bytes)}`
+  );
+
+
+  /*
+    Prioritaskan WRITE WITHOUT RESPONSE.
+    Ini penting karena AE01/9231/9232 dll
+    bisa menolak write-with-response.
+  */
+
+  if(
+    char.properties.writeWithoutResponse
+  ){
+
+    await char.writeValueWithoutResponse(
+      bytes
+    );
+
+    return;
+
+  }
+
+
+  if(char.properties.write){
+
+    await char.writeValue(
+      bytes
+    );
+
+    return;
+
+  }
+
+}
+
+
+/* =========================================================
+   READ CHARACTERISTIC
+========================================================= */
+
+async function readCharacteristic(
+  uuid,
+  label=""
+){
+
+  const char =
+    characteristics.get(
+      uuid.toLowerCase()
+    );
+
+
+  if(!char){
+
+    throw new Error(
+      `${label || uuid} tidak ditemukan.`
+    );
+
+  }
+
+
+  if(!char.properties.read){
+
+    throw new Error(
+      `${label || uuid} tidak memiliki READ.`
+    );
+
+  }
+
+
+  log(
+    `READ → ${label || uuid}`
+  );
+
+
+  const value =
+    await char.readValue();
+
+
+  const hex =
+    toHex(value.buffer);
+
+  const asc =
+    ascii(value.buffer);
+
+
+  log(
+    `READ RX ${label || uuid} → ` +
+    `${hex} | ASCII: ${asc}`
+  );
+
+
+  return value;
+
+}
+
+
+/* =========================================================
+   SYNC STATUS
+========================================================= */
+
+function syncStatus(text){
+
+  $("syncStatus").textContent =
+    text;
+
+}
+
+
+/* =========================================================
+   READ 9231
+========================================================= */
+
+$("sync9231Read")
+  .addEventListener(
+    "click",
+    async () => {
+
+      try{
+
+        syncStatus(
+          "Membaca 9231..."
+        );
+
+        await readCharacteristic(
+          UUID.char9231,
+          "9231"
+        );
+
+        syncStatus(
+          "9231 berhasil dibaca. " +
+          "Lihat RAW LOG."
+        );
+
+      }catch(error){
+
+        syncStatus(
+          `9231 gagal: ${error.message}`
+        );
+
+        log(
+          `SYNC READ 9231 ERROR: ${error.message}`
+        );
+
+      }
+
+    }
+  );
+
+
+/* =========================================================
+   READ 9233
+========================================================= */
+
+$("sync9233Read")
+  .addEventListener(
+    "click",
+    async () => {
+
+      try{
+
+        syncStatus(
+          "Membaca 9233..."
+        );
+
+        await readCharacteristic(
+          UUID.char9233,
+          "9233"
+        );
+
+        syncStatus(
+          "9233 berhasil dibaca."
+        );
+
+      }catch(error){
+
+        syncStatus(
+          `9233 gagal: ${error.message}`
+        );
+
+        log(
+          `SYNC READ 9233 ERROR: ${error.message}`
+        );
+
+      }
+
+    }
+  );
+
+
+/* =========================================================
+   READ FEA1
+========================================================= */
+
+$("syncFEA1Read")
+  .addEventListener(
+    "click",
+    async () => {
+
+      try{
+
+        syncStatus(
+          "Membaca FEA1..."
+        );
+
+        await readCharacteristic(
+          UUID.charFEA1,
+          "FEA1"
+        );
+
+        syncStatus(
+          "FEA1 berhasil dibaca."
+        );
+
+      }catch(error){
+
+        syncStatus(
+          `FEA1 gagal: ${error.message}`
+        );
+
+        log(
+          `SYNC READ FEA1 ERROR: ${error.message}`
+        );
+
+      }
+
+    }
+  );
+
+
+/* =========================================================
+   READ FEC9
+========================================================= */
+
+$("syncFEC9Read")
+  .addEventListener(
+    "click",
+    async () => {
+
+      try{
+
+        syncStatus(
+          "Membaca FEC9..."
+        );
+
+        await readCharacteristic(
+          UUID.charFEC9,
+          "FEC9"
+        );
+
+        syncStatus(
+          "FEC9 berhasil dibaca."
+        );
+
+      }catch(error){
+
+        syncStatus(
+          `FEC9 gagal: ${error.message}`
+        );
+
+        log(
+          `SYNC READ FEC9 ERROR: ${error.message}`
+        );
+
+      }
+
+    }
+  );
+
+
+/* =========================================================
+   READ ALL
+========================================================= */
+
+$("syncAllReads")
+  .addEventListener(
+    "click",
+    async () => {
+
+      const list = [
+
+        [UUID.char9231,"9231"],
+
+        [UUID.char9233,"9233"],
+
+        [UUID.charFEA1,"FEA1"],
+
+        [UUID.charFEC9,"FEC9"]
+
+      ];
+
+
+      syncStatus(
+        "READ ALL dimulai..."
+      );
+
+
+      for(
+        const [uuid,label]
+        of list
+      ){
+
+        try{
+
+          await readCharacteristic(
+            uuid,
+            label
+          );
+
+        }catch(error){
+
+          log(
+            `READ ${label} gagal: ` +
+            error.message
+          );
+
+        }
+
+      }
+
+
+      syncStatus(
+        "READ ALL selesai. " +
+        "Lihat RAW LOG."
+      );
+
+    }
+  );
+
+
+/* =========================================================
+   LISTEN MODE
+========================================================= */
+
+$("syncListen")
+  .addEventListener(
+    "click",
+    () => {
+
+      if(listenTimer){
+
+        clearTimeout(
+          listenTimer
+        );
+
+        listenTimer = null;
+
+        syncStatus(
+          "LISTEN dihentikan."
+        );
+
+        log(
+          "LISTEN MODE STOP"
+        );
+
+        return;
+
+      }
+
+
+      syncStatus(
+        "Mendengarkan notification selama 10 detik..."
+      );
+
+
+      log(
+        "LISTEN MODE START → 10 detik"
+      );
+
+
+      listenTimer =
+        setTimeout(
+          () => {
+
+            listenTimer = null;
+
+            syncStatus(
+              "LISTEN selesai."
+            );
+
+            log(
+              "LISTEN MODE END"
+            );
+
+          },
+          10000
+        );
+
+    }
+  );
+
+
+/* =========================================================
+   COMMAND TESTER
+========================================================= */
+
+$("sendCommand")
+  .addEventListener(
+    "click",
+    async () => {
+
+      const target =
+        $("commandTarget").value;
+
+      const hex =
+        $("hexCommand").value.trim();
+
+
+      let uuid = null;
+
+
+      switch(target){
+
+        case "9231":
+          uuid = UUID.char9231;
+          break;
+
+        case "9232":
+          uuid = UUID.char9232;
+          break;
+
+        case "8801":
+          uuid = UUID.char8801;
+          break;
+
+        case "6601":
+          uuid = UUID.char6601;
+          break;
+
+        case "AF01":
+          uuid = UUID.charAF01;
+          break;
+
+        case "AE01":
+          uuid = UUID.charAE01;
+          break;
+
+      }
+
+
+      try{
+
+        const bytes =
+          parseHex(hex);
+
+
+        await writeHexToCharacteristic(
+          uuid,
+          bytes,
+          target
+        );
+
+
+        $("commandResult").textContent =
+          `TX ${target} → ${toHex(bytes)} berhasil.`;
+
+      }catch(error){
+
+        $("commandResult").textContent =
+          `ERROR: ${error.message}`;
+
+        log(
+          `COMMAND ERROR ${target}: ${error.message}`
+        );
+
+      }
+
+    }
+  );
+
+
+/* =========================================================
+   CANDIDATE COMMANDS
+========================================================= */
+
+document
+  .querySelectorAll(".candidate")
+  .forEach(button => {
+
+    button.addEventListener(
+      "click",
+      async () => {
+
+        const hex =
+          button.dataset.hex;
+
+
+        try{
+
+          syncStatus(
+            `Mengirim kandidat 9231 → ${hex}...`
+          );
+
+
+          const bytes =
+            parseHex(hex);
+
+
+          await writeHexToCharacteristic(
+            UUID.char9231,
+            bytes,
+            "9231"
+          );
+
+
+          syncStatus(
+            `Kandidat 9231 → ${hex} terkirim. ` +
+            `Tunggu notification dan lihat RAW LOG.`
+          );
+
+
+        }catch(error){
+
+          syncStatus(
+            `Gagal 9231 → ${hex}: ${error.message}`
+          );
+
+          log(
+            `CANDIDATE ERROR 9231 → ${hex}: ` +
+            error.message
+          );
+
+        }
+
+      }
+    );
+
+  });
+
+
+/* =========================================================
    DISCONNECT
-   ========================================================= */
+========================================================= */
 
 function disconnect(){
 
   try{
 
-    if(device && device.gatt.connected){
+    if(
+      device &&
+      device.gatt.connected
+    ){
 
       device.gatt.disconnect();
 
@@ -1190,7 +2360,9 @@ function disconnect(){
 
   }catch(error){
 
-    log(`Disconnect error: ${error.message}`);
+    log(
+      `Disconnect error: ${error.message}`
+    );
 
   }
 
@@ -1199,27 +2371,38 @@ function disconnect(){
 
 function onDisconnected(){
 
-  $("statusDot").classList.remove("on");
+  $("statusDot")
+    .classList.remove("on");
+
 
   $("statusText").textContent =
     "Terputus";
 
-  connectBtn.disabled = false;
-  disconnectBtn.disabled = true;
 
-  log("✕ DEVICE DISCONNECTED");
+  connectBtn.disabled =
+    false;
+
+
+  disconnectBtn.disabled =
+    true;
+
+
+  log(
+    "✕ DEVICE DISCONNECTED"
+  );
 
 }
 
 
 /* =========================================================
    BUTTONS
-   ========================================================= */
+========================================================= */
 
 connectBtn.addEventListener(
   "click",
   connect
 );
+
 
 disconnectBtn.addEventListener(
   "click",
@@ -1227,52 +2410,88 @@ disconnectBtn.addEventListener(
 );
 
 
-$("clearLog").addEventListener(
-  "click",
-  () => {
+$("clearLog")
+  .addEventListener(
+    "click",
+    () => {
 
-    $("rawLog").textContent = "";
+      $("rawLog").textContent =
+        "";
 
-  }
-);
+      packetCount = 0;
 
-
-$("copyLog").addEventListener(
-  "click",
-  async () => {
-
-    try{
-
-      await navigator.clipboard.writeText(
-        $("rawLog").textContent
-      );
-
-      log("✓ RAW LOG berhasil dicopy");
-
-    }catch(error){
-
-      log(
-        `Copy gagal: ${error.message}`
-      );
+      $("blePackets").textContent =
+        "0";
 
     }
+  );
 
-  }
-);
+
+$("copyLog")
+  .addEventListener(
+    "click",
+    async () => {
+
+      try{
+
+        await navigator.clipboard.writeText(
+          $("rawLog").textContent
+        );
+
+        log(
+          "✓ RAW LOG berhasil dicopy"
+        );
+
+      }catch(error){
+
+        log(
+          `Copy gagal: ${error.message}`
+        );
+
+      }
+
+    }
+  );
 
 
 /* =========================================================
    STARTUP
-   ========================================================= */
+========================================================= */
 
-log("XWatch H5 Pro Companion siap.");
+log(
+  "XWatch H5 Pro Companion siap."
+);
 
-log("AE00 = Service");
-log("AE01 = TX");
-log("AE02 = RX / Notify");
+log(
+  "AE00 = Service"
+);
+
+log(
+  "AE01 = TX"
+);
+
+log(
+  "AE02 = RX / Notify"
+);
+
+log(
+  "9231 = READ / WRITE_NO_RESPONSE / NOTIFY"
+);
+
+log(
+  "9232 = WRITE_NO_RESPONSE / NOTIFY"
+);
+
+log(
+  "9233 = READ"
+);
 
 log(
   "Mode discovery semua NOTIFY aktif."
+);
+
+log(
+  "Sync Scanner siap."
 );
 
 </script>
