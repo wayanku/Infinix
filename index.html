@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+<meta name="theme-color" content="#111827">
+
+<title>XWatch H5 Pro Bluetooth Tool</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        padding: 20px;
+        padding-top: max(20px, env(safe-area-inset-top));
+        padding-bottom: max(20px, env(safe-area-inset-bottom));
+
+        font-family:
+            -apple-system,
+            BlinkMacSystemFont,
+            "Segoe UI",
+            Roboto,
+            Arial,
+            sans-serif;
+
+        background: #0b1120;
+        color: #f9fafb;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 900px;
+        margin: auto;
+    }
+
+    h1 {
+        margin-bottom: 5px;
+        font-size: 28px;
+    }
+
+    .subtitle {
+        color: #9ca3af;
+        margin-top: 0;
+        margin-bottom: 25px;
+    }
+
+    .card {
+        background: #111827;
+        border: 1px solid #1f2937;
+        border-radius: 18px;
+        padding: 18px;
+        margin-bottom: 16px;
+    }
+
+    button {
+        border: 0;
+        border-radius: 12px;
+        padding: 13px 18px;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        margin: 4px;
+    }
+
+    .primary {
+        background: #2563eb;
+        color: white;
+    }
+
+    .danger {
+        background: #dc2626;
+        color: white;
+    }
+
+    .secondary {
+        background: #374151;
+        color: white;
+    }
+
+    button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    .status {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: 10px 0;
+    }
+
+    .dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: #ef4444;
+    }
+
+    .dot.connected {
+        background: #22c55e;
+    }
+
+    .info {
+        display: grid;
+        grid-template-columns: 150px 1fr;
+        gap: 8px;
+        margin-top: 15px;
+    }
+
+    .label {
+        color: #9ca3af;
+    }
+
+    code {
+        color: #93c5fd;
+        word-break: break-all;
+    }
+
+    input {
+        width: 100%;
+        padding: 13px;
+        border-radius: 10px;
+        border: 1px solid #374151;
+        background: #030712;
+        color: white;
+        font-size: 14px;
+        outline: none;
+    }
+
+    input:focus {
+        border-color: #2563eb;
+    }
+
+    .service {
+        border: 1px solid #374151;
+        border-radius: 14px;
+        margin-top: 12px;
+        overflow: hidden;
+    }
+
+    .service-header {
+        padding: 14px;
+        background: #1f2937;
+        font-weight: bold;
+    }
+
+    .characteristic {
+        padding: 14px;
+        border-top: 1px solid #374151;
+    }
+
+    .char-title {
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
+
+    .properties {
+        color: #9ca3af;
+        font-size: 13px;
+        margin-bottom: 10px;
+    }
+
+    .value {
+        background: #030712;
+        border-radius: 10px;
+        padding: 10px;
+        font-family: monospace;
+        font-size: 13px;
+        white-space: pre-wrap;
+        word-break: break-all;
+        margin-top: 8px;
+    }
+
+    .logs {
+        background: #030712;
+        border-radius: 12px;
+        padding: 12px;
+        height: 250px;
+        overflow-y: auto;
+        font-family: monospace;
+        font-size: 12px;
+        line-height: 1.6;
+    }
+
+    .log-info {
+        color: #93c5fd;
+    }
+
+    .log-success {
+        color: #86efac;
+    }
+
+    .log-error {
+        color: #fca5a5;
+    }
+
+    .warning {
+        background: #422006;
+        border: 1px solid #92400e;
+        color: #fed7aa;
+        padding: 13px;
+        border-radius: 12px;
+        margin-bottom: 15px;
+        line-height: 1.5;
+    }
+
+    .small {
+        color: #9ca3af;
+        font-size: 12px;
+        line-height: 1.5;
+    }
+
+    .char-buttons {
+        margin-top: 10px;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            padding: 14px;
+        }
+
+        .info {
+            grid-template-columns: 1fr;
+            gap: 2px;
+        }
+
+        h1 {
+            font-size: 23px;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>⌚ XWatch H5 Pro Tool</h1>
+
+    <p class="subtitle">
+        Bluetooth LE diagnostic & reverse-engineering tool
+    </p>
+
+    <div class="warning">
+        <strong>⚠️ Penting</strong><br>
+        Web Bluetooth hanya bekerja pada browser yang mendukung Web Bluetooth
+        dan biasanya membutuhkan HTTPS. Untuk testing paling mudah gunakan
+        Google Chrome di Android.
+    </div>
+
+    <!-- DEVICE -->
+    <div class="card">
+
+        <h2>Bluetooth</h2>
+
+        <div class="status">
+            <div id="statusDot" class="dot"></div>
+            <span id="statusText">Disconnected</span>
+        </div>
+
+        <button id="scanBtn" class="primary">
+            🔍 Scan XWatch
+        </button>
+
+        <button id="disconnectBtn"
+                class="danger"
+                disabled>
+            Disconnect
+        </button>
+
+        <div class="info">
+
+            <div class="label">Device</div>
+            <div id="deviceName">-</div>
+
+            <div class="label">ID</div>
+            <div id="deviceId">-</div>
+
+        </div>
+
+    </div>
+
+
+    <!-- CUSTOM SERVICE -->
+    <div class="card">
+
+        <h2>Custom Service</h2>
+
+        <p class="small">
+            Jika nanti kita menemukan UUID proprietary XWatch,
+            masukkan UUID service di sini.
+        </p>
+
+        <input
+            id="serviceUuid"
+            placeholder="Contoh: 0000xxxx-0000-1000-8000-00805f9b34fb"
+        >
+
+        <button
+            id="loadServiceBtn"
+            class="secondary"
+            disabled>
+            🔎 Load Service
+        </button>
+
+    </div>
+
+
+    <!-- SERVICES -->
+    <div class="card">
+
+        <h2>GATT Services</h2>
+
+        <div id="services">
+            Belum terhubung.
+        </div>
+
+    </div>
+
+
+    <!-- LOG -->
+    <div class="card">
+
+        <h2>Bluetooth Log</h2>
+
+        <div id="logs" class="logs"></div>
+
+        <button id="clearLogBtn" class="secondary">
+            Clear Log
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+"use strict";
+
+
+/* ============================================
+   GLOBAL
+============================================ */
+
+let device = null;
+let server = null;
+
+const discoveredServices = new Map();
+
+
+/* ============================================
+   DOM
+============================================ */
+
+const scanBtn =
+    document.getElementById("scanBtn");
+
+const disconnectBtn =
+    document.getElementById("disconnectBtn");
+
+const loadServiceBtn =
+    document.getElementById("loadServiceBtn");
+
+const serviceUuidInput =
+    document.getElementById("serviceUuid");
+
+const statusText =
+    document.getElementById("statusText");
+
+const statusDot =
+    document.getElementById("statusDot");
+
+const deviceName =
+    document.getElementById("deviceName");
+
+const deviceId =
+    document.getElementById("deviceId");
+
+const servicesContainer =
+    document.getElementById("services");
+
+const logs =
+    document.getElementById("logs");
+
+const clearLogBtn =
+    document.getElementById("clearLogBtn");
+
+
+/* ============================================
+   LOGGING
+============================================ */
+
+function log(message, type = "info") {
+
+    const time =
+        new Date().toLocaleTimeString();
+
+    const div =
+        document.createElement("div");
+
+    div.className = "log-" + type;
+
+    div.textContent =
+        `[${time}] ${message}`;
+
+    logs.appendChild(div);
+
+    logs.scrollTop =
+        logs.scrollHeight;
+
+    console.log(message);
+}
+
+
+/* ============================================
+   STATUS
+============================================ */
+
+function setConnected(connected) {
+
+    if (connected) {
+
+        statusText.textContent =
+            "Connected";
+
+        statusDot.classList.add(
+            "connected"
+        );
+
+        disconnectBtn.disabled = false;
+        loadServiceBtn.disabled = false;
+
+    } else {
+
+        statusText.textContent =
+            "Disconnected";
+
+        statusDot.classList.remove(
+            "connected"
+        );
+
+        disconnectBtn.disabled = true;
+        loadServiceBtn.disabled = true;
+    }
+}
+
+
+/* ============================================
+   CHECK WEB BLUETOOTH
+============================================ */
+
+function checkBluetooth() {
+
+    if (!navigator.bluetooth) {
+
+        log(
+            "Web Bluetooth tidak tersedia di browser ini.",
+            "error"
+        );
+
+        scanBtn.disabled = true;
+
+        return false;
+    }
+
+    return true;
+}
+
+
+/* ============================================
+   SCAN DEVICE
+============================================ */
+
+scanBtn.addEventListener(
+    "click",
+    async () => {
+
+        if (!checkBluetooth())
+            return;
+
+        try {
+
+            log("Membuka Bluetooth device picker...");
+
+            /*
+             * Kita menggunakan acceptAllDevices
+             * supaya XWatch bisa muncul walaupun
+             * nama/UUID servicenya belum diketahui.
+             *
+             * optionalServices berisi service standar
+             * yang ingin kita akses.
+             */
+
+            device =
+                await navigator.bluetooth.requestDevice({
+
+                    acceptAllDevices: true,
+
+                    optionalServices: [
+
+                        "battery_service",
+
+                        "device_information",
+
+                        "heart_rate",
+
+                        "health_thermometer",
+
+                        "pulse_oxymeter"
+
+                    ]
+
+                });
+
+
+            log(
+                "Device ditemukan: " +
+                (device.name || "Unknown"),
+                "success"
+            );
+
+
+            deviceName.textContent =
+                device.name || "Unknown";
+
+            deviceId.textContent =
+                device.id || "-";
+
+
+            device.addEventListener(
+                "gattserverdisconnected",
+                handleDisconnected
+            );
+
+
+            await connectDevice();
+
+        } catch (error) {
+
+            log(
+                "Scan gagal: " + error.message,
+                "error"
+            );
+
+        }
+
+    }
+);
+
+
+/* ============================================
+   CONNECT
+============================================ */
+
+async function connectDevice() {
+
+    if (!device)
+        return;
+
+
+    try {
+
+        log("Menghubungkan ke GATT server...");
+
+        server =
+            await device.gatt.connect();
+
+        setConnected(true);
+
+        log(
+            "Berhasil terhubung ke XWatch!",
+            "success"
+        );
+
+
+        await discoverServices();
+
+    } catch (error) {
+
+        log(
+            "Gagal connect: " +
+            error.message,
+            "error"
+        );
+
+        setConnected(false);
+    }
+}
+
+
+/* ============================================
+   DISCOVER SERVICES
+============================================ */
+
+async function discoverServices() {
+
+    servicesContainer.innerHTML = "";
+
+    log(
+        "Mencari GATT services..."
+    );
+
+
+    try {
+
+        const services =
+            await server.getPrimaryServices();
+
+
+        if (!services.length) {
+
+            servicesContainer.textContent =
+                "Tidak ada service yang dapat diakses.";
+
+            return;
+        }
+
+
+        log(
+            `Ditemukan ${services.length} service.`,
+            "success"
+        );
+
+
+        for (const service of services) {
+
+            await displayService(service);
+        }
+
+    } catch (error) {
+
+        log(
+            "Gagal membaca services: " +
+            error.message,
+            "error"
+        );
+
+        servicesContainer.textContent =
+            error.message;
+    }
+}
+
+
+/* ============================================
+   DISPLAY SERVICE
+============================================ */
+
+async function displayService(service) {
+
+    discoveredServices.set(
+        service.uuid,
+        service
+    );
+
+
+    const serviceBox =
+        document.createElement("div");
+
+    serviceBox.className =
+        "service";
+
+
+    const header =
+        document.createElement("div");
+
+    header.className =
+        "service-header";
+
+    header.innerHTML =
+        `SERVICE<br>
+         <code>${service.uuid}</code>`;
+
+
+    serviceBox.appendChild(header);
+
+
+    const charContainer =
+        document.createElement("div");
+
+    serviceBox.appendChild(
+        charContainer
+    );
+
+
+    servicesContainer.appendChild(
+        serviceBox
+    );
+
+
+    try {
+
+        const characteristics =
+            await service.getCharacteristics();
+
+
+        log(
+            `Service ${service.uuid}: ` +
+            `${characteristics.length} characteristic`
+        );
+
+
+        for (
+            const characteristic
+            of characteristics
+        ) {
+
+            displayCharacteristic(
+                characteristic,
+                charContainer
+            );
+        }
+
+
+    } catch (error) {
+
+        log(
+            `Gagal membaca characteristic ${service.uuid}: ${error.message}`,
+            "error"
+        );
+    }
+}
+
+
+/* ============================================
+   DISPLAY CHARACTERISTIC
+============================================ */
+
+function displayCharacteristic(
+    characteristic,
+    container
+) {
+
+    const box =
+        document.createElement("div");
+
+    box.className =
+        "characteristic";
+
+
+    const title =
+        document.createElement("div");
+
+    title.className =
+        "char-title";
+
+    title.innerHTML =
+        `Characteristic<br>
+         <code>${characteristic.uuid}</code>`;
+
+
+    const properties =
+        document.createElement("div");
+
+    properties.className =
+        "properties";
+
+    properties.textContent =
+        "Properties: " +
+        characteristic.properties.join(", ");
+
+
+    const value =
+        document.createElement("div");
+
+    value.className =
+        "value";
+
+    value.textContent =
+        "Belum dibaca";
+
+
+    const buttons =
+        document.createElement("div");
+
+    buttons.className =
+        "char-buttons";
+
+
+    /* READ */
+
+    if (
+        characteristic.properties
+            .includes("read")
+    ) {
+
+        const readBtn =
+            document.createElement("button");
+
+        readBtn.className =
+            "secondary";
+
+        readBtn.textContent =
+            "📥 Read";
+
+
+        readBtn.onclick =
+            async () => {
+
+                await readCharacteristic(
+                    characteristic,
+                    value
+                );
+
+            };
+
+
+        buttons.appendChild(
+            readBtn
+        );
+    }
+
+
+    /* NOTIFICATION */
+
+    if (
+        characteristic.properties
+            .includes("notify")
+    ) {
+
+        const notifyBtn =
+            document.createElement("button");
+
+        notifyBtn.className =
+            "primary";
+
+        notifyBtn.textContent =
+            "🔔 Notify";
+
+
+        notifyBtn.onclick =
+            async () => {
+
+                await subscribeCharacteristic(
+                    characteristic,
+                    value,
+                    notifyBtn
+                );
+
+            };
+
+
+        buttons.appendChild(
+            notifyBtn
+        );
+    }
+
+
+    box.appendChild(title);
+    box.appendChild(properties);
+    box.appendChild(value);
+    box.appendChild(buttons);
+
+
+    container.appendChild(box);
+}
+
+
+/* ============================================
+   READ CHARACTERISTIC
+============================================ */
+
+async function readCharacteristic(
+    characteristic,
+    output
+) {
+
+    try {
+
+        log(
+            "Reading " +
+            characteristic.uuid
+        );
+
+
+        const data =
+            await characteristic.readValue();
+
+
+        const bytes =
+            new Uint8Array(data.buffer);
+
+
+        const hex =
+            bytesToHex(bytes);
+
+
+        const ascii =
+            bytesToAscii(bytes);
+
+
+        output.textContent =
+            `HEX:\n${hex}\n\nASCII:\n${ascii}`;
+
+
+        log(
+            `READ ${characteristic.uuid}: ${hex}`,
+            "success"
+        );
+
+
+    } catch (error) {
+
+        log(
+            "Read error: " +
+            error.message,
+            "error"
+        );
+    }
+}
+
+
+/* ============================================
+   NOTIFICATION
+============================================ */
+
+async function subscribeCharacteristic(
+    characteristic,
+    output,
+    button
+) {
+
+    try {
+
+        await characteristic.startNotifications();
+
+
+        characteristic.addEventListener(
+            "characteristicvaluechanged",
+            event => {
+
+                const data =
+                    new Uint8Array(
+                        event.target.value.buffer
+                    );
+
+
+                const hex =
+                    bytesToHex(data);
+
+
+                const ascii =
+                    bytesToAscii(data);
+
+
+                output.textContent =
+                    `HEX:\n${hex}\n\nASCII:\n${ascii}`;
+
+
+                log(
+                    `NOTIFY ${characteristic.uuid}: ${hex}`,
+                    "success"
+                );
+
+            }
+        );
+
+
+        button.textContent =
+            "🔔 Listening...";
+
+
+        button.disabled = true;
+
+
+        log(
+            `Notification aktif: ${characteristic.uuid}`,
+            "success"
+        );
+
+
+    } catch (error) {
+
+        log(
+            "Notification error: " +
+            error.message,
+            "error"
+        );
+    }
+}
+
+
+/* ============================================
+   CUSTOM SERVICE
+============================================ */
+
+loadServiceBtn.addEventListener(
+    "click",
+    async () => {
+
+        const uuid =
+            serviceUuidInput.value.trim();
+
+
+        if (!uuid) {
+
+            log(
+                "Masukkan Service UUID terlebih dahulu.",
+                "error"
+            );
+
+            return;
+        }
+
+
+        if (!server) {
+
+            log(
+                "Belum terhubung ke jam.",
+                "error"
+            );
+
+            return;
+        }
+
+
+        try {
+
+            log(
+                "Mencoba akses custom service: " +
+                uuid
+            );
+
+
+            const service =
+                await server.getPrimaryService(
+                    uuid
+                );
+
+
+            log(
+                "Custom service ditemukan!",
+                "success"
+            );
+
+
+            await displayService(service);
+
+
+        } catch (error) {
+
+            log(
+                "Custom service gagal diakses: " +
+                error.message,
+                "error"
+            );
+        }
+
+    }
+);
+
+
+/* ============================================
+   DISCONNECT
+============================================ */
+
+disconnectBtn.addEventListener(
+    "click",
+    () => {
+
+        if (
+            device &&
+            device.gatt.connected
+        ) {
+
+            device.gatt.disconnect();
+
+            log(
+                "Bluetooth disconnected."
+            );
+        }
+
+    }
+);
+
+
+/* ============================================
+   DISCONNECTED EVENT
+============================================ */
+
+function handleDisconnected() {
+
+    setConnected(false);
+
+    log(
+        "XWatch terputus.",
+        "error"
+    );
+}
+
+
+/* ============================================
+   BYTE UTILITIES
+============================================ */
+
+function bytesToHex(bytes) {
+
+    return Array.from(bytes)
+        .map(
+            byte =>
+                byte
+                    .toString(16)
+                    .padStart(2, "0")
+                    .toUpperCase()
+        )
+        .join(" ");
+}
+
+
+function bytesToAscii(bytes) {
+
+    return Array.from(bytes)
+        .map(byte => {
+
+            if (
+                byte >= 32 &&
+                byte <= 126
+            ) {
+
+                return String.fromCharCode(
+                    byte
+                );
+
+            }
+
+            return ".";
+
+        })
+        .join("");
+}
+
+
+/* ============================================
+   CLEAR LOG
+============================================ */
+
+clearLogBtn.addEventListener(
+    "click",
+    () => {
+
+        logs.innerHTML = "";
+
+    }
+);
+
+
+/* ============================================
+   INITIALIZATION
+============================================ */
+
+checkBluetooth();
+
+log(
+    "XWatch H5 Pro Bluetooth Tool siap."
+);
+
+log(
+    "Target: XWatch H5 Pro / XW5P"
+);
+
+</script>
+
+</body>
+</html>
