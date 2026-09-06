@@ -2,11 +2,10 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-
 <meta name="viewport"
-      content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+      content="width=device-width,initial-scale=1,viewport-fit=cover">
 
-<meta name="theme-color" content="#0b1120">
+<meta name="theme-color" content="#07111f">
 
 <title>XWatch H5 Pro BLE Explorer</title>
 
@@ -15,15 +14,12 @@
     box-sizing: border-box;
 }
 
-body {
+html, body {
     margin: 0;
-    padding: 20px;
-    padding-top: max(20px, env(safe-area-inset-top));
-    padding-bottom: max(20px, env(safe-area-inset-bottom));
-
-    background: #0b1120;
-    color: #f9fafb;
-
+    padding: 0;
+    min-height: 100%;
+    background: #07111f;
+    color: #ffffff;
     font-family:
         -apple-system,
         BlinkMacSystemFont,
@@ -33,219 +29,251 @@ body {
         sans-serif;
 }
 
+body {
+    padding:
+        env(safe-area-inset-top)
+        12px
+        env(safe-area-inset-bottom)
+        12px;
+}
+
 .container {
     width: 100%;
     max-width: 900px;
-    margin: auto;
+    margin: 0 auto;
 }
 
-h1 {
+.header {
+    padding: 22px 6px 16px;
+}
+
+.header h1 {
     margin: 0;
-    font-size: 27px;
+    font-size: 25px;
 }
 
-.subtitle {
-    color: #9ca3af;
-    margin-top: 7px;
-    margin-bottom: 20px;
+.header p {
+    margin: 6px 0 0;
+    color: #9fb0c5;
+    font-size: 14px;
 }
 
 .card {
-    background: #111827;
-    border: 1px solid #1f2937;
+    background: #101d2d;
+    border: 1px solid #20334b;
     border-radius: 18px;
-    padding: 18px;
-    margin-bottom: 16px;
-}
-
-h2 {
-    margin-top: 0;
-    font-size: 19px;
-}
-
-button {
-    border: 0;
-    border-radius: 12px;
-    padding: 13px 17px;
-    margin: 4px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-}
-
-button:disabled {
-    opacity: 0.45;
-    cursor: not-allowed;
-}
-
-.primary {
-    background: #2563eb;
-    color: white;
-}
-
-.secondary {
-    background: #374151;
-    color: white;
-}
-
-.danger {
-    background: #dc2626;
-    color: white;
+    padding: 16px;
+    margin-bottom: 14px;
+    box-shadow: 0 8px 30px rgba(0,0,0,.20);
 }
 
 .status {
     display: flex;
     align-items: center;
-    gap: 9px;
-    margin-bottom: 14px;
+    gap: 10px;
 }
 
 .dot {
     width: 12px;
     height: 12px;
     border-radius: 50%;
-    background: #ef4444;
+    background: #777;
 }
 
 .dot.connected {
-    background: #22c55e;
+    background: #25d366;
+    box-shadow: 0 0 12px #25d366;
+}
+
+.dot.error {
+    background: #ff4d4d;
+}
+
+.status-text {
+    font-weight: 700;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    margin-top: 14px;
 }
 
 .info {
-    display: grid;
-    grid-template-columns: 130px 1fr;
-    gap: 9px;
-    margin-top: 15px;
+    background: #0a1523;
+    padding: 11px;
+    border-radius: 10px;
+    overflow-wrap: anywhere;
 }
 
 .label {
-    color: #9ca3af;
+    color: #8294aa;
+    font-size: 12px;
+    margin-bottom: 4px;
 }
 
-.value-text {
-    word-break: break-all;
+.value {
+    font-family: monospace;
+    font-size: 13px;
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 14px;
+}
+
+button {
+    border: 0;
+    border-radius: 12px;
+    padding: 14px 12px;
+    color: #fff;
+    background: #1677ff;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+button:active {
+    transform: scale(.98);
+}
+
+button:disabled {
+    opacity: .45;
+    cursor: not-allowed;
+}
+
+button.red {
+    background: #e53935;
+}
+
+button.green {
+    background: #159447;
+}
+
+button.gray {
+    background: #34465c;
+}
+
+h2 {
+    margin: 0 0 12px;
+    font-size: 18px;
+}
+
+h3 {
+    margin: 18px 0 8px;
+    font-size: 14px;
+    color: #b9c8d9;
+}
+
+.uuid {
+    font-family: monospace;
+    font-size: 12px;
+    color: #7fc1ff;
+    overflow-wrap: anywhere;
 }
 
 .service {
-    border: 1px solid #374151;
-    border-radius: 14px;
+    background: #0a1523;
+    border: 1px solid #20334b;
+    border-radius: 13px;
+    margin-bottom: 10px;
     overflow: hidden;
-    margin-top: 12px;
 }
 
-.service-header {
-    padding: 14px;
-    background: #1f2937;
+.service-head {
+    padding: 12px;
 }
 
 .characteristic {
-    padding: 14px;
-    border-top: 1px solid #374151;
+    border-top: 1px solid #1c2b3e;
+    padding: 12px;
 }
 
-.char-title {
-    font-weight: 600;
-    margin-bottom: 8px;
+.char-name {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 4px;
 }
 
 .properties {
-    color: #9ca3af;
-    font-size: 13px;
-    margin-bottom: 10px;
+    font-size: 11px;
+    color: #8ea2b8;
+    margin-bottom: 5px;
 }
 
-.data {
-    background: #030712;
-    border-radius: 10px;
-    padding: 10px;
+.log {
+    height: 360px;
+    overflow-y: auto;
+    background: #03080e;
+    border-radius: 12px;
+    padding: 12px;
     font-family: monospace;
-    font-size: 12px;
+    font-size: 11px;
+    line-height: 1.5;
     white-space: pre-wrap;
-    word-break: break-all;
-    min-height: 20px;
+    word-break: break-word;
 }
 
-input {
+.log .ok {
+    color: #4ade80;
+}
+
+.log .err {
+    color: #ff6b6b;
+}
+
+.log .data {
+    color: #60a5fa;
+}
+
+.log .warn {
+    color: #fbbf24;
+}
+
+textarea {
     width: 100%;
-    padding: 13px;
-
-    border-radius: 11px;
-    border: 1px solid #374151;
-
-    background: #030712;
+    min-height: 90px;
+    resize: vertical;
+    background: #07111f;
     color: white;
-
-    font-size: 14px;
+    border: 1px solid #29415e;
+    border-radius: 12px;
+    padding: 12px;
+    font-family: monospace;
+    font-size: 13px;
     outline: none;
 }
 
-input:focus {
-    border-color: #2563eb;
-}
-
-.logs {
-    background: #030712;
-    border-radius: 12px;
-    padding: 12px;
-
-    height: 270px;
-    overflow-y: auto;
-
-    font-family: monospace;
-    font-size: 12px;
-    line-height: 1.6;
-}
-
-.log-info {
-    color: #93c5fd;
-}
-
-.log-success {
-    color: #86efac;
-}
-
-.log-error {
-    color: #fca5a5;
-}
-
-.log-warning {
-    color: #fde68a;
+textarea:focus {
+    border-color: #1683ff;
 }
 
 .small {
-    color: #9ca3af;
+    color: #8294aa;
     font-size: 12px;
     line-height: 1.5;
 }
 
 .badge {
     display: inline-block;
-    background: #1f2937;
-    color: #93c5fd;
-    border-radius: 8px;
     padding: 4px 8px;
+    border-radius: 8px;
+    background: #17314e;
+    color: #9ed0ff;
     font-size: 11px;
-    margin-top: 5px;
+    font-weight: 700;
 }
 
-.empty {
-    color: #9ca3af;
-    padding: 10px 0;
-}
-
-@media (max-width: 600px) {
-
-    body {
-        padding: 14px;
+@media (min-width: 650px) {
+    .info-grid {
+        grid-template-columns: 1fr 1fr;
     }
 
-    h1 {
-        font-size: 23px;
-    }
-
-    .info {
-        grid-template-columns: 1fr;
-        gap: 2px;
+    .buttons {
+        grid-template-columns: repeat(3, 1fr);
     }
 }
 </style>
@@ -255,168 +283,190 @@ input:focus {
 
 <div class="container">
 
-    <h1>⌚ XWatch H5 Pro</h1>
-
-    <div class="subtitle">
-        BLE / GATT Explorer
+    <div class="header">
+        <h1>⌚ XWatch H5 Pro</h1>
+        <p>BLE / GATT Explorer</p>
     </div>
 
-
     <!-- CONNECTION -->
-
     <div class="card">
 
-        <h2>Bluetooth</h2>
-
         <div class="status">
-
             <div id="statusDot" class="dot"></div>
-
-            <span id="statusText">
+            <div id="statusText" class="status-text">
                 Disconnected
-            </span>
+            </div>
+        </div>
+
+        <div class="info-grid">
+
+            <div class="info">
+                <div class="label">Device</div>
+                <div id="deviceName" class="value">—</div>
+            </div>
+
+            <div class="info">
+                <div class="label">Device ID</div>
+                <div id="deviceId" class="value">—</div>
+            </div>
 
         </div>
 
+        <div class="buttons">
 
-        <button
-            id="scanButton"
-            class="primary">
+            <button id="scanBtn">
+                🔵 Scan XWatch
+            </button>
 
-            🔍 Scan XWatch
+            <button id="disconnectBtn"
+                    class="red"
+                    disabled>
+                Disconnect
+            </button>
 
-        </button>
+            <button id="clearBtn"
+                    class="gray">
+                Clear Log
+            </button>
+
+        </div>
+
+    </div>
 
 
-        <button
-            id="disconnectButton"
-            class="danger"
-            disabled>
+    <!-- IMPORTANT UUID -->
+    <div class="card">
 
-            Disconnect
-
-        </button>
-
+        <h2>🎯 XWatch Communication</h2>
 
         <div class="info">
 
             <div class="label">
-                Device
+                Target Service
             </div>
 
-            <div
-                id="deviceName"
-                class="value-text">
-
-                -
-
+            <div class="uuid">
+                0000AE00-0000-1000-8000-00805F9B34FB
             </div>
 
+            <br>
 
             <div class="label">
-                Device ID
+                WRITE — AE01
             </div>
 
-            <div
-                id="deviceId"
-                class="value-text">
-
-                -
-
+            <div class="uuid">
+                0000AE01-0000-1000-8000-00805F9B34FB
             </div>
 
+            <br>
 
             <div class="label">
-                Status
+                NOTIFY — AE02
             </div>
 
-            <div
-                id="connectionState">
-
-                Disconnected
-
+            <div class="uuid">
+                0000AE02-0000-1000-8000-00805F9B34FB
             </div>
 
+        </div>
+
+        <div class="small" style="margin-top:12px">
+            AE01 digunakan untuk mengirim perintah.
+            AE02 digunakan untuk menerima data dari jam.
         </div>
 
     </div>
 
 
-    <!-- GATT -->
-
+    <!-- SEND DATA -->
     <div class="card">
 
-        <h2>GATT Services</h2>
+        <h2>📤 Kirim HEX ke XWatch</h2>
 
-        <div
-            id="servicesContainer"
-            class="empty">
+        <textarea
+            id="hexInput"
+            placeholder="Contoh:
+01 02 03 04
 
-            Belum terhubung.
+atau:
+01020304"></textarea>
+
+        <div class="buttons">
+
+            <button id="sendBtn"
+                    class="green"
+                    disabled>
+                Kirim ke AE01
+            </button>
+
+            <button id="testBtn"
+                    disabled>
+                Test Command
+            </button>
 
         </div>
-
-    </div>
-
-
-    <!-- CUSTOM SERVICE -->
-
-    <div class="card">
-
-        <h2>Custom Service</h2>
 
         <p class="small">
-
-            Jika nanti kita menemukan UUID khusus milik
-            XWatch, masukkan UUID lengkap di sini.
-
+            Jangan memasukkan teks biasa.
+            Gunakan format HEX, misalnya
+            <b>01 02 03 04</b>.
         </p>
 
-
-        <input
-            id="customService"
-            type="text"
-            autocomplete="off"
-            placeholder="0000xxxx-0000-1000-8000-00805f9b34fb">
+    </div>
 
 
-        <br>
+    <!-- SERVICES -->
+    <div class="card">
+
+        <h2>📡 GATT Services</h2>
+
+        <div id="services">
+            Belum terhubung.
+        </div>
+
+    </div>
 
 
-        <button
-            id="loadCustomButton"
-            class="secondary"
-            disabled>
+    <!-- RECEIVED DATA -->
+    <div class="card">
 
-            🔎 Load Service
+        <h2>📥 Data dari XWatch</h2>
 
-        </button>
+        <div class="info">
+
+            <div class="label">
+                Last HEX
+            </div>
+
+            <div id="lastHex"
+                 class="value">
+                —
+            </div>
+
+            <br>
+
+            <div class="label">
+                Last ASCII
+            </div>
+
+            <div id="lastAscii"
+                 class="value">
+                —
+            </div>
+
+        </div>
 
     </div>
 
 
     <!-- LOG -->
-
     <div class="card">
 
-        <h2>Bluetooth Log</h2>
+        <h2>📝 Bluetooth Log</h2>
 
-        <div
-            id="logContainer"
-            class="logs">
-        </div>
-
-
-        <br>
-
-
-        <button
-            id="clearLogButton"
-            class="secondary">
-
-            Clear Log
-
-        </button>
+        <div id="log"
+             class="log"></div>
 
     </div>
 
@@ -424,75 +474,77 @@ input:focus {
 
 
 <script>
-
 "use strict";
 
-
-/* ==================================================
+/* =========================================================
    XWATCH H5 PRO BLE EXPLORER
-================================================== */
+   ========================================================= */
+
+/* ---------- UUID ---------- */
+
+const UUID = {
+
+    TARGET_SERVICE:
+        "0000ae00-0000-1000-8000-00805f9b34fb",
+
+    TARGET_WRITE:
+        "0000ae01-0000-1000-8000-00805f9b34fb",
+
+    TARGET_NOTIFY:
+        "0000ae02-0000-1000-8000-00805f9b34fb",
+
+    /* Proprietary services found from your scanner */
+
+    SERVICE_1:
+        "d0611e78-bbb4-4591-a5f8-487910ae4366",
+
+    SERVICE_2:
+        "9fa480e0-4967-4542-9390-d343dc5d04ae",
+
+    SERVICE_3:
+        "7905f431-b5ce-4e99-a40f-4b1e122d00d0",
+
+    SERVICE_4:
+        "89d3502b-0f36-433a-8ef4-c502ad55f8dc"
+
+};
 
 
-/* --------------------------------------------------
-   GLOBAL
--------------------------------------------------- */
+/* ---------- STATE ---------- */
 
-let bluetoothDevice = null;
-let gattServer = null;
+let device = null;
 
+let server = null;
 
-/* --------------------------------------------------
-   STANDARD BLE UUID
--------------------------------------------------- */
+let targetService = null;
 
-const STANDARD_SERVICES = [
+let writeCharacteristic = null;
 
-    /*
-     * Battery Service
-     */
-    "0000180f-0000-1000-8000-00805f9b34fb",
-
-    /*
-     * Device Information Service
-     */
-    "0000180a-0000-1000-8000-00805f9b34fb",
-
-    /*
-     * Heart Rate Service
-     */
-    "0000180d-0000-1000-8000-00805f9b34fb",
-
-    /*
-     * Health Thermometer
-     */
-    "00001809-0000-1000-8000-00805f9b34fb",
-
-    /*
-     * Pulse Oximeter
-     */
-    "00001822-0000-1000-8000-00805f9b34fb"
-
-];
+let notifyCharacteristic = null;
 
 
-/* --------------------------------------------------
-   DOM
--------------------------------------------------- */
+/* ---------- ELEMENTS ---------- */
 
-const scanButton =
-    document.getElementById("scanButton");
+const scanBtn =
+    document.getElementById("scanBtn");
 
-const disconnectButton =
-    document.getElementById("disconnectButton");
+const disconnectBtn =
+    document.getElementById("disconnectBtn");
 
-const loadCustomButton =
-    document.getElementById("loadCustomButton");
+const clearBtn =
+    document.getElementById("clearBtn");
 
-const clearLogButton =
-    document.getElementById("clearLogButton");
+const sendBtn =
+    document.getElementById("sendBtn");
 
-const customService =
-    document.getElementById("customService");
+const testBtn =
+    document.getElementById("testBtn");
+
+const hexInput =
+    document.getElementById("hexInput");
+
+const logBox =
+    document.getElementById("log");
 
 const statusDot =
     document.getElementById("statusDot");
@@ -500,225 +552,331 @@ const statusDot =
 const statusText =
     document.getElementById("statusText");
 
-const connectionState =
-    document.getElementById("connectionState");
-
 const deviceName =
     document.getElementById("deviceName");
 
 const deviceId =
     document.getElementById("deviceId");
 
-const servicesContainer =
-    document.getElementById("servicesContainer");
+const servicesBox =
+    document.getElementById("services");
 
-const logContainer =
-    document.getElementById("logContainer");
+const lastHex =
+    document.getElementById("lastHex");
+
+const lastAscii =
+    document.getElementById("lastAscii");
 
 
-/* --------------------------------------------------
+/* =========================================================
    LOG
--------------------------------------------------- */
+   ========================================================= */
 
-function addLog(
-    message,
-    type = "info"
-) {
-
-    const row =
-        document.createElement("div");
+function log(message, type = "") {
 
     const time =
-        new Date().toLocaleTimeString();
+        new Date().toLocaleTimeString(
+            "id-ID",
+            {
+                hour12: false,
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit"
+            }
+        );
 
-    row.className =
-        "log-" + type;
+    const line =
+        document.createElement("div");
 
-    row.textContent =
+    if (type) {
+        line.className = type;
+    }
+
+    line.textContent =
         "[" + time + "] " + message;
 
-    logContainer.appendChild(row);
+    logBox.appendChild(line);
 
-    logContainer.scrollTop =
-        logContainer.scrollHeight;
+    logBox.scrollTop =
+        logBox.scrollHeight;
 
-    console.log(message);
 }
 
 
-/* --------------------------------------------------
+/* =========================================================
    STATUS
--------------------------------------------------- */
+   ========================================================= */
 
-function setStatus(connected) {
+function setConnected(connected) {
 
     if (connected) {
 
-        statusDot.classList.add(
-            "connected"
-        );
+        statusDot.className =
+            "dot connected";
 
         statusText.textContent =
             "Connected";
 
-        connectionState.textContent =
-            "Connected";
-
-        disconnectButton.disabled =
-            false;
-
-        loadCustomButton.disabled =
+        disconnectBtn.disabled =
             false;
 
     } else {
 
-        statusDot.classList.remove(
-            "connected"
-        );
+        statusDot.className =
+            "dot";
 
         statusText.textContent =
             "Disconnected";
 
-        connectionState.textContent =
-            "Disconnected";
-
-        disconnectButton.disabled =
+        disconnectBtn.disabled =
             true;
 
-        loadCustomButton.disabled =
+        sendBtn.disabled =
+            true;
+
+        testBtn.disabled =
             true;
     }
+
 }
 
 
-/* --------------------------------------------------
-   BROWSER CHECK
--------------------------------------------------- */
+/* =========================================================
+   HEX HELPERS
+   ========================================================= */
 
-function checkBrowser() {
+function normalizeHex(hex) {
+
+    return hex
+        .replace(/0x/gi, "")
+        .replace(/[^0-9a-fA-F]/g, "");
+}
+
+
+function hexToBytes(hex) {
+
+    const clean =
+        normalizeHex(hex);
+
+    if (!clean.length) {
+        throw new Error("HEX kosong.");
+    }
+
+    if (clean.length % 2 !== 0) {
+        throw new Error(
+            "Jumlah digit HEX harus genap."
+        );
+    }
+
+    const bytes = new Uint8Array(
+        clean.length / 2
+    );
+
+    for (
+        let i = 0;
+        i < clean.length;
+        i += 2
+    ) {
+
+        bytes[i / 2] =
+            parseInt(
+                clean.substring(i, i + 2),
+                16
+            );
+
+    }
+
+    return bytes;
+}
+
+
+function bytesToHex(data) {
+
+    const bytes =
+        data instanceof Uint8Array
+            ? data
+            : new Uint8Array(data);
+
+    return Array
+        .from(bytes)
+        .map(
+            b =>
+                b.toString(16)
+                 .padStart(2, "0")
+                 .toUpperCase()
+        )
+        .join(" ");
+}
+
+
+function bytesToAscii(data) {
+
+    const bytes =
+        data instanceof Uint8Array
+            ? data
+            : new Uint8Array(data);
+
+    let result = "";
+
+    for (const b of bytes) {
+
+        if (
+            b >= 32 &&
+            b <= 126
+        ) {
+
+            result +=
+                String.fromCharCode(b);
+
+        } else {
+
+            result += ".";
+
+        }
+
+    }
+
+    return result;
+}
+
+
+/* =========================================================
+   CHECK WEB BLUETOOTH
+   ========================================================= */
+
+function checkBluetooth() {
 
     if (!navigator.bluetooth) {
 
-        addLog(
-            "Browser ini tidak mendukung Web Bluetooth.",
-            "error"
+        log(
+            "Browser tidak mendukung Web Bluetooth.",
+            "err"
         );
 
-        scanButton.disabled = true;
+        scanBtn.disabled = true;
 
         return false;
     }
-
-    addLog(
-        "Web Bluetooth tersedia.",
-        "success"
-    );
 
     return true;
 }
 
 
-/* --------------------------------------------------
+/* =========================================================
    SCAN
--------------------------------------------------- */
+   ========================================================= */
 
-scanButton.addEventListener(
-    "click",
-    async function () {
+async function scanXWatch() {
 
-        if (!checkBrowser()) {
+    if (!checkBluetooth()) {
+        return;
+    }
+
+    try {
+
+        log(
+            "Membuka Bluetooth device picker..."
+        );
+
+        /*
+         * acceptAllDevices = true
+         * supaya XWatch yang namanya kadang berubah
+         * tetap bisa dipilih.
+         */
+
+        device =
+            await navigator.bluetooth.requestDevice({
+
+                acceptAllDevices: true,
+
+                optionalServices: [
+
+                    UUID.TARGET_SERVICE,
+
+                    UUID.SERVICE_1,
+                    UUID.SERVICE_2,
+                    UUID.SERVICE_3,
+                    UUID.SERVICE_4,
+
+                    "00001800-0000-1000-8000-00805f9b34fb",
+                    "00001805-0000-1000-8000-00805f9b34fb",
+                    "0000180f-0000-1000-8000-00805f9b34fb",
+
+                    "0000fee7-0000-1000-8000-00805f9b34fb",
+                    "0000fd35-0000-1000-8000-00805f9b34fb",
+                    "00006600-0000-1000-8000-00805f9b34fb",
+                    "0000af00-0000-1000-8000-00805f9b34fb",
+                    "00008800-0000-1000-8000-00805f9b34fb"
+
+                ]
+
+            });
+
+
+        if (!device) {
+
+            log(
+                "Tidak ada device dipilih.",
+                "warn"
+            );
+
             return;
         }
 
 
-        try {
+        deviceName.textContent =
+            device.name || "N/A";
 
-            addLog(
-                "Membuka Bluetooth device picker..."
-            );
-
-
-            /*
-             * Full UUID digunakan agar tidak ada
-             * masalah alias service.
-             */
-
-            bluetoothDevice =
-                await navigator.bluetooth.requestDevice({
-
-                    acceptAllDevices: true,
-
-                    optionalServices:
-                        STANDARD_SERVICES
-
-                });
+        deviceId.textContent =
+            device.id || "N/A";
 
 
-            if (!bluetoothDevice) {
+        log(
+            "Device ditemukan: " +
+            (device.name || "N/A"),
+            "ok"
+        );
 
-                addLog(
-                    "Tidak ada device dipilih.",
-                    "warning"
-                );
-
-                return;
-            }
-
-
-            deviceName.textContent =
-                bluetoothDevice.name ||
-                "Unknown";
+        log(
+            "Device ID: " +
+            (device.id || "N/A")
+        );
 
 
-            deviceId.textContent =
-                bluetoothDevice.id ||
-                "Unknown";
+        device.addEventListener(
+            "gattserverdisconnected",
+            handleDisconnected
+        );
 
 
-            addLog(
-                "Device ditemukan: " +
-                (
-                    bluetoothDevice.name ||
-                    "Unknown"
-                ),
-                "success"
-            );
+        await connectDevice();
 
+    } catch (error) {
 
-            bluetoothDevice.addEventListener(
-                "gattserverdisconnected",
-                handleDisconnected
-            );
+        console.error(error);
 
-
-            await connect();
-
-
-        } catch (error) {
-
-            addLog(
-                "Scan gagal: " +
-                error.message,
-                "error"
-            );
-
-        }
+        log(
+            "Gagal memilih device: " +
+            error.message,
+            "err"
+        );
 
     }
-);
+
+}
 
 
-/* --------------------------------------------------
+/* =========================================================
    CONNECT
--------------------------------------------------- */
+   ========================================================= */
 
-async function connect() {
+async function connectDevice() {
 
-    if (!bluetoothDevice) {
+    if (!device) {
 
-        addLog(
-            "Belum ada device.",
-            "error"
+        log(
+            "Device belum dipilih.",
+            "err"
         );
 
         return;
@@ -727,29 +885,22 @@ async function connect() {
 
     try {
 
-        addLog(
+        log(
             "Menghubungkan ke XWatch..."
         );
 
 
-        gattServer =
-            await bluetoothDevice.gatt.connect();
+        server =
+            await device.gatt.connect();
 
 
-        if (!gattServer.connected) {
-
-            throw new Error(
-                "GATT connection gagal."
-            );
-        }
+        setConnected(true);
 
 
-        setStatus(true);
-
-
-        addLog(
-            "BERHASIL CONNECT KE XWATCH H5 PRO! 🎉",
-            "success"
+        log(
+            "BERHASIL CONNECT KE " +
+            (device.name || "XWATCH"),
+            "ok"
         );
 
 
@@ -758,725 +909,642 @@ async function connect() {
 
     } catch (error) {
 
-        setStatus(false);
+        console.error(error);
 
-        addLog(
-            "Connect gagal: " +
+        setConnected(false);
+
+        log(
+            "Gagal connect: " +
             error.message,
-            "error"
+            "err"
         );
 
     }
+
 }
 
 
-/* --------------------------------------------------
+/* =========================================================
    DISCOVER SERVICES
--------------------------------------------------- */
+   ========================================================= */
 
 async function discoverServices() {
 
-    servicesContainer.innerHTML = "";
+    if (!server) {
+        return;
+    }
+
+    servicesBox.innerHTML = "";
+
+    log(
+        "Mencari GATT Services..."
+    );
 
 
-    if (!gattServer) {
+    let services;
 
-        servicesContainer.textContent =
-            "GATT server belum tersedia.";
+    try {
+
+        services =
+            await server.getPrimaryServices();
+
+    } catch (error) {
+
+        log(
+            "Gagal membaca GATT Services: " +
+            error.message,
+            "err"
+        );
 
         return;
     }
 
 
-    addLog(
-        "Mencari GATT Services..."
+    log(
+        "Services ditemukan: " +
+        services.length,
+        "ok"
     );
 
 
+    for (const service of services) {
+
+        await inspectService(service);
+
+    }
+
+
+    /*
+     * Cari service utama AE00
+     */
+
     try {
 
-        const services =
-            await gattServer.getPrimaryServices();
-
-
-        if (
-            !services ||
-            services.length === 0
-        ) {
-
-            servicesContainer.innerHTML =
-                "Tidak ada service yang dapat diakses.";
-
-            addLog(
-                "Tidak ada GATT service yang dapat diakses.",
-                "warning"
+        targetService =
+            await server.getPrimaryService(
+                UUID.TARGET_SERVICE
             );
 
-            return;
-        }
-
-
-        addLog(
-            "Ditemukan " +
-            services.length +
-            " GATT Service.",
-            "success"
+        log(
+            "TARGET AE00 ditemukan.",
+            "ok"
         );
 
 
-        for (
-            const service of services
-        ) {
+        const chars =
+            await targetService.getCharacteristics();
 
-            await showService(service);
+
+        for (const characteristic of chars) {
+
+            const id =
+                characteristic.uuid.toLowerCase();
+
+
+            if (
+                id === UUID.TARGET_WRITE
+            ) {
+
+                writeCharacteristic =
+                    characteristic;
+
+                log(
+                    "AE01 WRITE ditemukan.",
+                    "ok"
+                );
+
+            }
+
+
+            if (
+                id === UUID.TARGET_NOTIFY
+            ) {
+
+                notifyCharacteristic =
+                    characteristic;
+
+                log(
+                    "AE02 NOTIFY ditemukan.",
+                    "ok"
+                );
+
+                await enableNotifications(
+                    characteristic
+                );
+
+            }
 
         }
 
 
     } catch (error) {
 
-        addLog(
-            "Gagal membaca GATT Services: " +
+        log(
+            "Service AE00 tidak dapat diakses: " +
             error.message,
-            "error"
+            "warn"
         );
 
-
-        servicesContainer.innerHTML = `
-
-            <div class="empty">
-
-                Browser tidak memberikan akses
-                ke service yang tersedia.
-
-                <br><br>
-
-                Kemungkinan XWatch menggunakan
-                service proprietary.
-
-            </div>
-
-        `;
-
     }
+
+
+    updateButtons();
+
 }
 
 
-/* --------------------------------------------------
-   SHOW SERVICE
--------------------------------------------------- */
+/* =========================================================
+   INSPECT SERVICE
+   ========================================================= */
 
-async function showService(service) {
+async function inspectService(service) {
 
-    const serviceBox =
+    const serviceUUID =
+        service.uuid.toLowerCase();
+
+
+    log(
+        "Service " +
+        serviceUUID
+    );
+
+
+    const serviceDiv =
         document.createElement("div");
 
-    serviceBox.className =
+    serviceDiv.className =
         "service";
 
 
-    const header =
+    const head =
         document.createElement("div");
 
-    header.className =
-        "service-header";
+    head.className =
+        "service-head";
 
 
-    header.innerHTML = `
-
-        <strong>GATT SERVICE</strong>
-
-        <br>
-
-        <code>
-            ${service.uuid}
-        </code>
-
-    `;
+    head.innerHTML =
+        "<div class='badge'>SERVICE</div>" +
+        "<div class='uuid' style='margin-top:7px'>" +
+        service.uuid +
+        "</div>";
 
 
-    serviceBox.appendChild(header);
+    serviceDiv.appendChild(head);
 
 
-    const characteristicsBox =
-        document.createElement("div");
-
-
-    serviceBox.appendChild(
-        characteristicsBox
-    );
-
-
-    servicesContainer.appendChild(
-        serviceBox
-    );
+    let characteristics = [];
 
 
     try {
 
-        const characteristics =
+        characteristics =
             await service.getCharacteristics();
-
-
-        addLog(
-            service.uuid +
-            " → " +
-            characteristics.length +
-            " characteristic"
-        );
-
-
-        for (
-            const characteristic
-            of characteristics
-        ) {
-
-            showCharacteristic(
-                characteristic,
-                characteristicsBox
-            );
-
-        }
-
 
     } catch (error) {
 
-        addLog(
-            "Tidak bisa membaca characteristic " +
+        log(
+            "Gagal membaca characteristic " +
             service.uuid +
             ": " +
             error.message,
-            "warning"
+            "warn"
         );
 
+        servicesBox.appendChild(
+            serviceDiv
+        );
+
+        return;
     }
-}
 
 
-/* --------------------------------------------------
-   SHOW CHARACTERISTIC
--------------------------------------------------- */
-
-function showCharacteristic(
-    characteristic,
-    container
-) {
-
-    const box =
-        document.createElement("div");
-
-    box.className =
-        "characteristic";
-
-
-    const title =
-        document.createElement("div");
-
-    title.className =
-        "char-title";
-
-
-    title.innerHTML = `
-
-        Characteristic
-
-        <br>
-
-        <code>
-            ${characteristic.uuid}
-        </code>
-
-    `;
-
-
-    const properties =
-        document.createElement("div");
-
-    properties.className =
-        "properties";
-
-
-    properties.textContent =
-        "Properties: " +
-        characteristic.properties.join(
-            ", "
-        );
-
-
-    const data =
-        document.createElement("div");
-
-    data.className =
-        "data";
-
-    data.textContent =
-        "Belum ada data.";
-
-
-    const buttons =
-        document.createElement("div");
-
-
-    /* ------------------------------------------------
-       READ
-    ------------------------------------------------ */
-
-    if (
-        characteristic.properties
-            .includes("read")
+    for (
+        const characteristic of characteristics
     ) {
 
-        const readButton =
-            document.createElement("button");
+        const div =
+            document.createElement("div");
 
-        readButton.className =
-            "secondary";
-
-        readButton.textContent =
-            "📥 READ";
+        div.className =
+            "characteristic";
 
 
-        readButton.onclick =
-            async function () {
-
-                await readCharacteristic(
-                    characteristic,
-                    data
-                );
-
-            };
+        const props =
+            characteristic.properties;
 
 
-        buttons.appendChild(
-            readButton
-        );
-    }
+        const propList =
+            [];
 
 
-    /* ------------------------------------------------
-       NOTIFY
-    ------------------------------------------------ */
+        if (props.read) {
+            propList.push("READ");
+        }
 
-    if (
-        characteristic.properties
-            .includes("notify")
-    ) {
+        if (props.write) {
+            propList.push("WRITE");
+        }
 
-        const notifyButton =
-            document.createElement("button");
-
-        notifyButton.className =
-            "primary";
-
-        notifyButton.textContent =
-            "🔔 NOTIFY";
-
-
-        notifyButton.onclick =
-            async function () {
-
-                await notifyCharacteristic(
-                    characteristic,
-                    data,
-                    notifyButton
-                );
-
-            };
-
-
-        buttons.appendChild(
-            notifyButton
-        );
-    }
-
-
-    box.appendChild(title);
-
-    box.appendChild(properties);
-
-    box.appendChild(data);
-
-    box.appendChild(buttons);
-
-
-    container.appendChild(box);
-}
-
-
-/* --------------------------------------------------
-   READ CHARACTERISTIC
--------------------------------------------------- */
-
-async function readCharacteristic(
-    characteristic,
-    output
-) {
-
-    try {
-
-        addLog(
-            "READ → " +
-            characteristic.uuid
-        );
-
-
-        const value =
-            await characteristic.readValue();
-
-
-        const bytes =
-            new Uint8Array(
-                value.buffer
+        if (props.writeWithoutResponse) {
+            propList.push(
+                "WRITE WITHOUT RESPONSE"
             );
+        }
+
+        if (props.notify) {
+            propList.push("NOTIFY");
+        }
+
+        if (props.indicate) {
+            propList.push("INDICATE");
+        }
 
 
-        const hex =
-            toHex(bytes);
+        div.innerHTML =
+            "<div class='char-name'>" +
+            "Characteristic" +
+            "</div>" +
+
+            "<div class='uuid'>" +
+            characteristic.uuid +
+            "</div>" +
+
+            "<div class='properties'>" +
+            propList.join(", ") +
+            "</div>";
 
 
-        const ascii =
-            toAscii(bytes);
-
-
-        output.textContent =
-
-            "HEX:\n" +
-            hex +
-            "\n\n" +
-
-            "DECIMAL:\n" +
-            Array.from(bytes).join(" ") +
-
-            "\n\n" +
-
-            "ASCII:\n" +
-            ascii;
-
-
-        addLog(
-            "DATA ← " +
-            hex,
-            "success"
-        );
-
-
-    } catch (error) {
-
-        addLog(
-            "READ gagal: " +
-            error.message,
-            "error"
-        );
+        serviceDiv.appendChild(div);
 
     }
+
+
+    servicesBox.appendChild(
+        serviceDiv
+    );
+
 }
 
 
-/* --------------------------------------------------
-   NOTIFICATION
--------------------------------------------------- */
+/* =========================================================
+   ENABLE NOTIFICATIONS
+   ========================================================= */
 
-async function notifyCharacteristic(
-    characteristic,
-    output,
-    button
+async function enableNotifications(
+    characteristic
 ) {
 
     try {
+
+        characteristic.addEventListener(
+            "characteristicvaluechanged",
+            handleNotification
+        );
+
 
         await characteristic.startNotifications();
 
 
-        characteristic.addEventListener(
-            "characteristicvaluechanged",
-            function (event) {
-
-                const bytes =
-                    new Uint8Array(
-                        event.target.value.buffer
-                    );
-
-
-                const hex =
-                    toHex(bytes);
-
-
-                const ascii =
-                    toAscii(bytes);
-
-
-                output.textContent =
-
-                    "HEX:\n" +
-                    hex +
-                    "\n\n" +
-
-                    "DECIMAL:\n" +
-                    Array.from(bytes).join(" ") +
-
-                    "\n\n" +
-
-                    "ASCII:\n" +
-                    ascii;
-
-
-                addLog(
-                    "NOTIFY ← " +
-                    characteristic.uuid +
-                    " : " +
-                    hex,
-                    "success"
-                );
-
-            }
-        );
-
-
-        button.textContent =
-            "🔔 LISTENING";
-
-        button.disabled =
-            true;
-
-
-        addLog(
-            "Notification aktif.",
-            "success"
+        log(
+            "NOTIFY AKTIF: " +
+            characteristic.uuid,
+            "ok"
         );
 
 
     } catch (error) {
 
-        addLog(
-            "Notification gagal: " +
+        log(
+            "Gagal mengaktifkan NOTIFY: " +
             error.message,
-            "error"
+            "err"
         );
 
     }
+
 }
 
 
-/* --------------------------------------------------
-   CUSTOM SERVICE
--------------------------------------------------- */
+/* =========================================================
+   RECEIVE DATA
+   ========================================================= */
 
-loadCustomButton.addEventListener(
-    "click",
-    async function () {
+function handleNotification(event) {
 
-        if (!gattServer) {
-
-            addLog(
-                "Belum terhubung ke XWatch.",
-                "error"
-            );
-
-            return;
-        }
+    const value =
+        event.target.value;
 
 
-        const uuid =
-            customService.value
-                .trim()
-                .toLowerCase();
+    const bytes =
+        new Uint8Array(
+            value.buffer.slice(
+                value.byteOffset,
+                value.byteOffset +
+                value.byteLength
+            )
+        );
 
 
-        if (!uuid) {
+    const hex =
+        bytesToHex(bytes);
 
-            addLog(
-                "UUID belum dimasukkan.",
-                "error"
-            );
 
-            return;
-        }
+    const ascii =
+        bytesToAscii(bytes);
+
+
+    lastHex.textContent =
+        hex || "—";
+
+
+    lastAscii.textContent =
+        ascii || "—";
+
+
+    log(
+        "RX HEX: " + hex,
+        "data"
+    );
+
+
+    log(
+        "RX ASCII: " + ascii,
+        "data"
+    );
+
+}
+
+
+/* =========================================================
+   SEND
+   ========================================================= */
+
+async function sendHex(hex) {
+
+    if (!writeCharacteristic) {
+
+        log(
+            "AE01 WRITE belum tersedia.",
+            "err"
+        );
+
+        return false;
+    }
+
+
+    try {
+
+        const data =
+            hexToBytes(hex);
+
+
+        log(
+            "TX HEX: " +
+            bytesToHex(data),
+            "data"
+        );
 
 
         /*
-         * Validasi UUID.
+         * XWatch AE01 pada scanner menunjukkan
+         * WRITE NO RESPONSE.
+         *
+         * Kita gunakan writeValueWithoutResponse
+         * jika tersedia.
          */
 
-        const uuidPattern =
-            /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
+        if (
+            typeof writeCharacteristic
+                .writeValueWithoutResponse ===
+            "function"
+        ) {
+
+            await writeCharacteristic
+                .writeValueWithoutResponse(
+                    data
+                );
+
+        } else {
+
+            await writeCharacteristic
+                .writeValue(data);
+
+        }
 
 
-        if (!uuidPattern.test(uuid)) {
+        log(
+            "Data berhasil dikirim.",
+            "ok"
+        );
 
-            addLog(
-                "Format UUID tidak valid.",
-                "error"
+
+        return true;
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        log(
+            "Gagal TX: " +
+            error.message,
+            "err"
+        );
+
+        return false;
+
+    }
+
+}
+
+
+/* =========================================================
+   TEST COMMAND
+   ========================================================= */
+
+async function testCommand() {
+
+    /*
+     * Command ini sengaja sederhana.
+     * Tujuannya bukan mengubah setting jam,
+     * tetapi melihat apakah AE01 menghasilkan
+     * respons melalui AE02.
+     *
+     * Kalau tidak ada respons, jangan panik.
+     * Itu justru informasi penting untuk
+     * membongkar protokol.
+     */
+
+    const test =
+        "01";
+
+    hexInput.value =
+        test;
+
+    await sendHex(test);
+
+}
+
+
+/* =========================================================
+   DISCONNECT
+   ========================================================= */
+
+function disconnectDevice() {
+
+    try {
+
+        if (
+            device &&
+            device.gatt &&
+            device.gatt.connected
+        ) {
+
+            device.gatt.disconnect();
+
+        }
+
+    } catch (error) {
+
+        log(
+            "Error disconnect: " +
+            error.message,
+            "err"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   DISCONNECTED
+   ========================================================= */
+
+function handleDisconnected() {
+
+    log(
+        "XWatch terputus dari Bluetooth.",
+        "warn"
+    );
+
+
+    setConnected(false);
+
+
+    targetService =
+        null;
+
+    writeCharacteristic =
+        null;
+
+    notifyCharacteristic =
+        null;
+
+}
+
+
+/* =========================================================
+   BUTTON STATE
+   ========================================================= */
+
+function updateButtons() {
+
+    sendBtn.disabled =
+        !writeCharacteristic;
+
+    testBtn.disabled =
+        !writeCharacteristic;
+
+}
+
+
+/* =========================================================
+   CLEAR LOG
+   ========================================================= */
+
+clearBtn.addEventListener(
+    "click",
+    () => {
+
+        logBox.innerHTML = "";
+
+        lastHex.textContent =
+            "—";
+
+        lastAscii.textContent =
+            "—";
+
+    }
+);
+
+
+/* =========================================================
+   EVENTS
+   ========================================================= */
+
+scanBtn.addEventListener(
+    "click",
+    scanXWatch
+);
+
+
+disconnectBtn.addEventListener(
+    "click",
+    disconnectDevice
+);
+
+
+sendBtn.addEventListener(
+    "click",
+    async () => {
+
+        const value =
+            hexInput.value.trim();
+
+
+        if (!value) {
+
+            log(
+                "Masukkan HEX terlebih dahulu.",
+                "warn"
             );
 
             return;
         }
 
 
-        try {
-
-            addLog(
-                "Mencoba custom service: " +
-                uuid
-            );
-
-
-            const service =
-                await gattServer.getPrimaryService(
-                    uuid
-                );
-
-
-            addLog(
-                "CUSTOM SERVICE DITEMUKAN! 🎉",
-                "success"
-            );
-
-
-            await showService(service);
-
-
-        } catch (error) {
-
-            addLog(
-                "Custom service tidak dapat diakses: " +
-                error.message,
-                "error"
-            );
-
-        }
+        await sendHex(value);
 
     }
 );
 
 
-/* --------------------------------------------------
-   DISCONNECT
--------------------------------------------------- */
-
-disconnectButton.addEventListener(
+testBtn.addEventListener(
     "click",
-    function () {
-
-        try {
-
-            if (
-                bluetoothDevice &&
-                bluetoothDevice.gatt &&
-                bluetoothDevice.gatt.connected
-            ) {
-
-                bluetoothDevice.gatt.disconnect();
-
-            }
-
-        } catch (error) {
-
-            addLog(
-                "Disconnect error: " +
-                error.message,
-                "error"
-            );
-
-        }
-
-    }
+    testCommand
 );
 
 
-/* --------------------------------------------------
-   DISCONNECTED EVENT
--------------------------------------------------- */
-
-function handleDisconnected() {
-
-    setStatus(false);
-
-    addLog(
-        "XWatch terputus.",
-        "warning"
-    );
-}
-
-
-/* --------------------------------------------------
-   HEX
--------------------------------------------------- */
-
-function toHex(bytes) {
-
-    return Array.from(bytes)
-        .map(function (byte) {
-
-            return byte
-                .toString(16)
-                .padStart(2, "0")
-                .toUpperCase();
-
-        })
-        .join(" ");
-}
-
-
-/* --------------------------------------------------
-   ASCII
--------------------------------------------------- */
-
-function toAscii(bytes) {
-
-    return Array.from(bytes)
-        .map(function (byte) {
-
-            if (
-                byte >= 32 &&
-                byte <= 126
-            ) {
-
-                return String.fromCharCode(
-                    byte
-                );
-
-            }
-
-            return ".";
-
-        })
-        .join("");
-}
-
-
-/* --------------------------------------------------
-   CLEAR LOG
--------------------------------------------------- */
-
-clearLogButton.addEventListener(
-    "click",
-    function () {
-
-        logContainer.innerHTML = "";
-
-    }
-);
-
-
-/* --------------------------------------------------
+/* =========================================================
    START
--------------------------------------------------- */
+   ========================================================= */
 
-if (checkBrowser()) {
+checkBluetooth();
 
-    addLog(
-        "XWatch H5 Pro BLE Explorer siap."
-    );
+log(
+    "XWatch BLE Explorer siap.",
+    "ok"
+);
 
-    addLog(
-        "Target: XWatch H5 Pro / XW5P"
-    );
+log(
+    "Target: XWatch H5 Pro"
+);
 
-    addLog(
-        "Firmware: XW5P-1.0.5.4"
-    );
-
-}
+log(
+    "AE00 / AE01 WRITE / AE02 NOTIFY"
+);
 
 </script>
 
