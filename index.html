@@ -2,30 +2,29 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+
 <meta name="theme-color" content="#f5f7fb">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 
-<title>XWatch H5 Pro Health</title>
+<title>XWatch Health</title>
 
 <style>
 :root{
   --bg:#f5f7fb;
   --card:#ffffff;
-  --text:#18212f;
-  --muted:#8993a3;
-  --line:#e8ecf2;
-
-  --blue:#2f80ed;
-  --blue2:#56a5ff;
-  --green:#27b879;
-  --red:#ef5b6b;
-  --orange:#ff9f43;
-  --purple:#8b6cff;
-
-  --shadow:0 8px 28px rgba(31,48,74,.07);
-  --radius:22px;
+  --text:#172033;
+  --muted:#7b8497;
+  --line:#e9edf4;
+  --primary:#5b5ce2;
+  --primary2:#7778f4;
+  --green:#16a47b;
+  --red:#ef5b68;
+  --orange:#f39a42;
+  --blue:#4387ef;
+  --shadow:0 10px 30px rgba(34,45,80,.08);
 }
 
 *{
@@ -33,12 +32,10 @@
   -webkit-tap-highlight-color:transparent;
 }
 
-html{
-  scroll-behavior:smooth;
-}
-
-body{
+html,body{
   margin:0;
+  padding:0;
+  min-height:100%;
   background:var(--bg);
   color:var(--text);
   font-family:
@@ -51,1008 +48,578 @@ body{
     sans-serif;
 }
 
-button,
-input{
-  font:inherit;
+body{
+  padding:
+    env(safe-area-inset-top)
+    0
+    env(safe-area-inset-bottom);
 }
 
 button{
-  border:0;
-  cursor:pointer;
+  font:inherit;
 }
 
 .app{
   width:100%;
-  max-width:680px;
+  max-width:760px;
   margin:auto;
-  min-height:100vh;
-  padding-bottom:95px;
+  padding:18px 16px 40px;
 }
 
-/* ================= HEADER ================= */
+/* HEADER */
 
-.topbar{
-  position:sticky;
-  top:0;
-  z-index:50;
-
+.header{
   display:flex;
   align-items:center;
   justify-content:space-between;
-
-  padding:
-    calc(13px + env(safe-area-inset-top))
-    18px
-    13px;
-
-  background:rgba(245,247,251,.88);
-  backdrop-filter:blur(20px);
-  -webkit-backdrop-filter:blur(20px);
-
-  border-bottom:1px solid rgba(220,225,233,.55);
+  margin-bottom:18px;
 }
 
 .brand{
   display:flex;
   align-items:center;
-  gap:11px;
+  gap:12px;
 }
 
-.watch-icon{
-  width:42px;
-  height:42px;
-  border-radius:13px;
-
+.brandIcon{
+  width:46px;
+  height:46px;
+  border-radius:15px;
+  background:linear-gradient(135deg,var(--primary),var(--primary2));
   display:flex;
   align-items:center;
   justify-content:center;
-
-  background:linear-gradient(145deg,#2f80ed,#68b0ff);
-  color:#fff;
-
-  font-size:21px;
-
-  box-shadow:0 6px 16px rgba(47,128,237,.25);
+  color:white;
+  font-size:23px;
+  box-shadow:0 8px 20px rgba(91,92,226,.25);
 }
 
-.brand-title{
-  font-size:16px;
+.brandTitle{
+  font-size:20px;
   font-weight:800;
-  letter-spacing:-.2px;
+  letter-spacing:-.4px;
 }
 
-.brand-sub{
-  margin-top:2px;
-  font-size:11px;
+.brandSub{
+  font-size:12px;
   color:var(--muted);
+  margin-top:2px;
 }
 
 .connection{
   display:flex;
   align-items:center;
-  gap:6px;
-
+  gap:7px;
   padding:8px 11px;
   border-radius:999px;
-
-  background:#fff;
+  background:white;
   box-shadow:var(--shadow);
-
-  font-size:11px;
+  font-size:12px;
   font-weight:700;
-  color:var(--muted);
 }
 
-.connection-dot{
+.dot{
   width:8px;
   height:8px;
   border-radius:50%;
-  background:#b7bfca;
+  background:#aab1bf;
 }
 
-.connection.connected{
-  color:var(--green);
-}
-
-.connection.connected .connection-dot{
+.dot.connected{
   background:var(--green);
-  box-shadow:0 0 0 4px rgba(39,184,121,.12);
+  box-shadow:0 0 0 4px rgba(22,164,123,.12);
 }
 
-/* ================= CONTENT ================= */
-
-.content{
-  padding:16px;
-}
-
-.section-title{
-  margin:24px 3px 11px;
-  font-size:18px;
-  font-weight:800;
-  letter-spacing:-.3px;
-}
-
-.section-sub{
-  margin:-6px 3px 12px;
-  color:var(--muted);
-  font-size:12px;
-}
-
-/* ================= HERO ================= */
+/* HERO */
 
 .hero{
   position:relative;
   overflow:hidden;
-
-  min-height:220px;
-  padding:22px;
-
+  background:linear-gradient(135deg,#5556db,#7778f5);
   border-radius:28px;
+  padding:24px;
+  color:white;
+  box-shadow:0 16px 38px rgba(75,77,190,.25);
+  margin-bottom:16px;
+}
 
-  background:
-    radial-gradient(circle at 85% 15%,rgba(255,255,255,.28),transparent 30%),
-    linear-gradient(140deg,#2777e8,#56a7ff);
-
-  color:#fff;
-
-  box-shadow:
-    0 16px 35px rgba(47,128,237,.22);
+.hero:before{
+  content:"";
+  position:absolute;
+  width:180px;
+  height:180px;
+  border-radius:50%;
+  background:rgba(255,255,255,.08);
+  right:-70px;
+  top:-75px;
 }
 
 .hero:after{
   content:"";
   position:absolute;
-  width:180px;
-  height:180px;
-  right:-65px;
-  bottom:-75px;
-
-  border:25px solid rgba(255,255,255,.08);
+  width:110px;
+  height:110px;
   border-radius:50%;
+  background:rgba(255,255,255,.06);
+  left:-55px;
+  bottom:-50px;
 }
 
-.hero-top{
+.heroTop{
   position:relative;
   z-index:2;
-
   display:flex;
   justify-content:space-between;
   align-items:flex-start;
 }
 
-.hero-label{
-  font-size:12px;
-  opacity:.82;
+.watchName{
+  font-size:14px;
+  font-weight:700;
+  opacity:.9;
 }
 
-.hero-title{
-  margin-top:4px;
-  font-size:22px;
-  font-weight:850;
-  letter-spacing:-.5px;
-}
-
-.hero-device{
-  margin-top:3px;
-  font-size:12px;
-  opacity:.8;
-}
-
-.hero-watch{
-  position:absolute;
-  z-index:1;
-  right:22px;
-  bottom:17px;
-
-  width:105px;
-  height:130px;
-
-  border-radius:28px;
-
-  background:
-    linear-gradient(145deg,#101822,#303c4b);
-
-  border:5px solid rgba(255,255,255,.22);
-
-  box-shadow:
-    0 18px 30px rgba(0,0,0,.22),
-    inset 0 0 0 2px rgba(255,255,255,.06);
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-.watch-screen{
-  width:82px;
-  height:102px;
-
-  border-radius:20px;
-
-  background:
-    radial-gradient(circle at 50% 25%,#273d52,#07121d 70%);
-
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-
-  font-weight:800;
-}
-
-.watch-time{
-  font-size:23px;
-  letter-spacing:-1px;
-}
-
-.watch-date{
-  margin-top:4px;
-  font-size:8px;
-  opacity:.65;
-}
-
-.hero-actions{
-  position:relative;
-  z-index:3;
-
-  display:flex;
-  gap:8px;
-  margin-top:22px;
-}
-
-.hero-button{
-  padding:10px 14px;
-  border-radius:12px;
-
-  background:rgba(255,255,255,.18);
-  color:#fff;
-
-  border:1px solid rgba(255,255,255,.18);
-
-  font-size:12px;
-  font-weight:750;
-
+.heroStatus{
+  font-size:11px;
+  padding:6px 10px;
+  border-radius:999px;
+  background:rgba(255,255,255,.14);
   backdrop-filter:blur(10px);
 }
 
-.hero-button.primary{
-  background:#fff;
-  color:#2678df;
-}
-
-/* ================= QUICK ACTIONS ================= */
-
-.quick-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:9px;
-}
-
-.quick{
-  background:var(--card);
-  border-radius:18px;
-  padding:13px 7px;
-
-  text-align:center;
-
-  box-shadow:var(--shadow);
-  border:1px solid var(--line);
-
-  transition:.15s;
-}
-
-.quick:active{
-  transform:scale(.96);
-}
-
-.quick-icon{
-  width:38px;
-  height:38px;
-  margin:auto;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  border-radius:13px;
-
-  background:#f0f5ff;
-  font-size:18px;
-}
-
-.quick-title{
-  margin-top:8px;
-  font-size:10px;
-  font-weight:750;
-}
-
-.quick-sub{
-  margin-top:3px;
-  font-size:9px;
-  color:var(--muted);
-}
-
-/* ================= HEALTH CARDS ================= */
-
-.metric-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-}
-
-.metric{
-  background:var(--card);
-  border:1px solid var(--line);
-  border-radius:21px;
-  padding:17px;
-
-  box-shadow:var(--shadow);
-}
-
-.metric-head{
+.heroMain{
+  position:relative;
+  z-index:2;
+  margin-top:22px;
   display:flex;
   align-items:center;
   justify-content:space-between;
 }
 
-.metric-icon{
-  width:38px;
-  height:38px;
+.heroNumber{
+  font-size:46px;
+  font-weight:850;
+  letter-spacing:-2px;
+  line-height:1;
+}
 
+.heroLabel{
+  font-size:13px;
+  opacity:.78;
+  margin-top:7px;
+}
+
+.heroClock{
+  text-align:right;
+}
+
+.clock{
+  font-size:22px;
+  font-weight:800;
+}
+
+.date{
+  font-size:11px;
+  opacity:.75;
+  margin-top:4px;
+}
+
+.heroActions{
+  position:relative;
+  z-index:3;
   display:flex;
-  align-items:center;
-  justify-content:center;
-
-  border-radius:13px;
-  background:#f5f7fb;
-
-  font-size:18px;
+  gap:9px;
+  margin-top:22px;
 }
 
-.metric-status{
-  font-size:9px;
+.btn{
+  border:0;
+  cursor:pointer;
+  border-radius:15px;
+  padding:12px 15px;
   font-weight:750;
-  color:var(--green);
+  transition:.18s ease;
 }
 
-.metric-name{
-  margin-top:12px;
-  font-size:12px;
+.btn:active{
+  transform:scale(.97);
+}
+
+.btnPrimary{
+  background:white;
+  color:#5556db;
+  flex:1;
+}
+
+.btnGhost{
+  background:rgba(255,255,255,.14);
+  color:white;
+  border:1px solid rgba(255,255,255,.14);
+}
+
+.btnDark{
+  background:#20263a;
+  color:white;
+}
+
+.btnLight{
+  background:#f1f3f8;
+  color:#31394c;
+}
+
+/* SECTION */
+
+.sectionTitle{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin:22px 3px 10px;
+}
+
+.sectionTitle h2{
+  font-size:16px;
+  margin:0;
+  letter-spacing:-.2px;
+}
+
+.sectionTitle span{
+  font-size:11px;
   color:var(--muted);
 }
 
-.metric-value{
-  margin-top:3px;
-  font-size:27px;
+/* HEALTH GRID */
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+
+.card{
+  background:var(--card);
+  border:1px solid rgba(230,234,242,.8);
+  border-radius:22px;
+  padding:17px;
+  box-shadow:var(--shadow);
+}
+
+.metric{
+  min-height:145px;
+  position:relative;
+  overflow:hidden;
+}
+
+.metricTop{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.metricIcon{
+  width:38px;
+  height:38px;
+  border-radius:13px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:19px;
+  background:#f2f4fa;
+}
+
+.metricArrow{
+  color:#c0c5d0;
+  font-size:16px;
+}
+
+.metricValue{
+  margin-top:20px;
+  font-size:30px;
+  line-height:1;
   font-weight:850;
   letter-spacing:-1px;
 }
 
-.metric-unit{
-  font-size:11px;
+.metricUnit{
+  font-size:12px;
   color:var(--muted);
-  font-weight:600;
+  font-weight:650;
+  margin-left:3px;
 }
 
-/* ================= ACTIVITY ================= */
-
-.activity-card{
-  background:var(--card);
-  border:1px solid var(--line);
-  border-radius:23px;
-  padding:18px;
-
-  box-shadow:var(--shadow);
-}
-
-.activity-top{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-
-.activity-title{
-  font-size:14px;
-  font-weight:800;
-}
-
-.activity-date{
-  font-size:10px;
-  color:var(--muted);
-}
-
-.progress-wrap{
-  margin-top:16px;
-}
-
-.progress-label{
-  display:flex;
-  justify-content:space-between;
-
-  font-size:11px;
-  color:var(--muted);
-}
-
-.progress{
-  height:8px;
+.metricName{
   margin-top:8px;
-
-  background:#edf1f6;
-  border-radius:99px;
-  overflow:hidden;
-}
-
-.progress-bar{
-  height:100%;
-  width:0%;
-
-  background:linear-gradient(90deg,#2f80ed,#6cb5ff);
-  border-radius:99px;
-
-  transition:width .5s ease;
-}
-
-.activity-stats{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  margin-top:18px;
-}
-
-.activity-stat{
-  text-align:center;
-}
-
-.activity-stat:not(:last-child){
-  border-right:1px solid var(--line);
-}
-
-.activity-num{
-  font-size:17px;
-  font-weight:800;
-}
-
-.activity-label{
-  margin-top:3px;
-  font-size:9px;
+  font-size:12px;
   color:var(--muted);
 }
 
-/* ================= HR CHART ================= */
-
-.chart-card{
-  background:var(--card);
-  border:1px solid var(--line);
-  border-radius:23px;
-  padding:17px;
-  box-shadow:var(--shadow);
+.metricNote{
+  margin-top:4px;
+  font-size:10px;
+  color:#a2a9b8;
 }
 
-.chart-head{
+/* BIG CARD */
+
+.bigCard{
+  margin-top:12px;
+}
+
+.activityRow{
   display:flex;
   align-items:center;
-  justify-content:space-between;
+  gap:14px;
 }
 
-.chart-title{
-  font-size:14px;
-  font-weight:800;
-}
-
-.chart-value{
-  font-size:13px;
-  color:var(--red);
-  font-weight:800;
-}
-
-canvas{
-  display:block;
-  width:100%;
-  height:170px;
-  margin-top:10px;
-}
-
-/* ================= SLEEP ================= */
-
-.sleep-card{
-  background:
-    radial-gradient(circle at 85% 20%,rgba(139,108,255,.12),transparent 35%),
-    var(--card);
-
-  border:1px solid var(--line);
-  border-radius:23px;
-  padding:18px;
-
-  box-shadow:var(--shadow);
-}
-
-.sleep-main{
-  display:flex;
-  align-items:center;
-  gap:17px;
-}
-
-.sleep-circle{
-  width:86px;
-  height:86px;
-
+.activityRing{
+  width:76px;
+  height:76px;
   border-radius:50%;
-
   background:
-    conic-gradient(var(--purple) 0 72%,#edf0f6 72% 100%);
-
+    conic-gradient(var(--primary) var(--progress,0%), #edf0f6 0);
   display:flex;
   align-items:center;
   justify-content:center;
+  flex-shrink:0;
 }
 
-.sleep-circle-inner{
-  width:70px;
-  height:70px;
-
+.activityRing:after{
+  content:"";
+  width:58px;
+  height:58px;
   border-radius:50%;
-  background:#fff;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  flex-direction:column;
+  background:white;
+  position:absolute;
 }
 
-.sleep-hours{
-  font-size:17px;
+.activityRingInner{
+  position:relative;
+  z-index:2;
+  font-size:12px;
   font-weight:850;
 }
 
-.sleep-small{
-  font-size:8px;
-  color:var(--muted);
-}
-
-.sleep-info-title{
-  font-size:14px;
-  font-weight:800;
-}
-
-.sleep-info-sub{
-  margin-top:4px;
-  font-size:10px;
-  color:var(--muted);
-  line-height:1.5;
-}
-
-.sleep-stages{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:7px;
-  margin-top:17px;
-}
-
-.sleep-stage{
-  padding:10px;
-  border-radius:13px;
-  background:#f7f8fb;
-}
-
-.sleep-stage-name{
-  font-size:9px;
-  color:var(--muted);
-}
-
-.sleep-stage-value{
-  margin-top:3px;
-  font-size:12px;
-  font-weight:800;
-}
-
-/* ================= POWER ================= */
-
-.power-card{
-  background:var(--card);
-  border:1px solid var(--line);
-  border-radius:23px;
-  padding:18px;
-
-  box-shadow:var(--shadow);
-}
-
-.power-row{
-  display:flex;
-  align-items:center;
-  gap:15px;
-}
-
-.power-icon{
-  width:54px;
-  height:54px;
-
-  border-radius:17px;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  background:#eefaf5;
-  color:var(--green);
-
-  font-size:25px;
-}
-
-.power-info{
+.activityInfo{
   flex:1;
 }
 
-.power-value{
-  font-size:25px;
-  font-weight:850;
+.activityInfo strong{
+  font-size:16px;
 }
 
-.power-label{
-  margin-top:2px;
-  font-size:10px;
+.activityInfo p{
+  margin:5px 0 0;
   color:var(--muted);
+  font-size:12px;
+  line-height:1.5;
 }
 
-.power-button{
-  padding:10px 13px;
-  border-radius:12px;
+/* POWER */
 
-  background:#eef5ff;
-  color:var(--blue);
-
-  font-size:11px;
-  font-weight:800;
-}
-
-.power-bar{
-  margin-top:15px;
-  height:7px;
-
-  background:#edf1f5;
-  border-radius:99px;
-  overflow:hidden;
-}
-
-.power-fill{
-  height:100%;
-  width:0%;
-  background:linear-gradient(90deg,#27b879,#7cdbad);
-  transition:.4s;
-}
-
-/* ================= SYNC ================= */
-
-.sync-card{
-  background:linear-gradient(140deg,#fff,#f6f9ff);
-  border:1px solid #e1e9f6;
-  border-radius:23px;
-  padding:18px;
-
-  box-shadow:var(--shadow);
-}
-
-.sync-head{
+.powerCard{
   display:flex;
-  gap:13px;
   align-items:center;
+  justify-content:space-between;
+  gap:12px;
 }
 
-.sync-icon{
-  width:45px;
-  height:45px;
-  border-radius:15px;
+.powerLeft{
+  display:flex;
+  align-items:center;
+  gap:13px;
+}
 
+.powerIcon{
+  width:46px;
+  height:46px;
+  border-radius:15px;
+  background:#f4f6fb;
   display:flex;
   align-items:center;
   justify-content:center;
+  font-size:22px;
+}
 
-  background:#edf5ff;
-  color:var(--blue);
+.powerValue{
+  font-size:20px;
+  font-weight:850;
+}
 
+.powerSub{
+  font-size:11px;
+  color:var(--muted);
+  margin-top:3px;
+}
+
+/* SYNC */
+
+.syncCard{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+}
+
+.syncInfo{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.syncIcon{
+  width:44px;
+  height:44px;
+  border-radius:14px;
+  background:#f0f2ff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--primary);
   font-size:20px;
 }
 
-.sync-title{
+.syncTitle{
   font-size:14px;
   font-weight:800;
 }
 
-.sync-sub{
-  margin-top:3px;
-  color:var(--muted);
-  font-size:10px;
-}
-
-.sync-button{
-  width:100%;
-  margin-top:14px;
-
-  padding:13px;
-
-  border-radius:14px;
-
-  background:var(--blue);
-  color:#fff;
-
-  font-size:12px;
-  font-weight:800;
-
-  box-shadow:0 7px 16px rgba(47,128,237,.2);
-}
-
-.sync-status{
-  margin-top:9px;
-  text-align:center;
-
-  font-size:10px;
-  color:var(--muted);
-}
-
-/* ================= BOTTOM NAV ================= */
-
-.bottom-nav{
-  position:fixed;
-  z-index:100;
-
-  left:50%;
-  bottom:0;
-
-  transform:translateX(-50%);
-
-  width:min(680px,100%);
-
-  padding:
-    9px 10px
-    calc(9px + env(safe-area-inset-bottom));
-
-  background:rgba(255,255,255,.92);
-
-  backdrop-filter:blur(22px);
-  -webkit-backdrop-filter:blur(22px);
-
-  border-top:1px solid rgba(220,225,233,.8);
-
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-}
-
-.nav-item{
-  background:transparent;
-  color:#9aa3b1;
-
-  padding:5px;
-
-  display:flex;
-  align-items:center;
-  flex-direction:column;
-  gap:3px;
-}
-
-.nav-icon{
-  font-size:19px;
-}
-
-.nav-label{
-  font-size:9px;
-  font-weight:700;
-}
-
-.nav-item.active{
-  color:var(--blue);
-}
-
-/* ================= ADVANCED ================= */
-
-.page{
-  display:none;
-}
-
-.page.active{
-  display:block;
-}
-
-.advanced-card{
-  background:var(--card);
-  border:1px solid var(--line);
-  border-radius:20px;
-  padding:16px;
-  margin-bottom:10px;
-  box-shadow:var(--shadow);
-}
-
-.advanced-title{
-  font-size:14px;
-  font-weight:800;
-  margin-bottom:9px;
-}
-
-.info-row{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-
-  padding:10px 0;
-
-  border-bottom:1px solid var(--line);
-
+.syncText{
   font-size:11px;
-}
-
-.info-row:last-child{
-  border-bottom:0;
-}
-
-.info-key{
   color:var(--muted);
+  margin-top:3px;
 }
 
-.info-value{
-  text-align:right;
-  word-break:break-all;
-}
+/* ADVANCED */
 
-.service{
-  border:1px solid var(--line);
-  border-radius:15px;
-  margin:9px 0;
+details{
+  background:white;
+  border-radius:20px;
+  box-shadow:var(--shadow);
+  margin-top:16px;
   overflow:hidden;
 }
 
-.service summary{
-  padding:12px;
+summary{
+  list-style:none;
   cursor:pointer;
-  background:#f7f9fc;
-  font-size:11px;
+  padding:17px;
   font-weight:800;
+  font-size:13px;
 }
 
-.char{
-  padding:11px;
+summary::-webkit-details-marker{
+  display:none;
+}
+
+.advanced{
   border-top:1px solid var(--line);
+  padding:15px;
 }
 
-.uuid{
-  font-family:monospace;
-  font-size:9px;
-  word-break:break-all;
-  color:#57708d;
+.row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:10px 0;
+  border-bottom:1px solid #f0f2f6;
+  font-size:12px;
 }
 
-.props{
-  margin-top:5px;
-  font-size:9px;
+.row:last-child{
+  border-bottom:0;
+}
+
+.row span:last-child{
   color:var(--muted);
+  text-align:right;
+  max-width:65%;
+  word-break:break-word;
 }
 
-.badge{
-  display:inline-block;
-  padding:3px 6px;
-  margin:2px 3px 2px 0;
-
-  border-radius:6px;
-
-  background:#f0f3f7;
-
-  font-size:8px;
-}
-
-.badge.read{
-  color:#946d00;
-}
-
-.badge.write{
-  color:#2878c9;
-}
-
-.badge.notify{
-  color:#1d9a69;
-}
-
-.log-box{
-  width:100%;
-  height:330px;
-
-  overflow:auto;
-
+.log{
+  margin-top:12px;
+  background:#111522;
+  color:#b9f5d9;
+  border-radius:15px;
   padding:12px;
-
-  border-radius:14px;
-
-  background:#0b1420;
-  color:#bfe3ff;
-
-  font-family:monospace;
-  font-size:9px;
-
+  height:220px;
+  overflow:auto;
+  font-family:
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    Monaco,
+    Consolas,
+    monospace;
+  font-size:10px;
+  line-height:1.55;
   white-space:pre-wrap;
   word-break:break-word;
 }
 
-.hex-input{
-  width:100%;
-
-  padding:12px;
-
-  border-radius:12px;
-
-  border:1px solid var(--line);
-
-  background:#f8fafc;
-
-  outline:none;
-
-  font-family:monospace;
-  font-size:12px;
+.logEmpty{
+  color:#777f91;
 }
 
-.advanced-button{
-  padding:10px 12px;
-  border-radius:11px;
-
-  background:#edf4ff;
-  color:var(--blue);
-
-  font-size:10px;
-  font-weight:800;
-  margin-top:7px;
-}
-
-.advanced-button.danger{
-  background:#fff0f2;
-  color:var(--red);
-}
-
-/* ================= EMPTY ================= */
-
-.empty{
-  padding:20px;
+.footer{
   text-align:center;
-  color:var(--muted);
-  font-size:11px;
+  color:#9aa2b2;
+  font-size:10px;
+  margin-top:25px;
 }
 
-/* ================= ANIMATION ================= */
+/* TOAST */
+
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:22px;
+  transform:translate(-50%,120px);
+  background:#20263a;
+  color:white;
+  padding:12px 16px;
+  border-radius:14px;
+  font-size:12px;
+  font-weight:700;
+  box-shadow:0 12px 30px rgba(0,0,0,.2);
+  z-index:100;
+  transition:.25s ease;
+  max-width:90%;
+  text-align:center;
+}
+
+.toast.show{
+  transform:translate(-50%,0);
+}
+
+/* SPIN */
 
 .spin{
+  display:inline-block;
   animation:spin 1s linear infinite;
 }
 
 @keyframes spin{
-  from{transform:rotate(0deg)}
   to{transform:rotate(360deg)}
 }
 
-.pulse{
-  animation:pulse 1.6s infinite;
-}
-
-@keyframes pulse{
-  0%,100%{opacity:1}
-  50%{opacity:.5}
-}
-
-/* ================= RESPONSIVE ================= */
-
-@media(max-width:430px){
-
-  .content{
-    padding:13px;
+@media(max-width:420px){
+  .app{
+    padding-left:12px;
+    padding-right:12px;
   }
 
   .hero{
-    min-height:215px;
+    border-radius:24px;
+    padding:20px;
   }
 
-  .hero-watch{
-    transform:scale(.9);
-    transform-origin:bottom right;
+  .heroNumber{
+    font-size:40px;
   }
 
   .metric{
-    padding:14px;
-  }
-
-  .metric-value{
-    font-size:24px;
+    min-height:138px;
+    padding:15px;
   }
 }
 </style>
@@ -1062,1145 +629,366 @@ canvas{
 
 <div class="app">
 
-<!-- ================= TOP BAR ================= -->
-
-<header class="topbar">
-
-  <div class="brand">
-
-    <div class="watch-icon">⌚</div>
-
-    <div>
-      <div class="brand-title">
-        XWatch Health
-      </div>
-
-      <div class="brand-sub">
-        XWatch H5 Pro • Companion
+  <!-- HEADER -->
+  <header class="header">
+    <div class="brand">
+      <div class="brandIcon">⌁</div>
+      <div>
+        <div class="brandTitle">XWatch Health</div>
+        <div class="brandSub">XWatch H5 Pro • XW5P</div>
       </div>
     </div>
 
-  </div>
+    <div class="connection">
+      <span id="connectionDot" class="dot"></span>
+      <span id="connectionText">Offline</span>
+    </div>
+  </header>
 
-  <div id="connection" class="connection">
-    <span class="connection-dot"></span>
-    <span id="connectionText">Offline</span>
-  </div>
+  <!-- HERO -->
+  <section class="hero">
 
-</header>
-
-
-<main class="content">
-
-
-<!-- =========================================================
-     HOME
-========================================================= -->
-
-<section id="pageHome" class="page active">
-
-
-<!-- HERO -->
-
-<div class="hero">
-
-  <div class="hero-top">
-
-    <div>
-
-      <div class="hero-label">
-        SMARTWATCH
+    <div class="heroTop">
+      <div>
+        <div class="watchName">XWatch H5 Pro</div>
+        <div style="font-size:11px;opacity:.65;margin-top:3px">
+          Bluetooth Health Companion
+        </div>
       </div>
 
-      <div class="hero-title">
-        XWatch H5 Pro
-      </div>
-
-      <div class="hero-device" id="heroDevice">
+      <div class="heroStatus" id="heroStatus">
         Belum terhubung
       </div>
-
     </div>
 
-  </div>
+    <div class="heroMain">
 
-
-  <div class="hero-watch">
-
-    <div class="watch-screen">
-
-      <div class="watch-time" id="watchTime">
-        --:--
+      <div>
+        <div class="heroNumber" id="heroSteps">0</div>
+        <div class="heroLabel">Langkah hari ini</div>
       </div>
 
-      <div class="watch-date" id="watchDate">
-        --
+      <div class="heroClock">
+        <div class="clock" id="clock">--:--</div>
+        <div class="date" id="date">---</div>
       </div>
 
     </div>
 
+    <div class="heroActions">
+      <button
+        class="btn btnPrimary"
+        id="connectBtn">
+        Hubungkan
+      </button>
+
+      <button
+        class="btn btnGhost"
+        id="syncBtn">
+        ↻ Sync
+      </button>
+    </div>
+
+  </section>
+
+  <!-- HEALTH -->
+  <div class="sectionTitle">
+    <h2>Kesehatan</h2>
+    <span id="lastSync">Belum ada sync</span>
   </div>
 
+  <div class="grid">
 
-  <div class="hero-actions">
+    <!-- HR -->
+    <div class="card metric">
+      <div class="metricTop">
+        <div class="metricIcon">❤️</div>
+        <div class="metricArrow">›</div>
+      </div>
+
+      <div class="metricValue">
+        <span id="hrValue">--</span>
+        <span class="metricUnit">BPM</span>
+      </div>
+
+      <div class="metricName">Heart Rate</div>
+      <div class="metricNote">Data dari XWatch</div>
+    </div>
+
+    <!-- SPO2 -->
+    <div class="card metric">
+      <div class="metricTop">
+        <div class="metricIcon">🩸</div>
+        <div class="metricArrow">›</div>
+      </div>
+
+      <div class="metricValue">
+        <span id="spo2Value">--</span>
+        <span class="metricUnit">%</span>
+      </div>
+
+      <div class="metricName">SpO₂</div>
+      <div class="metricNote">Data dari XWatch</div>
+    </div>
+
+    <!-- STEPS -->
+    <div class="card metric">
+      <div class="metricTop">
+        <div class="metricIcon">👣</div>
+        <div class="metricArrow">›</div>
+      </div>
+
+      <div class="metricValue">
+        <span id="stepsValue">0</span>
+      </div>
+
+      <div class="metricName">Steps</div>
+      <div class="metricNote">D6 • terdeteksi</div>
+    </div>
+
+    <!-- KCAL -->
+    <div class="card metric">
+      <div class="metricTop">
+        <div class="metricIcon">🔥</div>
+        <div class="metricArrow">›</div>
+      </div>
+
+      <div class="metricValue">
+        <span id="kcalValue">--</span>
+        <span class="metricUnit">kcal</span>
+      </div>
+
+      <div class="metricName">Energi</div>
+      <div class="metricNote">DB • eksperimental</div>
+    </div>
+
+  </div>
+
+  <!-- PRESSURE -->
+  <div class="card bigCard">
+    <div class="activityRow">
+
+      <div class="activityRing" id="activityRing">
+        <div class="activityRingInner" id="activityPercent">
+          0%
+        </div>
+      </div>
+
+      <div class="activityInfo">
+        <strong>Aktivitas hari ini</strong>
+        <p>
+          Target langkah dapat dipantau langsung dari data
+          yang dikirim XWatch.
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PRESSURE -->
+  <div class="sectionTitle">
+    <h2>Data tambahan</h2>
+    <span>Realtime</span>
+  </div>
+
+  <div class="grid">
+
+    <div class="card metric">
+      <div class="metricTop">
+        <div class="metricIcon">🌡️</div>
+        <div class="metricArrow">›</div>
+      </div>
+
+      <div class="metricValue">
+        <span id="pressureValue">--</span>
+      </div>
+
+      <div class="metricName">Pressure</div>
+      <div class="metricNote">E5 • terdeteksi</div>
+    </div>
+
+    <div class="card metric">
+      <div class="metricTop">
+        <div class="metricIcon">📡</div>
+        <div class="metricArrow">›</div>
+      </div>
+
+      <div class="metricValue">
+        <span id="packetValue">0</span>
+      </div>
+
+      <div class="metricName">BLE Packets</div>
+      <div class="metricNote">RX notifications</div>
+    </div>
+
+  </div>
+
+  <!-- POWER -->
+  <div class="sectionTitle">
+    <h2>Power</h2>
+    <span>Battery</span>
+  </div>
+
+  <div class="card powerCard">
+
+    <div class="powerLeft">
+
+      <div class="powerIcon">🔋</div>
+
+      <div>
+        <div class="powerValue" id="batteryValue">--%</div>
+        <div class="powerSub" id="batteryStatus">
+          Belum terdeteksi
+        </div>
+      </div>
+
+    </div>
 
     <button
-      class="hero-button primary"
-      id="connectButton">
-      Hubungkan
-    </button>
-
-    <button
-      class="hero-button"
-      id="disconnectButton">
-      Putuskan
+      class="btn btnLight"
+      id="powerBtn">
+      ⚡ Power Pull
     </button>
 
   </div>
 
-</div>
-
-
-<!-- QUICK -->
-
-<div class="section-title">
-  Akses cepat
-</div>
-
-<div class="quick-grid">
-
-  <button class="quick" id="quickSync">
-
-    <div class="quick-icon">↻</div>
-
-    <div class="quick-title">
-      Sinkron
-    </div>
-
-    <div class="quick-sub">
-      Live data
-    </div>
-
-  </button>
-
-
-  <button class="quick" id="quickPower">
-
-    <div class="quick-icon">🔋</div>
-
-    <div class="quick-title">
-      Power Pull
-    </div>
-
-    <div class="quick-sub">
-      Baterai
-    </div>
-
-  </button>
-
-
-  <button class="quick" id="quickHealth">
-
-    <div class="quick-icon">❤️</div>
-
-    <div class="quick-title">
-      Kesehatan
-    </div>
-
-    <div class="quick-sub">
-      Monitor
-    </div>
-
-  </button>
-
-
-  <button class="quick" id="quickAdvanced">
-
-    <div class="quick-icon">⚙️</div>
-
-    <div class="quick-title">
-      Advanced
-    </div>
-
-    <div class="quick-sub">
-      BLE
-    </div>
-
-  </button>
-
-</div>
-
-
-<!-- HEALTH -->
-
-<div class="section-title">
-  Ringkasan kesehatan
-</div>
-
-<div class="metric-grid">
-
-
-  <div class="metric">
-
-    <div class="metric-head">
-
-      <div class="metric-icon">
-        ❤️
-      </div>
-
-      <div class="metric-status">
-        LIVE
-      </div>
-
-    </div>
-
-    <div class="metric-name">
-      Heart Rate
-    </div>
-
-    <div class="metric-value" id="hr">
-      —
-    </div>
-
-    <span class="metric-unit">
-      bpm
-    </span>
-
+  <!-- SYNC -->
+  <div class="sectionTitle">
+    <h2>Sinkronisasi</h2>
+    <span>Otomatis</span>
   </div>
 
+  <div class="card syncCard">
 
-  <div class="metric">
+    <div class="syncInfo">
 
-    <div class="metric-head">
-
-      <div class="metric-icon">
-        🫁
+      <div class="syncIcon" id="syncIcon">
+        ↻
       </div>
 
-      <div class="metric-status">
-        LIVE
-      </div>
-
-    </div>
-
-    <div class="metric-name">
-      SpO₂
-    </div>
-
-    <div class="metric-value" id="spo2">
-      —
-    </div>
-
-    <span class="metric-unit">
-      %
-    </span>
-
-  </div>
-
-
-  <div class="metric">
-
-    <div class="metric-head">
-
-      <div class="metric-icon">
-        👣
-      </div>
-
-      <div class="metric-status">
-        ACTIVITY
-      </div>
-
-    </div>
-
-    <div class="metric-name">
-      Langkah
-    </div>
-
-    <div class="metric-value" id="steps">
-      —
-    </div>
-
-    <span class="metric-unit">
-      steps
-    </span>
-
-  </div>
-
-
-  <div class="metric">
-
-    <div class="metric-head">
-
-      <div class="metric-icon">
-        🔥
-      </div>
-
-      <div class="metric-status">
-        EXP
-      </div>
-
-    </div>
-
-    <div class="metric-name">
-      Energi
-    </div>
-
-    <div class="metric-value" id="kcal">
-      —
-    </div>
-
-    <span class="metric-unit">
-      kcal
-    </span>
-
-  </div>
-
-</div>
-
-
-<!-- ACTIVITY -->
-
-<div class="section-title">
-  Aktivitas hari ini
-</div>
-
-<div class="activity-card">
-
-  <div class="activity-top">
-
-    <div class="activity-title">
-      Target langkah
-    </div>
-
-    <div class="activity-date" id="activityDate">
-      Hari ini
-    </div>
-
-  </div>
-
-
-  <div class="progress-wrap">
-
-    <div class="progress-label">
-
-      <span>Progress</span>
-
-      <span>
-        <b id="stepProgressText">0%</b>
-      </span>
-
-    </div>
-
-    <div class="progress">
-
-      <div
-        class="progress-bar"
-        id="stepProgress">
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <div class="activity-stats">
-
-    <div class="activity-stat">
-
-      <div
-        class="activity-num"
-        id="stepsActivity">
-        —
-      </div>
-
-      <div class="activity-label">
-        Langkah
-      </div>
-
-    </div>
-
-
-    <div class="activity-stat">
-
-      <div
-        class="activity-num"
-        id="kcalActivity">
-        —
-      </div>
-
-      <div class="activity-label">
-        kcal
-      </div>
-
-    </div>
-
-
-    <div class="activity-stat">
-
-      <div
-        class="activity-num"
-        id="distanceActivity">
-        —
-      </div>
-
-      <div class="activity-label">
-        km
-      </div>
-
-    </div>
-
-  </div>
-
-</div>
-
-
-<!-- HR -->
-
-<div class="section-title">
-  Detak jantung
-</div>
-
-<div class="chart-card">
-
-  <div class="chart-head">
-
-    <div class="chart-title">
-      Heart Rate
-    </div>
-
-    <div
-      class="chart-value"
-      id="chartCurrent">
-      —
-    </div>
-
-  </div>
-
-  <canvas
-    id="hrChart"
-    width="900"
-    height="340">
-  </canvas>
-
-</div>
-
-
-<!-- SLEEP -->
-
-<div class="section-title">
-  Tidur
-</div>
-
-<div class="sleep-card">
-
-  <div class="sleep-main">
-
-    <div class="sleep-circle">
-
-      <div class="sleep-circle-inner">
-
-        <div class="sleep-hours">
-          —
+      <div>
+        <div class="syncTitle" id="syncTitle">
+          Auto Sync siap
         </div>
 
-        <div class="sleep-small">
-          belum ada
+        <div class="syncText" id="syncText">
+          Hubungkan watch untuk mulai menerima data.
         </div>
-
       </div>
 
     </div>
 
-
-    <div>
-
-      <div class="sleep-info-title">
-        Analisis tidur
-      </div>
-
-      <div class="sleep-info-sub">
-        Data tidur akan ditampilkan
-        setelah protokol sleep XWatch
-        berhasil dipetakan.
-      </div>
-
-    </div>
+    <button
+      class="btn btnDark"
+      id="clearBtn">
+      Reset
+    </button>
 
   </div>
 
+  <!-- ADVANCED -->
+  <details>
 
-  <div class="sleep-stages">
+    <summary>
+      🛠 Advanced BLE
+    </summary>
 
-    <div class="sleep-stage">
+    <div class="advanced">
 
-      <div class="sleep-stage-name">
-        Deep
+      <div class="row">
+        <span>Device</span>
+        <span id="deviceName">-</span>
       </div>
 
-      <div
-        class="sleep-stage-value"
-        id="sleepDeep">
-        —
+      <div class="row">
+        <span>Model</span>
+        <span>XW5P</span>
+      </div>
+
+      <div class="row">
+        <span>Service</span>
+        <span>AE00 / FD35</span>
+      </div>
+
+      <div class="row">
+        <span>TX</span>
+        <span>AE01 • Write Without Response</span>
+      </div>
+
+      <div class="row">
+        <span>RX</span>
+        <span>AE02 • Notify</span>
+      </div>
+
+      <div class="row">
+        <span>History RX</span>
+        <span>9231 / 9232</span>
+      </div>
+
+      <button
+        class="btn btnLight"
+        style="width:100%;margin-top:10px"
+        id="clearLogBtn">
+        Bersihkan Log
+      </button>
+
+      <div class="log" id="log">
+        <span class="logEmpty">
+          BLE log akan muncul di sini...
+        </span>
       </div>
 
     </div>
 
+  </details>
 
-    <div class="sleep-stage">
-
-      <div class="sleep-stage-name">
-        Light
-      </div>
-
-      <div
-        class="sleep-stage-value"
-        id="sleepLight">
-        —
-      </div>
-
-    </div>
-
-
-    <div class="sleep-stage">
-
-      <div class="sleep-stage-name">
-        Awake
-      </div>
-
-      <div
-        class="sleep-stage-value"
-        id="sleepAwake">
-        —
-      </div>
-
-    </div>
-
+  <div class="footer">
+    XWatch Health • Experimental Web Bluetooth companion
   </div>
 
 </div>
 
-
-<!-- POWER -->
-
-<div class="section-title">
-  Baterai
-</div>
-
-<div class="power-card">
-
-  <div class="power-row">
-
-    <div class="power-icon">
-      🔋
-    </div>
-
-    <div class="power-info">
-
-      <div
-        class="power-value"
-        id="battery">
-        —
-      </div>
-
-      <div class="power-label">
-        Status baterai XWatch
-      </div>
-
-    </div>
-
-    <button
-      class="power-button"
-      id="powerPull">
-      Power Pull
-    </button>
-
-  </div>
-
-
-  <div class="power-bar">
-
-    <div
-      class="power-fill"
-      id="powerFill">
-    </div>
-
-  </div>
-
-</div>
-
-
-<!-- SYNC -->
-
-<div class="section-title">
-  Sinkronisasi
-</div>
-
-<div class="sync-card">
-
-  <div class="sync-head">
-
-    <div class="sync-icon">
-      ↻
-    </div>
-
-    <div>
-
-      <div class="sync-title">
-        Auto Sync
-      </div>
-
-      <div class="sync-sub">
-        Mendengarkan data BLE secara otomatis
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <button
-    class="sync-button"
-    id="syncButton">
-    Sinkronkan sekarang
-  </button>
-
-
-  <div
-    class="sync-status"
-    id="syncStatus">
-    Belum ada sinkronisasi
-  </div>
-
-</div>
-
-</section>
-
-
-<!-- =========================================================
-     HEALTH PAGE
-========================================================= -->
-
-<section id="pageHealth" class="page">
-
-  <div class="section-title">
-    Kesehatan
-  </div>
-
-  <div class="metric-grid">
-
-    <div class="metric">
-      <div class="metric-icon">❤️</div>
-      <div class="metric-name">Heart Rate</div>
-      <div class="metric-value" id="hrHealth">—</div>
-      <span class="metric-unit">bpm</span>
-    </div>
-
-    <div class="metric">
-      <div class="metric-icon">🫁</div>
-      <div class="metric-name">SpO₂</div>
-      <div class="metric-value" id="spo2Health">—</div>
-      <span class="metric-unit">%</span>
-    </div>
-
-    <div class="metric">
-      <div class="metric-icon">🌡️</div>
-      <div class="metric-name">Temperature</div>
-      <div class="metric-value" id="temperature">—</div>
-      <span class="metric-unit">°C</span>
-    </div>
-
-    <div class="metric">
-      <div class="metric-icon">◉</div>
-      <div class="metric-name">Pressure</div>
-      <div class="metric-value" id="pressure">—</div>
-      <span class="metric-unit">unit</span>
-    </div>
-
-  </div>
-
-
-  <div class="section-title">
-    Heart Rate
-  </div>
-
-  <div class="chart-card">
-
-    <div class="chart-head">
-
-      <div class="chart-title">
-        Live Heart Rate
-      </div>
-
-      <div
-        class="chart-value"
-        id="healthChartValue">
-        —
-      </div>
-
-    </div>
-
-    <canvas
-      id="healthChart"
-      width="900"
-      height="340">
-    </canvas>
-
-  </div>
-
-
-  <div class="advanced-card">
-
-    <div class="advanced-title">
-      Tentang data
-    </div>
-
-    <div class="section-sub">
-      Data HR dan SpO₂ dari packet custom XWatch
-      hanya akan ditampilkan ketika formatnya
-      cocok dengan packet yang sudah kita konfirmasi.
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- =========================================================
-     ACTIVITY PAGE
-========================================================= -->
-
-<section id="pageActivity" class="page">
-
-  <div class="section-title">
-    Aktivitas
-  </div>
-
-  <div class="metric-grid">
-
-    <div class="metric">
-      <div class="metric-icon">👣</div>
-      <div class="metric-name">Steps</div>
-      <div class="metric-value" id="stepsActivityPage">—</div>
-      <span class="metric-unit">steps</span>
-    </div>
-
-    <div class="metric">
-      <div class="metric-icon">🔥</div>
-      <div class="metric-name">Kcal</div>
-      <div class="metric-value" id="kcalActivityPage">—</div>
-      <span class="metric-unit">kcal</span>
-    </div>
-
-    <div class="metric">
-      <div class="metric-icon">📍</div>
-      <div class="metric-name">Distance</div>
-      <div class="metric-value">—</div>
-      <span class="metric-unit">km</span>
-    </div>
-
-    <div class="metric">
-      <div class="metric-icon">🏃</div>
-      <div class="metric-name">Active</div>
-      <div class="metric-value">—</div>
-      <span class="metric-unit">min</span>
-    </div>
-
-  </div>
-
-
-  <div class="section-title">
-    Target harian
-  </div>
-
-  <div class="activity-card">
-
-    <div class="activity-top">
-
-      <div class="activity-title">
-        10.000 langkah
-      </div>
-
-      <div id="activityPercent">
-        0%
-      </div>
-
-    </div>
-
-    <div class="progress-wrap">
-
-      <div class="progress">
-
-        <div
-          class="progress-bar"
-          id="activityProgress">
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <div class="advanced-card">
-
-    <div class="advanced-title">
-      Status decoder
-    </div>
-
-    <div class="info-row">
-      <span class="info-key">D6</span>
-      <span class="info-value">Steps ✓</span>
-    </div>
-
-    <div class="info-row">
-      <span class="info-key">DB</span>
-      <span class="info-value">Kcal experimental</span>
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- =========================================================
-     PROFILE / DEVICE
-========================================================= -->
-
-<section id="pageDevice" class="page">
-
-  <div class="section-title">
-    Perangkat
-  </div>
-
-
-  <div class="advanced-card">
-
-    <div class="advanced-title">
-      XWatch
-    </div>
-
-    <div class="info-row">
-
-      <span class="info-key">
-        Nama
-      </span>
-
-      <span
-        class="info-value"
-        id="deviceName">
-        —
-      </span>
-
-    </div>
-
-
-    <div class="info-row">
-
-      <span class="info-key">
-        Device ID
-      </span>
-
-      <span
-        class="info-value"
-        id="deviceId">
-        —
-      </span>
-
-    </div>
-
-
-    <div class="info-row">
-
-      <span class="info-key">
-        GATT
-      </span>
-
-      <span
-        class="info-value"
-        id="gattState">
-        OFFLINE
-      </span>
-
-    </div>
-
-
-    <div class="info-row">
-
-      <span class="info-key">
-        Packet
-      </span>
-
-      <span
-        class="info-value"
-        id="packetCount">
-        0
-      </span>
-
-    </div>
-
-  </div>
-
-
-  <div class="section-title">
-    BLE Advanced
-  </div>
-
-
-  <div class="advanced-card">
-
-    <div class="advanced-title">
-      GATT Services
-    </div>
-
-    <div
-      id="services">
-      <div class="empty">
-        Hubungkan XWatch terlebih dahulu.
-      </div>
-    </div>
-
-  </div>
-
-
-  <div class="advanced-card">
-
-    <div class="advanced-title">
-      Manual TX — Eksperimen
-    </div>
-
-    <div class="section-sub">
-      AE01 bukan bagian dari tombol Sync.
-      Gunakan bagian ini hanya untuk pengujian
-      protokol.
-    </div>
-
-    <input
-      class="hex-input"
-      id="hexInput"
-      value="01"
-      placeholder="01">
-
-    <button
-      class="advanced-button"
-      id="sendHex">
-      Kirim HEX
-    </button>
-
-    <button
-      class="advanced-button"
-      id="testAe01">
-      Test AE01 01
-    </button>
-
-  </div>
-
-
-  <div class="advanced-card">
-
-    <div class="advanced-title">
-      Data lokal
-    </div>
-
-    <button
-      class="advanced-button"
-      id="exportJson">
-      Export JSON
-    </button>
-
-    <button
-      class="advanced-button"
-      id="exportCsv">
-      Export CSV
-    </button>
-
-    <button
-      class="advanced-button danger"
-      id="clearData">
-      Hapus data lokal
-    </button>
-
-  </div>
-
-
-  <div class="advanced-card">
-
-    <div class="advanced-title">
-      Bluetooth Log
-    </div>
-
-    <pre
-      class="log-box"
-      id="logBox"></pre>
-
-    <button
-      class="advanced-button"
-      id="clearLog">
-      Clear Log
-    </button>
-
-  </div>
-
-</section>
-
-</main>
-
-
-<!-- =========================================================
-     BOTTOM NAV
-========================================================= -->
-
-<nav class="bottom-nav">
-
-  <button
-    class="nav-item active"
-    data-page="pageHome">
-
-    <div class="nav-icon">
-      🏠
-    </div>
-
-    <div class="nav-label">
-      Beranda
-    </div>
-
-  </button>
-
-
-  <button
-    class="nav-item"
-    data-page="pageHealth">
-
-    <div class="nav-icon">
-      ❤️
-    </div>
-
-    <div class="nav-label">
-      Kesehatan
-    </div>
-
-  </button>
-
-
-  <button
-    class="nav-item"
-    data-page="pageActivity">
-
-    <div class="nav-icon">
-      👣
-    </div>
-
-    <div class="nav-label">
-      Aktivitas
-    </div>
-
-  </button>
-
-
-  <button
-    class="nav-item"
-    data-page="pageDevice">
-
-    <div class="nav-icon">
-      ⌚
-    </div>
-
-    <div class="nav-label">
-      Perangkat
-    </div>
-
-  </button>
-
-</nav>
+<div class="toast" id="toast"></div>
 
 
 <script>
 "use strict";
 
 /* =========================================================
-   XWATCH H5 PRO HEALTH
-   =========================================================
-
-   CONFIRMED:
-
-   AE00 = service
-   AE01 = WRITE / WRITE WITHOUT RESPONSE
-   AE02 = NOTIFY
-
-   AE01 01 -> AE02
-   02 70 61 73 73 = "-pass"
-
-   IMPORTANT:
-   AE01 IS NOT USED BY THE SYNC BUTTON.
-
-   CONFIRMED CUSTOM DATA:
-
-   D2 = Heart Rate
-   D3 = SpO2
-   D6 = Steps
-   E5 = Pressure
-   DB = Kcal candidate / experimental
-
-   ========================================================= */
-
-
-/* =========================================================
    UUID
 ========================================================= */
 
-const U = {
+const UUID = {
 
-  AE00:
-    "0000ae00-0000-1000-8000-00805f9b34fb",
+  AE00: "0000ae00-0000-1000-8000-00805f9b34fb",
+  AE01: "0000ae01-0000-1000-8000-00805f9b34fb",
+  AE02: "0000ae02-0000-1000-8000-00805f9b34fb",
 
-  AE01:
-    "0000ae01-0000-1000-8000-00805f9b34fb",
+  FD35: "0000fd35-0000-1000-8000-00805f9b34fb",
+  C9231: "00009231-0000-1000-8000-00805f9b34fb",
+  C9232: "00009232-0000-1000-8000-00805f9b34fb",
+  C9233: "00009233-0000-1000-8000-00805f9b34fb",
 
-  AE02:
-    "0000ae02-0000-1000-8000-00805f9b34fb",
+  S8800: "00008800-0000-1000-8000-00805f9b34fb",
+  C8801: "00008801-0000-1000-8000-00805f9b34fb",
+  C8802: "00008802-0000-1000-8000-00805f9b34fb",
 
-  S9231:
-    "00009231-0000-1000-8000-00805f9b34fb",
+  S6600: "00006600-0000-1000-8000-00805f9b34fb",
+  C6601: "00006601-0000-1000-8000-00805f9b34fb",
+  C6602: "00006602-0000-1000-8000-00805f9b34fb",
 
-  S9232:
-    "00009232-0000-1000-8000-00805f9b34fb",
+  AF00: "0000af00-0000-1000-8000-00805f9b34fb",
+  AF02: "0000af02-0000-1000-8000-00805f9b34fb",
 
-  S9233:
-    "00009233-0000-1000-8000-00805f9b34fb",
+  FEE7: "0000fee7-0000-1000-8000-00805f9b34fb",
+  FEA1: "0000fea1-0000-1000-8000-00805f9b34fb",
+  FEC9: "0000fec9-0000-1000-8000-00805f9b34fb",
 
-  FEA1:
-    "0000fea1-0000-1000-8000-00805f9b34fb",
+  BATTERY: "battery_service",
+  BATTERY_LEVEL: "battery_level",
 
-  FEC9:
-    "0000fec9-0000-1000-8000-00805f9b34fb",
-
-  AF02:
-    "0000af02-0000-1000-8000-00805f9b34fb",
-
-  C8801:
-    "00008801-0000-1000-8000-00805f9b34fb",
-
-  C8802:
-    "00008802-0000-1000-8000-00805f9b34fb",
-
-  C6601:
-    "00006601-0000-1000-8000-00805f9b34fb",
-
-  C6602:
-    "00006602-0000-1000-8000-00805f9b34fb",
-
-  BATTERY_SERVICE:
-    "0000180f-0000-1000-8000-00805f9b34fb",
-
-  BATTERY_LEVEL:
-    "00002a19-0000-1000-8000-00805f9b34fb",
-
-  HEART_RATE:
-    "00002a37-0000-1000-8000-00805f9b34fb",
-
-  TEMP:
-    "00002a1c-0000-1000-8000-00805f9b34fb"
-
+  GAP: "00001800-0000-1000-8000-00805f9b34fb",
+  DEVICE_NAME: "00002a00-0000-1000-8000-00805f9b34fb"
 };
 
 
@@ -2211,87 +999,379 @@ const U = {
 let device = null;
 let server = null;
 
-let services = [];
-let chars = [];
+let chars = {
+  ae01: null,
+  ae02: null,
 
-let txAE01 = null;
-let rxAE02 = null;
+  c9231: null,
+  c9232: null,
+  c9233: null,
 
-let listeners = [];
+  c8801: null,
+  c8802: null,
 
-let packets = [];
+  c6601: null,
+  c6602: null,
 
-let hrHistory = [];
+  af01: null,
+  af02: null,
 
-let state = {
+  fea1: null,
+  fec9: null,
 
-  hr:null,
-  spo2:null,
-  steps:null,
-  kcal:null,
-  pressure:null,
-  temperature:null,
-  battery:null,
+  battery: null
+};
 
-  lastSync:null
+let packetCount = 0;
+let logCount = 0;
 
+const STORAGE_KEY = "xwatch_health_state_v3";
+
+
+/* =========================================================
+   ELEMENTS
+========================================================= */
+
+const $ = id => document.getElementById(id);
+
+const el = {
+  connectionDot: $("connectionDot"),
+  connectionText: $("connectionText"),
+
+  heroStatus: $("heroStatus"),
+  heroSteps: $("heroSteps"),
+
+  connectBtn: $("connectBtn"),
+  syncBtn: $("syncBtn"),
+
+  lastSync: $("lastSync"),
+
+  hr: $("hrValue"),
+  spo2: $("spo2Value"),
+  steps: $("stepsValue"),
+  kcal: $("kcalValue"),
+  pressure: $("pressureValue"),
+
+  packet: $("packetValue"),
+
+  activityRing: $("activityRing"),
+  activityPercent: $("activityPercent"),
+
+  battery: $("batteryValue"),
+  batteryStatus: $("batteryStatus"),
+  powerBtn: $("powerBtn"),
+
+  syncIcon: $("syncIcon"),
+  syncTitle: $("syncTitle"),
+  syncText: $("syncText"),
+
+  clearBtn: $("clearBtn"),
+
+  deviceName: $("deviceName"),
+  log: $("log"),
+  clearLogBtn: $("clearLogBtn"),
+
+  clock: $("clock"),
+  date: $("date"),
+
+  toast: $("toast")
 };
 
 
 /* =========================================================
-   DOM
+   STORAGE
 ========================================================= */
 
-const $ = id =>
-  document.getElementById(id);
+function defaultState(){
+
+  return {
+    hr: null,
+    spo2: null,
+    steps: 0,
+    kcal: null,
+    pressure: null,
+    battery: null,
+    lastSync: null
+  };
+
+}
+
+
+let state = defaultState();
+
+
+function loadState(){
+
+  try{
+
+    const raw = localStorage.getItem(STORAGE_KEY);
+
+    if(!raw){
+      return;
+    }
+
+    const saved = JSON.parse(raw);
+
+    state = {
+      ...defaultState(),
+      ...saved
+    };
+
+  }catch(err){
+
+    console.warn("Storage error:", err);
+
+    state = defaultState();
+
+  }
+
+}
+
+
+function saveState(){
+
+  try{
+
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify(state)
+    );
+
+  }catch(err){
+
+    console.warn("Storage save error:", err);
+
+  }
+
+}
 
 
 /* =========================================================
-   TIME
+   UI
 ========================================================= */
 
-function timeNow(){
+function render(){
 
-  return new Date().toLocaleTimeString(
-    "id-ID",
-    {
-      hour12:false
-    }
-  );
+  el.hr.textContent =
+    state.hr == null ? "--" : state.hr;
+
+  el.spo2.textContent =
+    state.spo2 == null ? "--" : state.spo2;
+
+  el.steps.textContent =
+    Number.isFinite(Number(state.steps))
+      ? Number(state.steps).toLocaleString("id-ID")
+      : "0";
+
+  el.heroSteps.textContent =
+    Number.isFinite(Number(state.steps))
+      ? Number(state.steps).toLocaleString("id-ID")
+      : "0";
+
+  el.kcal.textContent =
+    state.kcal == null ? "--" : state.kcal;
+
+  el.pressure.textContent =
+    state.pressure == null ? "--" : state.pressure;
+
+  el.battery.textContent =
+    state.battery == null
+      ? "--%"
+      : `${state.battery}%`;
+
+  if(state.battery != null){
+    el.batteryStatus.textContent =
+      "Battery Service terdeteksi";
+  }
+
+  if(state.lastSync){
+
+    el.lastSync.textContent =
+      "Sync " + formatTime(state.lastSync);
+
+  }else{
+
+    el.lastSync.textContent =
+      "Belum ada sync";
+
+  }
+
+  updateActivity();
 
 }
 
 
-function dateNow(){
+function updateActivity(){
 
-  return new Date().toLocaleDateString(
-    "id-ID",
-    {
-      day:"numeric",
-      month:"short"
-    }
+  const steps = Number(state.steps) || 0;
+
+  const target = 10000;
+
+  const percent = Math.min(
+    100,
+    Math.round((steps / target) * 100)
   );
 
+  el.activityRing.style.setProperty(
+    "--progress",
+    percent + "%"
+  );
+
+  el.activityPercent.textContent =
+    percent + "%";
+
 }
+
+
+function setConnection(connected){
+
+  if(connected){
+
+    el.connectionDot.classList.add("connected");
+    el.connectionText.textContent = "Connected";
+
+    el.heroStatus.textContent = "Terhubung";
+
+    el.connectBtn.textContent = "Putuskan";
+
+    el.syncTitle.textContent =
+      "Auto Sync aktif";
+
+    el.syncText.textContent =
+      "Mendengarkan data dari XWatch...";
+
+  }else{
+
+    el.connectionDot.classList.remove("connected");
+    el.connectionText.textContent = "Offline";
+
+    el.heroStatus.textContent =
+      "Belum terhubung";
+
+    el.connectBtn.textContent =
+      "Hubungkan";
+
+    el.syncTitle.textContent =
+      "Auto Sync siap";
+
+    el.syncText.textContent =
+      "Hubungkan watch untuk mulai menerima data.";
+
+  }
+
+}
+
+
+function showToast(message){
+
+  el.toast.textContent = message;
+
+  el.toast.classList.add("show");
+
+  clearTimeout(showToast.timer);
+
+  showToast.timer =
+    setTimeout(() => {
+
+      el.toast.classList.remove("show");
+
+    }, 2600);
+
+}
+
+
+/* =========================================================
+   CLOCK
+========================================================= */
+
+function updateClock(){
+
+  const now = new Date();
+
+  el.clock.textContent =
+    now.toLocaleTimeString(
+      "id-ID",
+      {
+        hour:"2-digit",
+        minute:"2-digit"
+      }
+    );
+
+  el.date =
+    $("date");
+
+  el.date.textContent =
+    now.toLocaleDateString(
+      "id-ID",
+      {
+        weekday:"long",
+        day:"numeric",
+        month:"short"
+      }
+    );
+
+}
+
+setInterval(updateClock,1000);
+
+updateClock();
 
 
 /* =========================================================
    LOG
 ========================================================= */
 
+function clearLog(){
+
+  el.log.innerHTML =
+    '<span class="logEmpty">BLE log akan muncul di sini...</span>';
+
+  logCount = 0;
+
+}
+
+
 function log(message){
 
-  const box = $("logBox");
+  const now = new Date();
 
-  if(!box) return;
+  const time =
+    now.toLocaleTimeString(
+      "id-ID",
+      {
+        hour12:false,
+        hour:"2-digit",
+        minute:"2-digit",
+        second:"2-digit"
+      }
+    );
 
-  box.textContent +=
-    "[" + timeNow() + "] " +
-    message +
-    "\n";
+  if(logCount === 0){
 
-  box.scrollTop =
-    box.scrollHeight;
+    el.log.innerHTML = "";
+
+  }
+
+  logCount++;
+
+  const line =
+    document.createElement("div");
+
+  line.textContent =
+    `[${time}] ${message}`;
+
+  el.log.appendChild(line);
+
+  while(el.log.children.length > 150){
+
+    el.log.removeChild(
+      el.log.firstChild
+    );
+
+  }
+
+  el.log.scrollTop =
+    el.log.scrollHeight;
 
 }
 
@@ -2300,875 +1380,267 @@ function log(message){
    HEX
 ========================================================= */
 
-function toHex(buffer){
+function bytesToHex(bytes){
 
-  return [...new Uint8Array(buffer)]
+  return Array.from(bytes)
     .map(
-      b =>
-        b.toString(16)
-         .padStart(2,"0")
-         .toUpperCase()
+      b => b
+        .toString(16)
+        .padStart(2,"0")
+        .toUpperCase()
     )
     .join(" ");
 
 }
 
 
-function toAscii(buffer){
+function dataViewToBytes(dataView){
 
-  return [...new Uint8Array(buffer)]
-    .map(
-      b =>
-        b >= 32 && b <= 126
-          ? String.fromCharCode(b)
-          : "."
-    )
-    .join("");
-
-}
-
-
-function parseHex(value){
-
-  value =
-    value
-      .replace(/0x/gi,"")
-      .replace(/[^0-9a-f]/gi,"");
-
-  if(
-    !value ||
-    value.length % 2 !== 0
-  ){
-
-    throw new Error(
-      "HEX tidak valid."
-    );
-
-  }
-
-  const data =
-    new Uint8Array(
-      value.length / 2
-    );
+  const bytes = [];
 
   for(
-    let i=0;
-    i<data.length;
+    let i = 0;
+    i < dataView.byteLength;
     i++
   ){
 
-    data[i] =
-      parseInt(
-        value.slice(i*2,i*2+2),
-        16
-      );
+    bytes.push(
+      dataView.getUint8(i)
+    );
 
   }
 
-  return data;
+  return bytes;
 
 }
 
 
 /* =========================================================
-   LOCAL STORAGE
+   PROTOCOL DECODER
 ========================================================= */
 
-const DATA_KEY =
-  "xwatch_health_state_v3";
+/*
+   Proven packets:
 
-const PACKET_KEY =
-  "xwatch_health_packets_v3";
+   D2 = Heart Rate
+   D3 = SpO2
+   D6 = Steps
+   E5 = Pressure
+   DB = Kcal candidate
 
+   Typical:
 
-function saveState(){
+   EE .. 91 00 00 08 D2
+   0F 12 04 08 01 10 XX
 
-  try{
-
-    localStorage.setItem(
-      DATA_KEY,
-      JSON.stringify(state)
-    );
-
-  }catch(e){}
-
-}
+   value is after 10.
+*/
 
 
-function loadState(){
+function findLastFieldValue(bytes, field){
 
-  try{
+  let value = null;
 
-    const saved =
-      JSON.parse(
-        localStorage.getItem(
-          DATA_KEY
-        ) || "null"
-      );
+  for(let i=0;i<bytes.length-1;i++){
 
-    if(saved){
+    if(bytes[i] === field){
 
-      state =
-        Object.assign(
-          state,
-          saved
-        );
+      value = bytes[i+1];
 
     }
 
-  }catch(e){}
-
-
-  try{
-
-    packets =
-      JSON.parse(
-        localStorage.getItem(
-          PACKET_KEY
-        ) || "[]"
-      );
-
-  }catch(e){
-
-    packets=[];
-
   }
+
+  return value;
 
 }
 
 
-function savePackets(){
+function decodePacket(bytes){
 
-  try{
-
-    localStorage.setItem(
-      PACKET_KEY,
-      JSON.stringify(
-        packets.slice(-2000)
-      )
-    );
-
-  }catch(e){}
-
-}
-
-
-/* =========================================================
-   RENDER STATE
-========================================================= */
-
-function renderState(){
-
-  /* HR */
-
-  if(state.hr !== null){
-
-    $("hr").textContent =
-      state.hr;
-
-    $("hrHealth").textContent =
-      state.hr;
-
-    $("chartCurrent").textContent =
-      state.hr + " bpm";
-
-    $("healthChartValue").textContent =
-      state.hr + " bpm";
-
-  }
-
-
-  /* SPO2 */
-
-  if(state.spo2 !== null){
-
-    $("spo2").textContent =
-      state.spo2;
-
-    $("spo2Health").textContent =
-      state.spo2;
-
-  }
-
-
-  /* STEPS */
-
-  if(state.steps !== null){
-
-    $("steps").textContent =
-      state.steps;
-
-    $("stepsActivity").textContent =
-      state.steps;
-
-    $("stepsActivityPage").textContent =
-      state.steps;
-
-    updateStepProgress();
-
-  }
-
-
-  /* KCAL */
-
-  if(state.kcal !== null){
-
-    $("kcal").textContent =
-      state.kcal;
-
-    $("kcalActivity").textContent =
-      state.kcal;
-
-    $("kcalActivityPage").textContent =
-      state.kcal;
-
-  }
-
-
-  /* PRESSURE */
-
-  if(state.pressure !== null){
-
-    $("pressure").textContent =
-      state.pressure;
-
-  }
-
-
-  /* TEMPERATURE */
-
-  if(state.temperature !== null){
-
-    $("temperature").textContent =
-      state.temperature;
-
-  }
-
-
-  /* BATTERY */
-
-  if(state.battery !== null){
-
-    renderBattery(
-      state.battery
-    );
-
-  }
-
-
-  drawChart();
-  updateStoreInfo();
-
-}
-
-
-/* =========================================================
-   BATTERY UI
-========================================================= */
-
-function renderBattery(value){
-
-  value =
-    Math.max(
-      0,
-      Math.min(
-        100,
-        Number(value)
-      )
-    );
-
-  $("battery").textContent =
-    value + "%";
-
-  $("powerFill").style.width =
-    value + "%";
-
-}
-
-
-/* =========================================================
-   STEP PROGRESS
-========================================================= */
-
-function updateStepProgress(){
-
-  if(state.steps === null)
+  if(bytes.length < 6){
     return;
-
-  const target =
-    10000;
-
-  const percent =
-    Math.min(
-      100,
-      Math.round(
-        state.steps /
-        target *
-        100
-      )
-    );
-
-  $("stepProgress").style.width =
-    percent + "%";
-
-  $("stepProgressText").textContent =
-    percent + "%";
-
-  $("activityProgress").style.width =
-    percent + "%";
-
-  $("activityPercent").textContent =
-    percent + "%";
-
-}
-
-
-/* =========================================================
-   PACKET
-========================================================= */
-
-function addPacket(
-  direction,
-  uuid,
-  buffer
-){
-
-  const item={
-
-    time:
-      new Date().toISOString(),
-
-    direction,
-
-    uuid,
-
-    hex:
-      toHex(buffer),
-
-    ascii:
-      toAscii(buffer),
-
-    length:
-      new Uint8Array(buffer).length
-
-  };
-
-  packets.push(item);
-
-  if(packets.length > 2000){
-
-    packets.shift();
-
   }
 
-  savePackets();
+  if(bytes[0] !== 0xEE){
+    return;
+  }
 
-  updateStoreInfo();
+  const type = bytes[6];
 
-  return item;
+  /*
+    HR
+  */
 
-}
+  if(type === 0xD2){
 
+    const value =
+      findLastFieldValue(bytes,0x10);
 
-function updateStoreInfo(){
+    if(
+      value !== null &&
+      value >= 30 &&
+      value <= 220
+    ){
 
-  $("packetCount").textContent =
-    packets.length;
+      state.hr = value;
 
-}
+      log(`❤️ HR = ${value} BPM`);
 
+      saveState();
+      render();
 
-/* =========================================================
-   HR
-========================================================= */
-
-function setHR(value){
-
-  if(
-    !Number.isFinite(value) ||
-    value < 20 ||
-    value > 240
-  ){
+    }
 
     return;
-
   }
-
-  state.hr =
-    value;
-
-  hrHistory.push({
-
-    time:Date.now(),
-
-    value
-
-  });
-
-  if(
-    hrHistory.length > 80
-  ){
-
-    hrHistory.shift();
-
-  }
-
-  renderState();
-
-  saveState();
-
-}
-
-
-/* =========================================================
-   DECODER
-========================================================= */
-
-function decodeCustom(uuid,buffer){
-
-  const u =
-    uuid.toLowerCase();
-
-  const b =
-    new Uint8Array(buffer);
 
 
   /*
-    Custom data yang sudah
-    benar-benar kita konfirmasi.
+    SpO2
   */
 
+  if(type === 0xD3){
 
-  /* -------------------------------------------------------
-     D2 = HEART RATE
-  ------------------------------------------------------- */
-
-  if(
-    u === U.S9232 &&
-    b.length >= 9
-  ){
+    const value =
+      findLastFieldValue(bytes,0x10);
 
     if(
-      b[0] === 0xEE &&
-      b[6] === 0xD2
+      value !== null &&
+      value >= 70 &&
+      value <= 100
     ){
 
-      /*
-        Bentuk:
-        EE 09 91 00 00 08 D2
-        0F 12 04 08 01 10 XX
-      */
+      state.spo2 = value;
 
-      const index =
-        b.lastIndexOf(0x10);
-
-      if(index >= 0){
-
-        const value =
-          b[index+1];
-
-        if(
-          value >= 20 &&
-          value <= 240
-        ){
-
-          setHR(value);
-
-          log(
-            "✓ D2 HEART RATE = " +
-            value +
-            " bpm"
-          );
-
-          return;
-
-        }
-
-      }
-
-    }
-
-  }
-
-
-  /* -------------------------------------------------------
-     D3 = SPO2
-  ------------------------------------------------------- */
-
-  if(
-    u === U.S9232 &&
-    b.length >= 9
-  ){
-
-    if(
-      b[0] === 0xEE &&
-      b[6] === 0xD3
-    ){
-
-      const index =
-        b.lastIndexOf(0x10);
-
-      if(index >= 0){
-
-        const value =
-          b[index+1];
-
-        if(
-          value >= 50 &&
-          value <= 100
-        ){
-
-          state.spo2 =
-            value;
-
-          renderState();
-
-          saveState();
-
-          log(
-            "✓ D3 SPO2 = " +
-            value +
-            "%"
-          );
-
-          return;
-
-        }
-
-      }
-
-    }
-
-  }
-
-
-  /* -------------------------------------------------------
-     D6 = STEPS
-  ------------------------------------------------------- */
-
-  if(
-    u === U.S9232 &&
-    b.length >= 8
-  ){
-
-    if(
-      b[0] === 0xEE &&
-      b[6] === 0xD6
-    ){
-
-      /*
-        Contoh confirmed:
-
-        EE 07 91 00 00 08 D6
-        0F 12 02 08 10
-
-        byte setelah 08 =
-        jumlah langkah
-      */
-
-      let index = -1;
-
-      for(
-        let i=7;
-        i<b.length-1;
-        i++
-      ){
-
-        if(
-          b[i] === 0x08
-        ){
-
-          index=i;
-          break;
-
-        }
-
-      }
-
-      if(index >= 0){
-
-        const value =
-          b[index+1];
-
-        if(
-          value >= 0 &&
-          value <= 255
-        ){
-
-          state.steps =
-            value;
-
-          renderState();
-
-          saveState();
-
-          log(
-            "✓ D6 STEPS = " +
-            value
-          );
-
-          return;
-
-        }
-
-      }
-
-    }
-
-  }
-
-
-  /* -------------------------------------------------------
-     E5 = PRESSURE
-  ------------------------------------------------------- */
-
-  if(
-    u === U.S9232 &&
-    b.length >= 8
-  ){
-
-    if(
-      b[0] === 0xEE &&
-      b[6] === 0xE5
-    ){
-
-      const index =
-        b.lastIndexOf(0x10);
-
-      if(index >= 0){
-
-        const value =
-          b[index+1];
-
-        if(
-          value >= 0 &&
-          value <= 200
-        ){
-
-          state.pressure =
-            value;
-
-          renderState();
-
-          saveState();
-
-          log(
-            "✓ E5 PRESSURE = " +
-            value
-          );
-
-          return;
-
-        }
-
-      }
-
-    }
-
-  }
-
-
-  /* -------------------------------------------------------
-     DB = KCAL EXPERIMENTAL
-  ------------------------------------------------------- */
-
-  if(
-    u === U.S9232 &&
-    b.length >= 8
-  ){
-
-    if(
-      b[0] === 0xEE &&
-      b[6] === 0xDB
-    ){
-
-      const index =
-        b.lastIndexOf(0x10);
-
-      if(index >= 0){
-
-        const value =
-          b[index+1];
-
-        if(
-          value >= 0 &&
-          value <= 255
-        ){
-
-          state.kcal =
-            value;
-
-          renderState();
-
-          saveState();
-
-          log(
-            "🧪 DB KCAL candidate = " +
-            value
-          );
-
-          return;
-
-        }
-
-      }
-
-    }
-
-  }
-
-}
-
-
-/* =========================================================
-   STANDARD BLE DECODER
-========================================================= */
-
-function decodeStandard(
-  uuid,
-  buffer
-){
-
-  const u =
-    uuid.toLowerCase();
-
-  const b =
-    new Uint8Array(buffer);
-
-
-  /* Battery */
-
-  if(
-    u === U.BATTERY_LEVEL &&
-    b.length
-  ){
-
-    if(
-      b[0] <= 100
-    ){
-
-      state.battery =
-        b[0];
-
-      renderBattery(
-        b[0]
-      );
+      log(`🩸 SpO₂ = ${value}%`);
 
       saveState();
-
-      log(
-        "✓ STANDARD BATTERY = " +
-        b[0] +
-        "%"
-      );
-
-      return;
+      render();
 
     }
 
+    return;
   }
 
 
-  /* HR */
+  /*
+    Steps
+  */
 
-  if(
-    u === U.HEART_RATE &&
-    b.length >= 2
-  ){
+  if(type === 0xD6){
 
-    const flags =
-      b[0];
-
-    let value;
-
-    if(flags & 1){
-
-      if(b.length < 3)
-        return;
-
-      value =
-        b[1] |
-        (b[2] << 8);
-
-    }else{
-
-      value =
-        b[1];
-
-    }
+    const value =
+      findLastFieldValue(bytes,0x08);
 
     if(
-      value >= 20 &&
-      value <= 240
+      value !== null &&
+      value >= 0 &&
+      value <= 255
     ){
 
-      setHR(value);
+      state.steps = value;
 
-      return;
+      log(`👣 STEPS = ${value}`);
+
+      saveState();
+      render();
 
     }
 
+    return;
   }
 
+
+  /*
+    Pressure
+  */
+
+  if(type === 0xE5){
+
+    const value =
+      findLastFieldValue(bytes,0x10);
+
+    if(
+      value !== null &&
+      value >= 0 &&
+      value <= 255
+    ){
+
+      state.pressure = value;
+
+      log(`🌡️ PRESSURE = ${value}`);
+
+      saveState();
+      render();
+
+    }
+
+    return;
+  }
+
+
+  /*
+    DB = Kcal candidate.
+
+    Belum 100% confirmed.
+  */
+
+  if(type === 0xDB){
+
+    const value =
+      findLastFieldValue(bytes,0x10);
+
+    if(
+      value !== null &&
+      value >= 0 &&
+      value <= 255
+    ){
+
+      state.kcal = value;
+
+      log(`🔥 KCAL candidate = ${value}`);
+
+      saveState();
+      render();
+
+    }
+
+    return;
+  }
 
 }
 
 
 /* =========================================================
-   PACKET HANDLER
+   NOTIFICATION HANDLER
 ========================================================= */
 
-function onPacket(
-  uuid,
-  buffer,
-  direction="RX"
-){
+function handleNotification(event){
 
-  const h =
-    toHex(buffer);
+  try{
 
-  const a =
-    toAscii(buffer);
+    const bytes =
+      dataViewToBytes(event.target.value);
 
-  addPacket(
-    direction,
-    uuid,
-    buffer
-  );
+    packetCount++;
 
-  $("packetCount").textContent =
-    packets.length;
+    el.packet.textContent =
+      packetCount.toLocaleString("id-ID");
 
-  log(
-    direction +
-    " " +
-    uuid +
-    " → " +
-    h +
-    " | " +
-    a
-  );
-
-
-  decodeStandard(
-    uuid,
-    buffer
-  );
-
-
-  decodeCustom(
-    uuid,
-    buffer
-  );
-
-
-  if(
-    h ===
-    "02 70 61 73 73"
-  ){
+    const uuid =
+      event.target.uuid;
 
     log(
-      "✓ AE02 RESPONSE TERKONFIRMASI: -pass"
+      `RX ${uuid} → ${bytesToHex(bytes)}`
+    );
+
+    decodePacket(bytes);
+
+  }catch(err){
+
+    log(
+      "Decoder error: " + err.message
     );
 
   }
@@ -3177,73 +1649,66 @@ function onPacket(
 
 
 /* =========================================================
-   NOTIFICATION
+   SAFE CHARACTERISTIC HELPERS
 ========================================================= */
 
-function onNotify(event){
+async function enableNotify(
+  characteristic,
+  label
+){
 
-  const value =
-    event.target.value;
-
-  const buffer =
-    value.buffer.slice(
-      value.byteOffset,
-      value.byteOffset +
-      value.byteLength
-    );
-
-  onPacket(
-    event.target.uuid,
-    buffer,
-    "RX"
-  );
-
-}
-
-
-/* =========================================================
-   ENABLE NOTIFY
-========================================================= */
-
-async function enableNotify(c){
-
-  if(
-    !c.properties.notify &&
-    !c.properties.indicate
-  ){
-
+  if(!characteristic){
     return false;
-
   }
 
   try{
 
-    await c.startNotifications();
+    await characteristic.startNotifications();
 
-    c.addEventListener(
+    characteristic.addEventListener(
       "characteristicvaluechanged",
-      onNotify
+      handleNotification
     );
 
-    listeners.push(c);
-
-    log(
-      "✓ NOTIFY aktif " +
-      c.uuid
-    );
+    log(`✓ Notify aktif: ${label}`);
 
     return true;
 
-  }catch(e){
+  }catch(err){
 
     log(
-      "⚠ NOTIFY gagal " +
-      c.uuid +
-      " → " +
-      e.message
+      `⚠ Notify gagal ${label}: ${err.message}`
     );
 
     return false;
+
+  }
+
+}
+
+
+async function getCharacteristicSafe(
+  service,
+  uuid,
+  label
+){
+
+  try{
+
+    const c =
+      await service.getCharacteristic(uuid);
+
+    log(`✓ Characteristic ${label}`);
+
+    return c;
+
+  }catch(err){
+
+    log(
+      `- ${label} tidak tersedia`
+    );
+
+    return null;
 
   }
 
@@ -3254,32 +1719,27 @@ async function enableNotify(c){
    CONNECT
 ========================================================= */
 
-async function connect(){
+async function connectWatch(){
 
-  if(
-    !navigator.bluetooth
-  ){
+  if(!navigator.bluetooth){
 
-    alert(
-      "Web Bluetooth tidak tersedia. Gunakan Chrome/Edge Android yang mendukung Web Bluetooth."
+    showToast(
+      "Browser ini tidak mendukung Web Bluetooth."
     );
 
     return;
 
   }
 
-
   try{
 
-    setConnection(
-      "Menghubungkan...",
-      false
-    );
+    clearLog();
 
-    log(
-      "Membuka Bluetooth picker..."
-    );
+    packetCount = 0;
 
+    el.packet.textContent = "0";
+
+    log("Membuka Bluetooth picker...");
 
     device =
       await navigator.bluetooth.requestDevice({
@@ -3287,254 +1747,94 @@ async function connect(){
         filters:[
           {
             name:"XWatch H5 Pro"
+          },
+          {
+            namePrefix:"XWatch"
           }
         ],
 
         optionalServices:[
-
-          U.AE00,
-
-          U.BATTERY_SERVICE,
-
-          "0000fee7-0000-1000-8000-00805f9b34fb",
-
-          "0000fd35-0000-1000-8000-00805f9b34fb",
-
-          "00006600-0000-1000-8000-00805f9b34fb",
-
-          "0000af00-0000-1000-8000-00805f9b34fb",
-
-          "00008800-0000-1000-8000-00805f9b34fb"
-
+          UUID.AE00,
+          UUID.FD35,
+          UUID.S8800,
+          UUID.S6600,
+          UUID.AF00,
+          UUID.FEE7,
+          UUID.BATTERY
         ]
 
       });
 
 
-    $("deviceName").textContent =
-      device.name || "N/A";
+    if(!device){
 
-    $("deviceId").textContent =
-      device.id || "N/A";
+      return;
 
-    $("heroDevice").textContent =
-      device.name || "XWatch H5 Pro";
+    }
 
+    el.deviceName.textContent =
+      device.name || "XWatch";
 
     device.addEventListener(
       "gattserverdisconnected",
-      onDisconnect
+      handleDisconnect
     );
-
 
     log(
-      "Device ditemukan: " +
-      (device.name || "N/A")
+      `Device dipilih: ${device.name || "XWatch"}`
     );
-
 
     server =
       await device.gatt.connect();
 
+    log("✓ GATT connected");
 
-    setConnection(
-      "Terhubung",
-      true
-    );
+    setConnection(true);
 
+    await discoverServices();
 
-    $("gattState").textContent =
-      "CONNECTED";
-
-
-    log(
-      "✓ BERHASIL CONNECT"
-    );
-
-
-    services =
-      await server.getPrimaryServices();
-
-
-    log(
-      "Services ditemukan: " +
-      services.length
-    );
-
-
-    chars=[];
-
-
-    for(
-      const service of services
-    ){
-
-      log(
-        "SERVICE " +
-        service.uuid
-      );
-
-
-      let serviceChars=[];
-
-      try{
-
-        serviceChars =
-          await service.getCharacteristics();
-
-      }catch(e){
-
-        log(
-          "Gagal membaca characteristic: " +
-          e.message
-        );
-
-        continue;
-
-      }
-
-
-      for(
-        const c of serviceChars
-      ){
-
-        chars.push(c);
-
-
-        const props=[];
-
-        if(c.properties.read)
-          props.push("READ");
-
-        if(c.properties.write)
-          props.push("WRITE");
-
-        if(
-          c.properties.writeWithoutResponse
-        )
-          props.push(
-            "WRITE_NO_RESPONSE"
-          );
-
-        if(c.properties.notify)
-          props.push("NOTIFY");
-
-        if(c.properties.indicate)
-          props.push("INDICATE");
-
-
-        log(
-          "  CHAR " +
-          c.uuid +
-          " [" +
-          props.join(", ") +
-          "]"
-        );
-
-      }
-
-    }
-
-
-    txAE01 =
-      chars.find(
-        c =>
-          c.uuid.toLowerCase() ===
-          U.AE01
-      ) || null;
-
-
-    rxAE02 =
-      chars.find(
-        c =>
-          c.uuid.toLowerCase() ===
-          U.AE02
-      ) || null;
-
-
-    if(txAE01){
-
-      log(
-        "✓ AE01 ditemukan."
-      );
-
-    }else{
-
-      log(
-        "AE01 tidak ditemukan — tidak masalah untuk Sync."
-      );
-
-    }
-
-
-    /*
-      PENTING:
-      Tidak mengirim AE01 di sini.
-
-      AE01 hanya handshake eksperimen.
-      Sync menggunakan NOTIFY.
-    */
-
-
-    /*
-      Enable SEMUA NOTIFY.
-    */
-
-    for(
-      const c of chars
-    ){
-
-      await enableNotify(c);
-
-    }
-
-
-    renderGatt();
-
-
-    /*
-      Power Pull:
-      hanya standard battery kalau tersedia.
-    */
+    await autoHandshake();
 
     await readBattery();
-
-
-    /*
-      Auto sync:
-      passive listening.
-    */
-
-    setSyncStatus(
-      "Auto Sync aktif • mendengarkan data XWatch"
-    );
-
 
     state.lastSync =
       new Date().toISOString();
 
     saveState();
 
-    log(
-      "✓ AUTO SYNC LISTENER AKTIF"
+    render();
+
+    showToast(
+      "XWatch berhasil terhubung"
     );
 
-  }catch(e){
+  }catch(err){
 
-    setConnection(
-      "Offline",
-      false
-    );
-
-    $("gattState").textContent =
-      "ERROR";
+    console.error(err);
 
     log(
-      "ERROR " +
-      e.name +
-      ": " +
-      e.message
+      "❌ Connect error: " +
+      (err.message || err)
     );
+
+    setConnection(false);
+
+    if(
+      err.name === "NotFoundError"
+    ){
+
+      showToast(
+        "Bluetooth picker dibatalkan."
+      );
+
+    }else{
+
+      showToast(
+        "Gagal connect: " +
+        (err.message || "Unknown error")
+      );
+
+    }
 
   }
 
@@ -3542,84 +1842,290 @@ async function connect(){
 
 
 /* =========================================================
-   CONNECTION UI
+   DISCOVERY
 ========================================================= */
 
-function setConnection(
-  text,
-  connected
-){
+async function discoverServices(){
 
-  $("connectionText").textContent =
-    text;
+  /*
+    AE00
+  */
 
-  $("connection").classList.toggle(
-    "connected",
-    connected
-  );
+  try{
+
+    const service =
+      await server.getPrimaryService(UUID.AE00);
+
+    chars.ae01 =
+      await getCharacteristicSafe(
+        service,
+        UUID.AE01,
+        "AE01 TX"
+      );
+
+    chars.ae02 =
+      await getCharacteristicSafe(
+        service,
+        UUID.AE02,
+        "AE02 RX"
+      );
+
+    await enableNotify(
+      chars.ae02,
+      "AE02"
+    );
+
+  }catch(err){
+
+    log(
+      "⚠ AE00 tidak tersedia: " +
+      err.message
+    );
+
+  }
+
+
+  /*
+    FD35 / 923x
+  */
+
+  try{
+
+    const service =
+      await server.getPrimaryService(UUID.FD35);
+
+    chars.c9231 =
+      await getCharacteristicSafe(
+        service,
+        UUID.C9231,
+        "9231"
+      );
+
+    chars.c9232 =
+      await getCharacteristicSafe(
+        service,
+        UUID.C9232,
+        "9232"
+      );
+
+    chars.c9233 =
+      await getCharacteristicSafe(
+        service,
+        UUID.C9233,
+        "9233"
+      );
+
+    await enableNotify(
+      chars.c9231,
+      "9231"
+    );
+
+    await enableNotify(
+      chars.c9232,
+      "9232"
+    );
+
+  }catch(err){
+
+    log(
+      "⚠ FD35 tidak tersedia: " +
+      err.message
+    );
+
+  }
+
+
+  /*
+    8800
+  */
+
+  try{
+
+    const service =
+      await server.getPrimaryService(UUID.S8800);
+
+    chars.c8801 =
+      await getCharacteristicSafe(
+        service,
+        UUID.C8801,
+        "8801"
+      );
+
+    chars.c8802 =
+      await getCharacteristicSafe(
+        service,
+        UUID.C8802,
+        "8802"
+      );
+
+    await enableNotify(
+      chars.c8801,
+      "8801"
+    );
+
+    await enableNotify(
+      chars.c8802,
+      "8802"
+    );
+
+  }catch(err){
+
+    log("8800 tidak tersedia");
+
+  }
+
+
+  /*
+    6600
+  */
+
+  try{
+
+    const service =
+      await server.getPrimaryService(UUID.S6600);
+
+    chars.c6601 =
+      await getCharacteristicSafe(
+        service,
+        UUID.C6601,
+        "6601"
+      );
+
+    chars.c6602 =
+      await getCharacteristicSafe(
+        service,
+        UUID.C6602,
+        "6602"
+      );
+
+    await enableNotify(
+      chars.c6601,
+      "6601"
+    );
+
+    await enableNotify(
+      chars.c6602,
+      "6602"
+    );
+
+  }catch(err){
+
+    log("6600 tidak tersedia");
+
+  }
+
+
+  /*
+    AF00
+  */
+
+  try{
+
+    const service =
+      await server.getPrimaryService(UUID.AF00);
+
+    chars.af02 =
+      await getCharacteristicSafe(
+        service,
+        UUID.AF02,
+        "AF02"
+      );
+
+    await enableNotify(
+      chars.af02,
+      "AF02"
+    );
+
+  }catch(err){
+
+    log("AF00 tidak tersedia");
+
+  }
+
+
+  /*
+    FEE7
+  */
+
+  try{
+
+    const service =
+      await server.getPrimaryService(UUID.FEE7);
+
+    chars.fea1 =
+      await getCharacteristicSafe(
+        service,
+        UUID.FEA1,
+        "FEA1"
+      );
+
+    chars.fec9 =
+      await getCharacteristicSafe(
+        service,
+        UUID.FEC9,
+        "FEC9"
+      );
+
+    await enableNotify(
+      chars.fea1,
+      "FEA1"
+    );
+
+  }catch(err){
+
+    log("FEE7 tidak tersedia");
+
+  }
+
+
+  log("✓ Discovery selesai");
 
 }
 
 
 /* =========================================================
-   BATTERY POWER PULL
+   AE01 HANDSHAKE
 ========================================================= */
 
-async function readBattery(){
+async function autoHandshake(){
 
-  if(!server){
+  if(!chars.ae01){
 
     log(
-      "Power Pull: XWatch belum terhubung."
+      "⚠ AE01 tidak tersedia — handshake dilewati"
     );
 
     return;
 
   }
 
-
   try{
-
-    const batteryService =
-      await server.getPrimaryService(
-        U.BATTERY_SERVICE
-      );
-
-
-    const batteryChar =
-      await batteryService.getCharacteristic(
-        U.BATTERY_LEVEL
-      );
-
-
-    const value =
-      await batteryChar.readValue();
-
-
-    onPacket(
-      U.BATTERY_LEVEL,
-      value.buffer,
-      "READ"
-    );
-
-
-    log(
-      "✓ Power Pull berhasil."
-    );
-
-
-  }catch(e){
 
     /*
-      Jangan mengarang baterai.
+      IMPORTANT:
+      AE01 proven WRITE WITHOUT RESPONSE.
+
+      01 → AE02 response:
+      02 70 61 73 73
+      = "-pass"
     */
 
-    log(
-      "⚠ Power Pull: Standard Battery Service tidak tersedia / tidak bisa dibaca."
+    const data =
+      new Uint8Array([0x01]);
+
+    await chars.ae01.writeValueWithoutResponse(
+      data
     );
 
     log(
-      "   XWatch kemungkinan memakai battery characteristic custom."
+      "TX AE01 → 01 (Write Without Response)"
+    );
+
+  }catch(err){
+
+    log(
+      "⚠ AE01 handshake gagal: " +
+      err.message
     );
 
   }
@@ -3628,147 +2134,18 @@ async function readBattery(){
 
 
 /* =========================================================
-   MANUAL TX
-========================================================= */
-
-async function sendBytes(bytes){
-
-  if(!txAE01){
-
-    throw new Error(
-      "AE01 tidak tersedia. Connect XWatch terlebih dahulu."
-    );
-
-  }
-
-
-  if(
-    txAE01.properties.writeWithoutResponse
-  ){
-
-    await txAE01.writeValueWithoutResponse(
-      bytes
-    );
-
-    onPacket(
-      txAE01.uuid,
-      bytes,
-      "TX"
-    );
-
-    log(
-      "TX WRITE WITHOUT RESPONSE"
-    );
-
-    return;
-
-  }
-
-
-  if(
-    txAE01.properties.write
-  ){
-
-    await txAE01.writeValue(
-      bytes
-    );
-
-    onPacket(
-      txAE01.uuid,
-      bytes,
-      "TX"
-    );
-
-    log(
-      "TX WRITE"
-    );
-
-    return;
-
-  }
-
-
-  throw new Error(
-    "AE01 tidak mempunyai permission WRITE."
-  );
-
-}
-
-
-async function sendManual(){
-
-  try{
-
-    const bytes =
-      parseHex(
-        $("hexInput").value
-      );
-
-    await sendBytes(
-      bytes
-    );
-
-  }catch(e){
-
-    log(
-      "TX ERROR: " +
-      e.message
-    );
-
-    alert(
-      e.message
-    );
-
-  }
-
-}
-
-
-/* =========================================================
-   AE01 TEST
-========================================================= */
-
-async function testAE01(){
-
-  try{
-
-    await sendBytes(
-      new Uint8Array([0x01])
-    );
-
-    log(
-      "✓ AE01 01 dikirim."
-    );
-
-    log(
-      "Response terkonfirmasi sebelumnya: 02 70 61 73 73 (-pass)"
-    );
-
-  }catch(e){
-
-    log(
-      "AE01 TEST ERROR: " +
-      e.message
-    );
-
-  }
-
-}
-
-
-/* =========================================================
-   SYNC
+   MANUAL SYNC
 ========================================================= */
 
 async function syncNow(){
 
   if(
     !device ||
-    !server ||
+    !device.gatt ||
     !device.gatt.connected
   ){
 
-    setSyncStatus(
+    showToast(
       "Hubungkan XWatch terlebih dahulu."
     );
 
@@ -3776,114 +2153,171 @@ async function syncNow(){
 
   }
 
+  el.syncIcon.innerHTML =
+    '<span class="spin">↻</span>';
 
-  const button =
-    $("syncButton");
+  el.syncTitle.textContent =
+    "Sinkronisasi...";
 
-  button.disabled=true;
+  el.syncText.textContent =
+    "Mendengarkan paket data XWatch.";
 
-  button.textContent =
-    "Mendengarkan data...";
-
-
-  setSyncStatus(
-    "Sync aktif • menunggu packet XWatch..."
-  );
-
-
-  log(
-    "↻ SYNC DIMULAI — passive notification mode"
-  );
-
+  log("=== SYNC START ===");
 
   /*
-    Jangan kirim AE01.
-    Jangan write ke XWatch.
+    Hanya command yang sudah terbukti.
+    Jangan brute-force 9231/9232.
   */
 
-
-  const before =
-    packets.length;
-
+  await autoHandshake();
 
   /*
-    Pastikan semua NOTIFY aktif.
+    Battery standard attempt.
   */
 
-  for(
-    const c of chars
-  ){
-
-    if(
-      c.properties.notify ||
-      c.properties.indicate
-    ){
-
-      try{
-
-        /*
-          startNotifications() aman dipanggil lagi.
-        */
-
-        await c.startNotifications();
-
-      }catch(e){}
-
-    }
-
-  }
-
+  await readBattery();
 
   state.lastSync =
     new Date().toISOString();
 
   saveState();
 
+  render();
 
-  /*
-    Beri waktu untuk notification.
-  */
+  el.syncIcon.innerHTML = "✓";
 
-  setTimeout(()=>{
+  el.syncTitle.textContent =
+    "Auto Sync aktif";
 
-    const received =
-      packets.length -
-      before;
+  el.syncText.textContent =
+    "Listening selesai. Data akan diperbarui saat watch mengirim paket.";
+
+  log("=== SYNC LISTENING ===");
+
+  showToast(
+    "Sync listener aktif"
+  );
+
+}
 
 
-    if(received > 0){
+/* =========================================================
+   BATTERY / POWER PULL
+========================================================= */
 
-      setSyncStatus(
-        "✓ Sync selesai • " +
-        received +
-        " packet diterima"
+async function readBattery(){
+
+  if(
+    !server ||
+    !device ||
+    !device.gatt ||
+    !device.gatt.connected
+  ){
+
+    el.batteryStatus.textContent =
+      "Watch belum terhubung";
+
+    return;
+
+  }
+
+  try{
+
+    const service =
+      await server.getPrimaryService(
+        UUID.BATTERY
       );
+
+    const batteryChar =
+      await service.getCharacteristic(
+        UUID.BATTERY_LEVEL
+      );
+
+    chars.battery =
+      batteryChar;
+
+    const value =
+      await batteryChar.readValue();
+
+    const level =
+      value.getUint8(0);
+
+    if(
+      level >= 0 &&
+      level <= 100
+    ){
+
+      state.battery = level;
+
+      el.batteryStatus.textContent =
+        "Battery Service terdeteksi";
 
       log(
-        "✓ SYNC SELESAI: " +
-        received +
-        " packet baru"
+        `🔋 BATTERY = ${level}%`
       );
 
-    }else{
-
-      setSyncStatus(
-        "Menunggu data • belum ada packet baru"
-      );
-
-      log(
-        "SYNC: belum ada packet baru dari XWatch."
-      );
+      saveState();
+      render();
 
     }
 
+    /*
+      Battery notifications.
+    */
 
-    button.disabled=false;
+    try{
 
-    button.textContent =
-      "Sinkronkan sekarang";
+      await batteryChar.startNotifications();
 
-  },5000);
+      batteryChar.addEventListener(
+        "characteristicvaluechanged",
+        event => {
+
+          const level =
+            event.target.value.getUint8(0);
+
+          if(
+            level >= 0 &&
+            level <= 100
+          ){
+
+            state.battery = level;
+
+            saveState();
+            render();
+
+            log(
+              `🔋 BATTERY UPDATE = ${level}%`
+            );
+
+          }
+
+        }
+      );
+
+    }catch(_){
+
+      // Notification battery optional.
+
+    }
+
+  }catch(err){
+
+    /*
+      XWatch H5 Pro hasil discovery sebelumnya
+      belum menunjukkan standard 180F.
+
+      Jadi jangan mengarang nilai battery.
+    */
+
+    el.batteryStatus.textContent =
+      "Battery belum tersedia di GATT";
+
+    log(
+      "ℹ Power Pull: Battery Service standar tidak tersedia."
+    );
+
+  }
 
 }
 
@@ -3892,40 +2326,49 @@ async function syncNow(){
    DISCONNECT
 ========================================================= */
 
-function onDisconnect(){
+function handleDisconnect(){
 
-  setConnection(
-    "Offline",
-    false
-  );
+  log("Bluetooth disconnected.");
 
-  $("gattState").textContent =
-    "DISCONNECTED";
+  setConnection(false);
 
-  log(
-    "GATT DISCONNECTED"
-  );
+  server = null;
 
-  server=null;
+  chars = {
+    ae01:null,
+    ae02:null,
 
-  txAE01=null;
+    c9231:null,
+    c9232:null,
+    c9233:null,
 
-  rxAE02=null;
+    c8801:null,
+    c8802:null,
 
-  chars=[];
+    c6601:null,
+    c6602:null,
 
-  services=[];
+    af01:null,
+    af02:null,
 
-  listeners=[];
+    fea1:null,
+    fec9:null,
 
-  setSyncStatus(
-    "XWatch terputus."
+    battery:null
+  };
+
+  showToast(
+    "XWatch terputus"
   );
 
 }
 
 
-function disconnect(){
+/* =========================================================
+   DISCONNECT BUTTON
+========================================================= */
+
+async function disconnectWatch(){
 
   try{
 
@@ -3939,911 +2382,146 @@ function disconnect(){
 
     }
 
-  }catch(e){
+  }catch(err){
 
-    log(
-      "Disconnect error: " +
-      e.message
-    );
+    console.warn(err);
 
   }
+
+  setConnection(false);
 
 }
 
 
 /* =========================================================
-   GATT UI
+   RESET
 ========================================================= */
 
-function renderGatt(){
+function resetData(){
 
-  const container =
-    $("services");
+  const yes =
+    confirm(
+      "Hapus semua data yang tersimpan di aplikasi?"
+    );
 
-  container.innerHTML="";
-
-
-  if(!services.length){
-
-    container.innerHTML =
-      '<div class="empty">Tidak ada service.</div>';
-
+  if(!yes){
     return;
-
   }
 
-
-  for(
-    const service of services
-  ){
-
-    const details =
-      document.createElement(
-        "details"
-      );
-
-    details.className =
-      "service";
-
-    details.open=true;
-
-
-    const summary =
-      document.createElement(
-        "summary"
-      );
-
-    summary.textContent =
-      "SERVICE • " +
-      service.uuid;
-
-
-    details.appendChild(
-      summary
-    );
-
-
-    const wrap =
-      document.createElement(
-        "div"
-      );
-
-
-    const serviceChars =
-      chars.filter(
-        c =>
-          c.service &&
-          c.service.uuid ===
-          service.uuid
-      );
-
-
-    for(
-      const c of serviceChars
-    ){
-
-      const div =
-        document.createElement(
-          "div"
-        );
-
-      div.className =
-        "char";
-
-
-      let badges="";
-
-
-      if(c.properties.read){
-
-        badges +=
-          '<span class="badge read">READ</span>';
-
-      }
-
-      if(c.properties.write){
-
-        badges +=
-          '<span class="badge write">WRITE</span>';
-
-      }
-
-      if(
-        c.properties.writeWithoutResponse
-      ){
-
-        badges +=
-          '<span class="badge write">WRITE_NO_RESPONSE</span>';
-
-      }
-
-      if(c.properties.notify){
-
-        badges +=
-          '<span class="badge notify">NOTIFY</span>';
-
-      }
-
-      if(c.properties.indicate){
-
-        badges +=
-          '<span class="badge notify">INDICATE</span>';
-
-      }
-
-
-      div.innerHTML =
-        '<div class="uuid">' +
-        c.uuid +
-        '</div>' +
-
-        '<div class="props">' +
-        badges +
-        '</div>';
-
-
-      const row =
-        document.createElement(
-          "div"
-        );
-
-
-      if(c.properties.read){
-
-        const btn =
-          document.createElement(
-            "button"
-          );
-
-        btn.className =
-          "advanced-button";
-
-        btn.textContent =
-          "READ";
-
-
-        btn.onclick =
-          async()=>{
-
-            try{
-
-              const value =
-                await c.readValue();
-
-              onPacket(
-                c.uuid,
-                value.buffer,
-                "READ"
-              );
-
-            }catch(e){
-
-              log(
-                "READ FAIL " +
-                c.uuid +
-                " → " +
-                e.message
-              );
-
-            }
-
-          };
-
-
-        row.appendChild(
-          btn
-        );
-
-      }
-
-
-      if(
-        c.properties.notify ||
-        c.properties.indicate
-      ){
-
-        const btn =
-          document.createElement(
-            "button"
-          );
-
-        btn.className =
-          "advanced-button";
-
-        btn.textContent =
-          "NOTIFY";
-
-
-        btn.onclick =
-          async()=>{
-
-            await enableNotify(
-              c
-            );
-
-          };
-
-
-        row.appendChild(
-          btn
-        );
-
-      }
-
-
-      div.appendChild(
-        row
-      );
-
-      wrap.appendChild(
-        div
-      );
-
-    }
-
-
-    details.appendChild(
-      wrap
-    );
-
-    container.appendChild(
-      details
-    );
-
-  }
-
-}
-
-
-/* =========================================================
-   CHART
-========================================================= */
-
-function drawChart(){
-
-  drawCanvas(
-    $("hrChart")
-  );
-
-  drawCanvas(
-    $("healthChart")
-  );
-
-}
-
-
-function drawCanvas(canvas){
-
-  if(!canvas)
-    return;
-
-
-  const rect =
-    canvas.getBoundingClientRect();
-
-  const ratio =
-    window.devicePixelRatio ||
-    1;
-
-
-  canvas.width =
-    rect.width * ratio;
-
-  canvas.height =
-    170 * ratio;
-
-
-  const ctx =
-    canvas.getContext("2d");
-
-
-  const w =
-    canvas.width;
-
-  const h =
-    canvas.height;
-
-
-  ctx.clearRect(
-    0,
-    0,
-    w,
-    h
-  );
-
-
-  /*
-    Grid
-  */
-
-  ctx.strokeStyle =
-    "#edf0f5";
-
-  ctx.lineWidth =
-    1 * ratio;
-
-
-  for(
-    let i=1;
-    i<4;
-    i++
-  ){
-
-    const y =
-      i *
-      h /
-      4;
-
-    ctx.beginPath();
-
-    ctx.moveTo(
-      0,
-      y
-    );
-
-    ctx.lineTo(
-      w,
-      y
-    );
-
-    ctx.stroke();
-
-  }
-
-
-  if(
-    hrHistory.length < 2
-  ){
-
-    ctx.fillStyle =
-      "#9aa3b1";
-
-    ctx.font =
-      11 * ratio +
-      "px system-ui";
-
-    ctx.textAlign =
-      "center";
-
-    ctx.fillText(
-      "Belum cukup data HR",
-      w/2,
-      h/2
-    );
-
-    return;
-
-  }
-
-
-  const min=40;
-  const max=180;
-
-
-  ctx.beginPath();
-
-  hrHistory.forEach(
-    (point,index)=>{
-
-      const x =
-        index *
-        (w-20*ratio) /
-        Math.max(
-          1,
-          hrHistory.length-1
-        ) +
-        10*ratio;
-
-
-      const value =
-        Math.max(
-          min,
-          Math.min(
-            max,
-            point.value
-          )
-        );
-
-
-      const y =
-        h -
-        15*ratio -
-        (
-          (value-min) /
-          (max-min)
-        ) *
-        (h-30*ratio);
-
-
-      if(index===0){
-
-        ctx.moveTo(
-          x,
-          y
-        );
-
-      }else{
-
-        ctx.lineTo(
-          x,
-          y
-        );
-
-      }
-
-    }
-  );
-
-
-  ctx.strokeStyle =
-    "#ef5b6b";
-
-  ctx.lineWidth =
-    3 * ratio;
-
-  ctx.lineCap =
-    "round";
-
-  ctx.lineJoin =
-    "round";
-
-  ctx.stroke();
-
-}
-
-
-/* =========================================================
-   EXPORT
-========================================================= */
-
-function downloadFile(
-  filename,
-  content,
-  type
-){
-
-  const blob =
-    new Blob(
-      [content],
-      {
-        type
-      }
-    );
-
-
-  const url =
-    URL.createObjectURL(
-      blob
-    );
-
-
-  const a =
-    document.createElement(
-      "a"
-    );
-
-  a.href=url;
-
-  a.download=filename;
-
-  document.body.appendChild(a);
-
-  a.click();
-
-  a.remove();
-
-
-  setTimeout(
-    ()=>{
-      URL.revokeObjectURL(
-        url
-      );
-    },
-    1000
-  );
-
-}
-
-
-function exportJSON(){
-
-  const data={
-
-    exportedAt:
-      new Date().toISOString(),
-
-    device:
-      device?.name ||
-      "XWatch H5 Pro",
-
-    state,
-
-    packets
-
-  };
-
-
-  downloadFile(
-
-    "xwatch_health_data.json",
-
-    JSON.stringify(
-      data,
-      null,
-      2
-    ),
-
-    "application/json"
-
-  );
-
-}
-
-
-function csvEscape(value){
-
-  return '"' +
-    String(
-      value ?? ""
-    ).replace(
-      /"/g,
-      '""'
-    ) +
-    '"';
-
-}
-
-
-function exportCSV(){
-
-  const header =
-    "time,direction,uuid,length,hex,ascii\n";
-
-
-  const body =
-    packets
-      .map(
-        p =>
-          [
-            p.time,
-            p.direction,
-            p.uuid,
-            p.length,
-            p.hex,
-            p.ascii
-          ]
-          .map(csvEscape)
-          .join(",")
-      )
-      .join("\n");
-
-
-  downloadFile(
-
-    "xwatch_health_packets.csv",
-
-    header + body,
-
-    "text/csv"
-
-  );
-
-}
-
-
-/* =========================================================
-   CLEAR DATA
-========================================================= */
-
-function clearData(){
-
-  if(
-    !confirm(
-      "Hapus data XWatch yang tersimpan di browser?"
-    )
-  ){
-
-    return;
-
-  }
-
-
-  packets=[];
-
-
-  state={
-
-    hr:null,
-    spo2:null,
-    steps:null,
-    kcal:null,
-    pressure:null,
-    temperature:null,
-    battery:null,
-    lastSync:null
-
-  };
-
+  state = defaultState();
 
   saveState();
-  savePackets();
 
-  renderState();
+  render();
 
-  log(
-    "Data lokal dihapus."
+  showToast(
+    "Data aplikasi direset"
   );
 
-}
-
-
-/* =========================================================
-   SYNC STATUS
-========================================================= */
-
-function setSyncStatus(
-  text
-){
-
-  $("syncStatus").textContent =
-    text;
+  log("Local data reset.");
 
 }
 
 
 /* =========================================================
-   NAVIGATION
+   EVENTS
 ========================================================= */
 
-document
-  .querySelectorAll(
-    ".nav-item"
-  )
-  .forEach(
-    button => {
+el.connectBtn.addEventListener(
+  "click",
+  async () => {
 
-      button.onclick =
-        ()=>{
+    if(
+      device &&
+      device.gatt &&
+      device.gatt.connected
+    ){
 
-          const page =
-            button.dataset.page;
+      await disconnectWatch();
 
+    }else{
 
-          document
-            .querySelectorAll(
-              ".page"
-            )
-            .forEach(
-              p =>
-                p.classList.remove(
-                  "active"
-                )
-            );
-
-
-          $(page)
-            .classList.add(
-              "active"
-            );
-
-
-          document
-            .querySelectorAll(
-              ".nav-item"
-            )
-            .forEach(
-              n =>
-                n.classList.remove(
-                  "active"
-                )
-            );
-
-
-          button.classList.add(
-            "active"
-          );
-
-
-          window.scrollTo({
-            top:0,
-            behavior:"smooth"
-          });
-
-        };
+      await connectWatch();
 
     }
-  );
 
-
-/* =========================================================
-   QUICK NAV
-========================================================= */
-
-$("quickSync").onclick =
-  syncNow;
-
-
-$("quickPower").onclick =
-  readBattery;
-
-
-$("quickHealth").onclick =
-  ()=>{
-
-    document
-      .querySelector(
-        '[data-page="pageHealth"]'
-      )
-      .click();
-
-  };
-
-
-$("quickAdvanced").onclick =
-  ()=>{
-
-    document
-      .querySelector(
-        '[data-page="pageDevice"]'
-      )
-      .click();
-
-  };
-
-
-/* =========================================================
-   BUTTONS
-========================================================= */
-
-$("connectButton").onclick =
-  connect;
-
-
-$("disconnectButton").onclick =
-  disconnect;
-
-
-$("syncButton").onclick =
-  syncNow;
-
-
-$("powerPull").onclick =
-  readBattery;
-
-
-$("sendHex").onclick =
-  sendManual;
-
-
-$("testAe01").onclick =
-  testAE01;
-
-
-$("exportJson").onclick =
-  exportJSON;
-
-
-$("exportCsv").onclick =
-  exportCSV;
-
-
-$("clearData").onclick =
-  clearData;
-
-
-$("clearLog").onclick =
-  ()=>{
-    $("logBox").textContent="";
-  };
-
-
-/* =========================================================
-   CLOCK
-========================================================= */
-
-function updateClock(){
-
-  const now =
-    new Date();
-
-
-  $("watchTime").textContent =
-    now.toLocaleTimeString(
-      "id-ID",
-      {
-        hour:"2-digit",
-        minute:"2-digit",
-        hour12:false
-      }
-    );
-
-
-  $("watchDate").textContent =
-    now.toLocaleDateString(
-      "id-ID",
-      {
-        day:"numeric",
-        month:"short"
-      }
-    );
-
-
-  $("activityDate").textContent =
-    now.toLocaleDateString(
-      "id-ID",
-      {
-        weekday:"long",
-        day:"numeric",
-        month:"short"
-      }
-    );
-
-}
-
-
-setInterval(
-  updateClock,
-  1000
+  }
 );
 
-updateClock();
+
+el.syncBtn.addEventListener(
+  "click",
+  syncNow
+);
 
 
-/* =========================================================
-   WINDOW RESIZE
-========================================================= */
+el.powerBtn.addEventListener(
+  "click",
+  async () => {
 
-window.addEventListener(
-  "resize",
-  drawChart
+    if(
+      !device ||
+      !device.gatt ||
+      !device.gatt.connected
+    ){
+
+      showToast(
+        "Hubungkan XWatch dahulu."
+      );
+
+      return;
+
+    }
+
+    el.powerBtn.disabled = true;
+
+    el.powerBtn.innerHTML =
+      '<span class="spin">↻</span>';
+
+    await readBattery();
+
+    el.powerBtn.disabled = false;
+
+    el.powerBtn.textContent =
+      "⚡ Power Pull";
+
+  }
+);
+
+
+el.clearBtn.addEventListener(
+  "click",
+  resetData
+);
+
+
+el.clearLogBtn.addEventListener(
+  "click",
+  clearLog
 );
 
 
 /* =========================================================
-   INIT
+   START
 ========================================================= */
 
 loadState();
 
-renderState();
+render();
+
+setConnection(false);
 
 log(
   "XWatch Health siap."
 );
 
 log(
-  "Mode Sync: PASSIVE NOTIFICATION."
+  "Web Bluetooth membutuhkan HTTPS/localhost + browser Chromium."
 );
 
 log(
-  "AE01 tidak digunakan oleh tombol Sync."
+  "Decoder aktif: D2 HR, D3 SpO2, D6 Steps, E5 Pressure, DB Kcal candidate."
 );
-
-log(
-  "D2=HR • D3=SpO2 • D6=Steps • E5=Pressure • DB=Kcal experimental"
-);
-
-
-if(
-  !window.isSecureContext
-){
-
-  log(
-    "⚠ Web Bluetooth membutuhkan HTTPS atau localhost."
-  );
-
-}
-
-
-if(
-  !navigator.bluetooth
-){
-
-  log(
-    "⚠ Browser ini tidak menyediakan Web Bluetooth."
-  );
-
-}
 
 </script>
 
