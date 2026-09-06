@@ -3,9 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport"
-      content="width=device-width,initial-scale=1,viewport-fit=cover">
-
-<meta name="theme-color" content="#07111f">
+      content="width=device-width, initial-scale=1, viewport-fit=cover">
 
 <title>XWatch H5 Pro BLE Explorer</title>
 
@@ -14,12 +12,14 @@
     box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
     margin: 0;
     padding: 0;
+    width: 100%;
     min-height: 100%;
     background: #07111f;
-    color: #ffffff;
+    color: #fff;
     font-family:
         -apple-system,
         BlinkMacSystemFont,
@@ -32,45 +32,51 @@ html, body {
 body {
     padding:
         env(safe-area-inset-top)
-        12px
+        0
         env(safe-area-inset-bottom)
-        12px;
+        0;
 }
 
 .container {
     width: 100%;
     max-width: 900px;
-    margin: 0 auto;
+    margin: auto;
+    padding: 18px;
 }
 
 .header {
-    padding: 22px 6px 16px;
+    background: linear-gradient(135deg, #087fca, #19b5e6);
+    border-radius: 22px;
+    padding: 22px;
+    margin-bottom: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.25);
 }
 
 .header h1 {
-    margin: 0;
-    font-size: 25px;
+    margin: 0 0 7px;
+    font-size: 24px;
 }
 
 .header p {
-    margin: 6px 0 0;
-    color: #9fb0c5;
+    margin: 0;
+    opacity: .9;
     font-size: 14px;
 }
 
 .card {
     background: #101d2d;
-    border: 1px solid #20334b;
-    border-radius: 18px;
-    padding: 16px;
-    margin-bottom: 14px;
-    box-shadow: 0 8px 30px rgba(0,0,0,.20);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 20px;
+    padding: 18px;
+    margin-bottom: 15px;
+    box-shadow: 0 8px 25px rgba(0,0,0,.2);
 }
 
 .status {
     display: flex;
     align-items: center;
     gap: 10px;
+    font-weight: 700;
 }
 
 .dot {
@@ -81,63 +87,30 @@ body {
 }
 
 .dot.connected {
-    background: #25d366;
-    box-shadow: 0 0 12px #25d366;
+    background: #24df78;
+    box-shadow: 0 0 12px #24df78;
 }
 
 .dot.error {
-    background: #ff4d4d;
-}
-
-.status-text {
-    font-weight: 700;
-}
-
-.info-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 8px;
-    margin-top: 14px;
-}
-
-.info {
-    background: #0a1523;
-    padding: 11px;
-    border-radius: 10px;
-    overflow-wrap: anywhere;
-}
-
-.label {
-    color: #8294aa;
-    font-size: 12px;
-    margin-bottom: 4px;
-}
-
-.value {
-    font-family: monospace;
-    font-size: 13px;
-}
-
-.buttons {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin-top: 14px;
+    background: #ff4f4f;
+    box-shadow: 0 0 12px #ff4f4f;
 }
 
 button {
     border: 0;
-    border-radius: 12px;
-    padding: 14px 12px;
-    color: #fff;
-    background: #1677ff;
+    border-radius: 14px;
+    padding: 14px 18px;
     font-size: 15px;
     font-weight: 700;
+    color: white;
     cursor: pointer;
+    margin: 5px 4px 5px 0;
+    background: #087fca;
+    transition: .2s;
 }
 
 button:active {
-    transform: scale(.98);
+    transform: scale(.97);
 }
 
 button:disabled {
@@ -145,136 +118,127 @@ button:disabled {
     cursor: not-allowed;
 }
 
-button.red {
-    background: #e53935;
+button.green {
+    background: #16a765;
 }
 
-button.green {
-    background: #159447;
+button.red {
+    background: #d83c3c;
 }
 
 button.gray {
-    background: #34465c;
+    background: #33465c;
 }
 
-h2 {
-    margin: 0 0 12px;
-    font-size: 18px;
-}
-
-h3 {
-    margin: 18px 0 8px;
-    font-size: 14px;
-    color: #b9c8d9;
-}
-
-.uuid {
-    font-family: monospace;
-    font-size: 12px;
-    color: #7fc1ff;
-    overflow-wrap: anywhere;
-}
-
-.service {
-    background: #0a1523;
-    border: 1px solid #20334b;
-    border-radius: 13px;
-    margin-bottom: 10px;
-    overflow: hidden;
-}
-
-.service-head {
-    padding: 12px;
-}
-
-.characteristic {
-    border-top: 1px solid #1c2b3e;
-    padding: 12px;
-}
-
-.char-name {
+label {
+    display: block;
+    margin-bottom: 7px;
+    color: #b8c7d9;
     font-size: 13px;
-    font-weight: 700;
-    margin-bottom: 4px;
 }
 
-.properties {
-    font-size: 11px;
-    color: #8ea2b8;
-    margin-bottom: 5px;
-}
-
-.log {
-    height: 360px;
-    overflow-y: auto;
-    background: #03080e;
-    border-radius: 12px;
-    padding: 12px;
-    font-family: monospace;
-    font-size: 11px;
-    line-height: 1.5;
-    white-space: pre-wrap;
-    word-break: break-word;
-}
-
-.log .ok {
-    color: #4ade80;
-}
-
-.log .err {
-    color: #ff6b6b;
-}
-
-.log .data {
-    color: #60a5fa;
-}
-
-.log .warn {
-    color: #fbbf24;
-}
-
-textarea {
+input {
     width: 100%;
-    min-height: 90px;
-    resize: vertical;
+    border: 1px solid #33465c;
     background: #07111f;
     color: white;
-    border: 1px solid #29415e;
     border-radius: 12px;
-    padding: 12px;
-    font-family: monospace;
-    font-size: 13px;
+    padding: 13px;
+    font-size: 16px;
     outline: none;
 }
 
-textarea:focus {
-    border-color: #1683ff;
+input:focus {
+    border-color: #19b5e6;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+}
+
+@media (min-width: 650px) {
+    .row {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.info {
+    background: #0b1726;
+    border-radius: 13px;
+    padding: 13px;
+    margin-top: 10px;
+    word-break: break-all;
+}
+
+.info-title {
+    color: #7fb9d8;
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+
+.info-value {
+    font-family: monospace;
+    font-size: 13px;
+}
+
+.log {
+    background: #02070d;
+    color: #b8ffbd;
+    border-radius: 14px;
+    padding: 15px;
+    height: 330px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    word-break: break-word;
+    font-family:
+        ui-monospace,
+        SFMono-Regular,
+        Menlo,
+        Consolas,
+        monospace;
+    font-size: 12px;
+    line-height: 1.55;
+}
+
+.rx {
+    color: #72d8ff;
+}
+
+.tx {
+    color: #ffd166;
+}
+
+.ok {
+    color: #53f28c;
+}
+
+.err {
+    color: #ff7373;
 }
 
 .small {
-    color: #8294aa;
+    color: #8da0b5;
     font-size: 12px;
     line-height: 1.5;
 }
 
 .badge {
     display: inline-block;
-    padding: 4px 8px;
-    border-radius: 8px;
-    background: #17314e;
-    color: #9ed0ff;
+    background: #16324a;
+    color: #73d9ff;
+    border-radius: 999px;
+    padding: 5px 9px;
     font-size: 11px;
     font-weight: 700;
 }
 
-@media (min-width: 650px) {
-    .info-grid {
-        grid-template-columns: 1fr 1fr;
-    }
-
-    .buttons {
-        grid-template-columns: repeat(3, 1fr);
-    }
+.footer {
+    text-align: center;
+    color: #61768c;
+    font-size: 11px;
+    padding: 10px;
 }
 </style>
 </head>
@@ -284,177 +248,161 @@ textarea:focus {
 <div class="container">
 
     <div class="header">
-        <h1>⌚ XWatch H5 Pro</h1>
-        <p>BLE / GATT Explorer</p>
+        <h1>⌚ XWatch H5 Pro BLE Explorer</h1>
+        <p>Web Bluetooth • AE00 / AE01 WRITE / AE02 NOTIFY</p>
     </div>
 
-    <!-- CONNECTION -->
+    <!-- STATUS -->
     <div class="card">
 
         <div class="status">
-            <div id="statusDot" class="dot"></div>
-            <div id="statusText" class="status-text">
-                Disconnected
-            </div>
+            <span id="statusDot" class="dot"></span>
+            <span id="statusText">DISCONNECTED</span>
         </div>
 
-        <div class="info-grid">
-
-            <div class="info">
-                <div class="label">Device</div>
-                <div id="deviceName" class="value">—</div>
-            </div>
-
-            <div class="info">
-                <div class="label">Device ID</div>
-                <div id="deviceId" class="value">—</div>
-            </div>
-
-        </div>
-
-        <div class="buttons">
-
-            <button id="scanBtn">
-                🔵 Scan XWatch
+        <div style="margin-top:15px;">
+            <button id="connectBtn" class="green">
+                🔵 CONNECT XWATCH
             </button>
 
             <button id="disconnectBtn"
                     class="red"
                     disabled>
-                Disconnect
+                DISCONNECT
             </button>
-
-            <button id="clearBtn"
-                    class="gray">
-                Clear Log
-            </button>
-
         </div>
-
-    </div>
-
-
-    <!-- IMPORTANT UUID -->
-    <div class="card">
-
-        <h2>🎯 XWatch Communication</h2>
 
         <div class="info">
-
-            <div class="label">
-                Target Service
+            <div class="info-title">DEVICE</div>
+            <div id="deviceName"
+                 class="info-value">
+                -
             </div>
-
-            <div class="uuid">
-                0000AE00-0000-1000-8000-00805F9B34FB
-            </div>
-
-            <br>
-
-            <div class="label">
-                WRITE — AE01
-            </div>
-
-            <div class="uuid">
-                0000AE01-0000-1000-8000-00805F9B34FB
-            </div>
-
-            <br>
-
-            <div class="label">
-                NOTIFY — AE02
-            </div>
-
-            <div class="uuid">
-                0000AE02-0000-1000-8000-00805F9B34FB
-            </div>
-
         </div>
 
-        <div class="small" style="margin-top:12px">
-            AE01 digunakan untuk mengirim perintah.
-            AE02 digunakan untuk menerima data dari jam.
+        <div class="info">
+            <div class="info-title">DEVICE ID</div>
+            <div id="deviceId"
+                 class="info-value">
+                -
+            </div>
         </div>
 
     </div>
 
 
-    <!-- SEND DATA -->
+    <!-- UUID -->
     <div class="card">
 
-        <h2>📤 Kirim HEX ke XWatch</h2>
+        <h3 style="margin-top:0;">
+            BLE GATT
+        </h3>
 
-        <textarea
+        <div class="info">
+            <div class="info-title">
+                TARGET SERVICE
+            </div>
+
+            <div class="info-value">
+                0000AE00-0000-1000-8000-00805F9B34FB
+            </div>
+        </div>
+
+        <div class="info">
+            <div class="info-title">
+                WRITE CHARACTERISTIC
+            </div>
+
+            <div class="info-value">
+                0000AE01-0000-1000-8000-00805F9B34FB
+            </div>
+        </div>
+
+        <div class="info">
+            <div class="info-title">
+                NOTIFY CHARACTERISTIC
+            </div>
+
+            <div class="info-value">
+                0000AE02-0000-1000-8000-00805F9B34FB
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- SEND -->
+    <div class="card">
+
+        <h3 style="margin-top:0;">
+            📤 Kirim HEX
+        </h3>
+
+        <label for="hexInput">
+            HEX DATA
+        </label>
+
+        <input
             id="hexInput"
-            placeholder="Contoh:
-01 02 03 04
+            value="01"
+            placeholder="Contoh: 01"
+            autocomplete="off"
+            autocapitalize="characters"
+            spellcheck="false"
+        >
 
-atau:
-01020304"></textarea>
-
-        <div class="buttons">
+        <div style="margin-top:10px;">
 
             <button id="sendBtn"
                     class="green"
                     disabled>
-                Kirim ke AE01
+                SEND HEX
             </button>
 
             <button id="testBtn"
+                    class="gray"
                     disabled>
-                Test Command
+                TEST: SEND 01
             </button>
 
         </div>
 
-        <p class="small">
-            Jangan memasukkan teks biasa.
-            Gunakan format HEX, misalnya
-            <b>01 02 03 04</b>.
-        </p>
-
-    </div>
-
-
-    <!-- SERVICES -->
-    <div class="card">
-
-        <h2>📡 GATT Services</h2>
-
-        <div id="services">
-            Belum terhubung.
+        <div class="small">
+            Tes dari BLE Log kamu: TX <b>01</b>
+            menghasilkan RX <b>02 70 61 73 73</b>
+            / ASCII <b>-pass</b>.
         </div>
 
     </div>
 
 
-    <!-- RECEIVED DATA -->
+    <!-- LAST RX -->
     <div class="card">
 
-        <h2>📥 Data dari XWatch</h2>
+        <h3 style="margin-top:0;">
+            📥 Last RX
+        </h3>
 
         <div class="info">
-
-            <div class="label">
-                Last HEX
+            <div class="info-title">
+                HEX
             </div>
 
             <div id="lastHex"
-                 class="value">
-                —
+                 class="info-value">
+                -
             </div>
+        </div>
 
-            <br>
-
-            <div class="label">
-                Last ASCII
+        <div class="info">
+            <div class="info-title">
+                ASCII
             </div>
 
             <div id="lastAscii"
-                 class="value">
-                —
+                 class="info-value">
+                -
             </div>
-
         </div>
 
     </div>
@@ -463,11 +411,36 @@ atau:
     <!-- LOG -->
     <div class="card">
 
-        <h2>📝 Bluetooth Log</h2>
+        <div style="
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            margin-bottom:10px;
+        ">
+
+            <h3 style="margin:0;">
+                📜 Bluetooth Log
+            </h3>
+
+            <span class="badge">
+                LIVE
+            </span>
+
+        </div>
 
         <div id="log"
              class="log"></div>
 
+        <button id="clearBtn"
+                class="gray">
+            CLEAR LOG
+        </button>
+
+    </div>
+
+
+    <div class="footer">
+        XWatch H5 Pro BLE Explorer
     </div>
 
 </div>
@@ -477,62 +450,40 @@ atau:
 "use strict";
 
 /* =========================================================
-   XWATCH H5 PRO BLE EXPLORER
+   XWATCH H5 PRO BLE CONFIG
    ========================================================= */
 
-/* ---------- UUID ---------- */
+const SERVICE_UUID =
+    "0000ae00-0000-1000-8000-00805f9b34fb";
 
-const UUID = {
+const WRITE_UUID =
+    "0000ae01-0000-1000-8000-00805f9b34fb";
 
-    TARGET_SERVICE:
-        "0000ae00-0000-1000-8000-00805f9b34fb",
-
-    TARGET_WRITE:
-        "0000ae01-0000-1000-8000-00805f9b34fb",
-
-    TARGET_NOTIFY:
-        "0000ae02-0000-1000-8000-00805f9b34fb",
-
-    /* Proprietary services found from your scanner */
-
-    SERVICE_1:
-        "d0611e78-bbb4-4591-a5f8-487910ae4366",
-
-    SERVICE_2:
-        "9fa480e0-4967-4542-9390-d343dc5d04ae",
-
-    SERVICE_3:
-        "7905f431-b5ce-4e99-a40f-4b1e122d00d0",
-
-    SERVICE_4:
-        "89d3502b-0f36-433a-8ef4-c502ad55f8dc"
-
-};
+const NOTIFY_UUID =
+    "0000ae02-0000-1000-8000-00805f9b34fb";
 
 
-/* ---------- STATE ---------- */
+/* =========================================================
+   GLOBALS
+   ========================================================= */
 
-let device = null;
-
-let server = null;
+let bluetoothDevice = null;
+let bluetoothServer = null;
 
 let targetService = null;
-
 let writeCharacteristic = null;
-
 let notifyCharacteristic = null;
 
 
-/* ---------- ELEMENTS ---------- */
+/* =========================================================
+   ELEMENTS
+   ========================================================= */
 
-const scanBtn =
-    document.getElementById("scanBtn");
+const connectBtn =
+    document.getElementById("connectBtn");
 
 const disconnectBtn =
     document.getElementById("disconnectBtn");
-
-const clearBtn =
-    document.getElementById("clearBtn");
 
 const sendBtn =
     document.getElementById("sendBtn");
@@ -540,10 +491,13 @@ const sendBtn =
 const testBtn =
     document.getElementById("testBtn");
 
+const clearBtn =
+    document.getElementById("clearBtn");
+
 const hexInput =
     document.getElementById("hexInput");
 
-const logBox =
+const logElement =
     document.getElementById("log");
 
 const statusDot =
@@ -552,19 +506,16 @@ const statusDot =
 const statusText =
     document.getElementById("statusText");
 
-const deviceName =
+const deviceNameElement =
     document.getElementById("deviceName");
 
-const deviceId =
+const deviceIdElement =
     document.getElementById("deviceId");
 
-const servicesBox =
-    document.getElementById("services");
-
-const lastHex =
+const lastHexElement =
     document.getElementById("lastHex");
 
-const lastAscii =
+const lastAsciiElement =
     document.getElementById("lastAscii");
 
 
@@ -572,34 +523,38 @@ const lastAscii =
    LOG
    ========================================================= */
 
-function log(message, type = "") {
+function timeNow() {
 
-    const time =
-        new Date().toLocaleTimeString(
-            "id-ID",
-            {
-                hour12: false,
-                hour: "2-digit",
-                minute: "2-digit",
-                second: "2-digit"
-            }
-        );
+    const now = new Date();
+
+    return now.toLocaleTimeString(
+        "id-ID",
+        {
+            hour12: false,
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit"
+        }
+    );
+}
+
+
+function log(message, type = "") {
 
     const line =
         document.createElement("div");
 
-    if (type) {
-        line.className = type;
-    }
+    line.className = type;
 
     line.textContent =
-        "[" + time + "] " + message;
+        "[" + timeNow() + "] " + message;
 
-    logBox.appendChild(line);
+    logElement.appendChild(line);
 
-    logBox.scrollTop =
-        logBox.scrollHeight;
+    logElement.scrollTop =
+        logElement.scrollHeight;
 
+    console.log(message);
 }
 
 
@@ -607,37 +562,23 @@ function log(message, type = "") {
    STATUS
    ========================================================= */
 
-function setConnected(connected) {
+function setStatus(
+    text,
+    connected = false,
+    error = false
+) {
+
+    statusText.textContent = text;
+
+    statusDot.className = "dot";
 
     if (connected) {
-
-        statusDot.className =
-            "dot connected";
-
-        statusText.textContent =
-            "Connected";
-
-        disconnectBtn.disabled =
-            false;
-
-    } else {
-
-        statusDot.className =
-            "dot";
-
-        statusText.textContent =
-            "Disconnected";
-
-        disconnectBtn.disabled =
-            true;
-
-        sendBtn.disabled =
-            true;
-
-        testBtn.disabled =
-            true;
+        statusDot.classList.add("connected");
     }
 
+    if (error) {
+        statusDot.classList.add("error");
+    }
 }
 
 
@@ -645,45 +586,42 @@ function setConnected(connected) {
    HEX HELPERS
    ========================================================= */
 
-function normalizeHex(hex) {
-
-    return hex
-        .replace(/0x/gi, "")
-        .replace(/[^0-9a-fA-F]/g, "");
-}
-
-
 function hexToBytes(hex) {
 
-    const clean =
-        normalizeHex(hex);
+    if (typeof hex !== "string") {
+        throw new Error("HEX bukan string.");
+    }
 
-    if (!clean.length) {
+    hex =
+        hex
+            .replace(/0x/gi, "")
+            .replace(/[^0-9a-fA-F]/g, "");
+
+    if (hex.length === 0) {
         throw new Error("HEX kosong.");
     }
 
-    if (clean.length % 2 !== 0) {
+    if (hex.length % 2 !== 0) {
         throw new Error(
-            "Jumlah digit HEX harus genap."
+            "HEX harus memiliki jumlah digit genap."
         );
     }
 
     const bytes = new Uint8Array(
-        clean.length / 2
+        hex.length / 2
     );
 
     for (
         let i = 0;
-        i < clean.length;
+        i < hex.length;
         i += 2
     ) {
 
         bytes[i / 2] =
             parseInt(
-                clean.substring(i, i + 2),
+                hex.substring(i, i + 2),
                 16
             );
-
     }
 
     return bytes;
@@ -692,18 +630,14 @@ function hexToBytes(hex) {
 
 function bytesToHex(data) {
 
-    const bytes =
-        data instanceof Uint8Array
-            ? data
-            : new Uint8Array(data);
-
     return Array
-        .from(bytes)
+        .from(data)
         .map(
             b =>
-                b.toString(16)
-                 .padStart(2, "0")
-                 .toUpperCase()
+                b
+                    .toString(16)
+                    .padStart(2, "0")
+                    .toUpperCase()
         )
         .join(" ");
 }
@@ -711,29 +645,22 @@ function bytesToHex(data) {
 
 function bytesToAscii(data) {
 
-    const bytes =
-        data instanceof Uint8Array
-            ? data
-            : new Uint8Array(data);
-
     let result = "";
 
-    for (const b of bytes) {
+    for (const byte of data) {
 
         if (
-            b >= 32 &&
-            b <= 126
+            byte >= 32 &&
+            byte <= 126
         ) {
 
             result +=
-                String.fromCharCode(b);
+                String.fromCharCode(byte);
 
         } else {
 
             result += ".";
-
         }
-
     }
 
     return result;
@@ -741,19 +668,25 @@ function bytesToAscii(data) {
 
 
 /* =========================================================
-   CHECK WEB BLUETOOTH
+   CHECK SUPPORT
    ========================================================= */
 
-function checkBluetooth() {
+function checkBluetoothSupport() {
 
-    if (!navigator.bluetooth) {
+    if (!("bluetooth" in navigator)) {
+
+        setStatus(
+            "WEB BLUETOOTH TIDAK DIDUKUNG",
+            false,
+            true
+        );
+
+        connectBtn.disabled = true;
 
         log(
             "Browser tidak mendukung Web Bluetooth.",
             "err"
         );
-
-        scanBtn.disabled = true;
 
         return false;
     }
@@ -763,12 +696,12 @@ function checkBluetooth() {
 
 
 /* =========================================================
-   SCAN
+   CONNECT
    ========================================================= */
 
-async function scanXWatch() {
+async function connectXWatch() {
 
-    if (!checkBluetooth()) {
+    if (!checkBluetoothSupport()) {
         return;
     }
 
@@ -779,211 +712,107 @@ async function scanXWatch() {
         );
 
         /*
-         * acceptAllDevices = true
-         * supaya XWatch yang namanya kadang berubah
-         * tetap bisa dipilih.
+         * Kita gunakan namePrefix agar XWatch H5 Pro
+         * mudah ditemukan.
+         *
+         * SERVICE_UUID dimasukkan sebagai
+         * optionalServices supaya service AE00
+         * dapat diakses setelah connect.
          */
 
-        device =
+        bluetoothDevice =
             await navigator.bluetooth.requestDevice({
 
-                acceptAllDevices: true,
+                filters: [
+                    {
+                        namePrefix: "XWatch"
+                    },
+                    {
+                        namePrefix: "XWatch H5"
+                    }
+                ],
 
                 optionalServices: [
+                    SERVICE_UUID,
 
-                    UUID.TARGET_SERVICE,
-
-                    UUID.SERVICE_1,
-                    UUID.SERVICE_2,
-                    UUID.SERVICE_3,
-                    UUID.SERVICE_4,
-
-                    "00001800-0000-1000-8000-00805f9b34fb",
-                    "00001805-0000-1000-8000-00805f9b34fb",
-                    "0000180f-0000-1000-8000-00805f9b34fb",
-
-                    "0000fee7-0000-1000-8000-00805f9b34fb",
-                    "0000fd35-0000-1000-8000-00805f9b34fb",
                     "00006600-0000-1000-8000-00805f9b34fb",
+                    "0000fd35-0000-1000-8000-00805f9b34fb",
+                    "0000fee7-0000-1000-8000-00805f9b34fb",
                     "0000af00-0000-1000-8000-00805f9b34fb",
-                    "00008800-0000-1000-8000-00805f9b34fb"
-
+                    "0000ae00-0000-1000-8000-00805f9b34fb",
+                    "00001800-0000-1000-8000-00805f9b34fb"
                 ]
-
             });
 
 
-        if (!device) {
+        if (!bluetoothDevice) {
 
-            log(
-                "Tidak ada device dipilih.",
-                "warn"
+            throw new Error(
+                "Tidak ada device dipilih."
             );
-
-            return;
         }
 
 
-        deviceName.textContent =
-            device.name || "N/A";
+        deviceNameElement.textContent =
+            bluetoothDevice.name || "XWatch";
 
-        deviceId.textContent =
-            device.id || "N/A";
+        deviceIdElement.textContent =
+            bluetoothDevice.id || "-";
 
 
         log(
             "Device ditemukan: " +
-            (device.name || "N/A"),
+            (bluetoothDevice.name || "XWatch"),
             "ok"
         );
 
         log(
             "Device ID: " +
-            (device.id || "N/A")
+            (bluetoothDevice.id || "-")
         );
 
 
-        device.addEventListener(
+        bluetoothDevice.addEventListener(
             "gattserverdisconnected",
-            handleDisconnected
+            handleDisconnect
         );
 
 
-        await connectDevice();
-
-    } catch (error) {
-
-        console.error(error);
-
-        log(
-            "Gagal memilih device: " +
-            error.message,
-            "err"
-        );
-
-    }
-
-}
+        log("Menghubungkan ke XWatch...");
 
 
-/* =========================================================
-   CONNECT
-   ========================================================= */
-
-async function connectDevice() {
-
-    if (!device) {
-
-        log(
-            "Device belum dipilih.",
-            "err"
-        );
-
-        return;
-    }
-
-
-    try {
-
-        log(
-            "Menghubungkan ke XWatch..."
-        );
-
-
-        server =
-            await device.gatt.connect();
-
-
-        setConnected(true);
+        bluetoothServer =
+            await bluetoothDevice.gatt.connect();
 
 
         log(
             "BERHASIL CONNECT KE " +
-            (device.name || "XWATCH"),
+            (bluetoothDevice.name || "XWatch H5 Pro"),
             "ok"
         );
 
 
-        await discoverServices();
-
-
-    } catch (error) {
-
-        console.error(error);
-
-        setConnected(false);
-
-        log(
-            "Gagal connect: " +
-            error.message,
-            "err"
+        setStatus(
+            "CONNECTED",
+            true,
+            false
         );
 
-    }
-
-}
-
-
-/* =========================================================
-   DISCOVER SERVICES
-   ========================================================= */
-
-async function discoverServices() {
-
-    if (!server) {
-        return;
-    }
-
-    servicesBox.innerHTML = "";
-
-    log(
-        "Mencari GATT Services..."
-    );
-
-
-    let services;
-
-    try {
-
-        services =
-            await server.getPrimaryServices();
-
-    } catch (error) {
 
         log(
-            "Gagal membaca GATT Services: " +
-            error.message,
-            "err"
+            "Mencari GATT Services..."
         );
 
-        return;
-    }
 
-
-    log(
-        "Services ditemukan: " +
-        services.length,
-        "ok"
-    );
-
-
-    for (const service of services) {
-
-        await inspectService(service);
-
-    }
-
-
-    /*
-     * Cari service utama AE00
-     */
-
-    try {
+        /*
+         * Ambil service AE00.
+         */
 
         targetService =
-            await server.getPrimaryService(
-                UUID.TARGET_SERVICE
+            await bluetoothServer.getPrimaryService(
+                SERVICE_UUID
             );
+
 
         log(
             "TARGET AE00 ditemukan.",
@@ -991,293 +820,155 @@ async function discoverServices() {
         );
 
 
-        const chars =
-            await targetService.getCharacteristics();
+        /*
+         * AE01 = WRITE
+         */
 
-
-        for (const characteristic of chars) {
-
-            const id =
-                characteristic.uuid.toLowerCase();
-
-
-            if (
-                id === UUID.TARGET_WRITE
-            ) {
-
-                writeCharacteristic =
-                    characteristic;
-
-                log(
-                    "AE01 WRITE ditemukan.",
-                    "ok"
-                );
-
-            }
-
-
-            if (
-                id === UUID.TARGET_NOTIFY
-            ) {
-
-                notifyCharacteristic =
-                    characteristic;
-
-                log(
-                    "AE02 NOTIFY ditemukan.",
-                    "ok"
-                );
-
-                await enableNotifications(
-                    characteristic
-                );
-
-            }
-
-        }
-
-
-    } catch (error) {
-
-        log(
-            "Service AE00 tidak dapat diakses: " +
-            error.message,
-            "warn"
-        );
-
-    }
-
-
-    updateButtons();
-
-}
-
-
-/* =========================================================
-   INSPECT SERVICE
-   ========================================================= */
-
-async function inspectService(service) {
-
-    const serviceUUID =
-        service.uuid.toLowerCase();
-
-
-    log(
-        "Service " +
-        serviceUUID
-    );
-
-
-    const serviceDiv =
-        document.createElement("div");
-
-    serviceDiv.className =
-        "service";
-
-
-    const head =
-        document.createElement("div");
-
-    head.className =
-        "service-head";
-
-
-    head.innerHTML =
-        "<div class='badge'>SERVICE</div>" +
-        "<div class='uuid' style='margin-top:7px'>" +
-        service.uuid +
-        "</div>";
-
-
-    serviceDiv.appendChild(head);
-
-
-    let characteristics = [];
-
-
-    try {
-
-        characteristics =
-            await service.getCharacteristics();
-
-    } catch (error) {
-
-        log(
-            "Gagal membaca characteristic " +
-            service.uuid +
-            ": " +
-            error.message,
-            "warn"
-        );
-
-        servicesBox.appendChild(
-            serviceDiv
-        );
-
-        return;
-    }
-
-
-    for (
-        const characteristic of characteristics
-    ) {
-
-        const div =
-            document.createElement("div");
-
-        div.className =
-            "characteristic";
-
-
-        const props =
-            characteristic.properties;
-
-
-        const propList =
-            [];
-
-
-        if (props.read) {
-            propList.push("READ");
-        }
-
-        if (props.write) {
-            propList.push("WRITE");
-        }
-
-        if (props.writeWithoutResponse) {
-            propList.push(
-                "WRITE WITHOUT RESPONSE"
+        writeCharacteristic =
+            await targetService.getCharacteristic(
+                WRITE_UUID
             );
-        }
-
-        if (props.notify) {
-            propList.push("NOTIFY");
-        }
-
-        if (props.indicate) {
-            propList.push("INDICATE");
-        }
 
 
-        div.innerHTML =
-            "<div class='char-name'>" +
-            "Characteristic" +
-            "</div>" +
-
-            "<div class='uuid'>" +
-            characteristic.uuid +
-            "</div>" +
-
-            "<div class='properties'>" +
-            propList.join(", ") +
-            "</div>";
+        log(
+            "AE01 WRITE ditemukan.",
+            "ok"
+        );
 
 
-        serviceDiv.appendChild(div);
+        /*
+         * AE02 = NOTIFY
+         */
 
-    }
-
-
-    servicesBox.appendChild(
-        serviceDiv
-    );
-
-}
+        notifyCharacteristic =
+            await targetService.getCharacteristic(
+                NOTIFY_UUID
+            );
 
 
-/* =========================================================
-   ENABLE NOTIFICATIONS
-   ========================================================= */
+        log(
+            "AE02 NOTIFY ditemukan.",
+            "ok"
+        );
 
-async function enableNotifications(
-    characteristic
-) {
 
-    try {
+        /*
+         * Aktifkan notification.
+         */
 
-        characteristic.addEventListener(
+        await notifyCharacteristic.startNotifications();
+
+
+        notifyCharacteristic.addEventListener(
             "characteristicvaluechanged",
             handleNotification
         );
 
 
-        await characteristic.startNotifications();
+        log(
+            "NOTIFY AKTIF: " +
+            NOTIFY_UUID,
+            "ok"
+        );
+
+
+        sendBtn.disabled = false;
+        testBtn.disabled = false;
+        connectBtn.disabled = true;
+        disconnectBtn.disabled = false;
+
+
+        /*
+         * Tes otomatis seperti log asli:
+         *
+         * TX 01
+         */
+
+        log(
+            "Koneksi siap. Kamu bisa kirim HEX."
+        );
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        log(
+            "ERROR: " +
+            getErrorMessage(error),
+            "err"
+        );
+
+        setStatus(
+            "ERROR",
+            false,
+            true
+        );
+
+        resetConnectionUI();
+    }
+}
+
+
+/* =========================================================
+   NOTIFICATION
+   ========================================================= */
+
+function handleNotification(event) {
+
+    try {
+
+        const value =
+            event.target.value;
+
+        const bytes =
+            new Uint8Array(
+                value.buffer.slice(
+                    value.byteOffset,
+                    value.byteOffset +
+                    value.byteLength
+                )
+            );
+
+
+        const hex =
+            bytesToHex(bytes);
+
+        const ascii =
+            bytesToAscii(bytes);
+
+
+        lastHexElement.textContent =
+            hex;
+
+        lastAsciiElement.textContent =
+            ascii;
 
 
         log(
-            "NOTIFY AKTIF: " +
-            characteristic.uuid,
-            "ok"
+            "RX HEX: " + hex,
+            "rx"
+        );
+
+        log(
+            "RX ASCII: " + ascii,
+            "rx"
         );
 
 
     } catch (error) {
 
         log(
-            "Gagal mengaktifkan NOTIFY: " +
-            error.message,
+            "ERROR membaca NOTIFY: " +
+            getErrorMessage(error),
             "err"
         );
-
     }
-
 }
 
 
 /* =========================================================
-   RECEIVE DATA
-   ========================================================= */
-
-function handleNotification(event) {
-
-    const value =
-        event.target.value;
-
-
-    const bytes =
-        new Uint8Array(
-            value.buffer.slice(
-                value.byteOffset,
-                value.byteOffset +
-                value.byteLength
-            )
-        );
-
-
-    const hex =
-        bytesToHex(bytes);
-
-
-    const ascii =
-        bytesToAscii(bytes);
-
-
-    lastHex.textContent =
-        hex || "—";
-
-
-    lastAscii.textContent =
-        ascii || "—";
-
-
-    log(
-        "RX HEX: " + hex,
-        "data"
-    );
-
-
-    log(
-        "RX ASCII: " + ascii,
-        "data"
-    );
-
-}
-
-
-/* =========================================================
-   SEND
+   SEND HEX
    ========================================================= */
 
 async function sendHex(hex) {
@@ -1285,51 +976,52 @@ async function sendHex(hex) {
     if (!writeCharacteristic) {
 
         log(
-            "AE01 WRITE belum tersedia.",
+            "Belum terhubung ke XWatch.",
             "err"
         );
 
-        return false;
+        return;
     }
 
 
     try {
 
-        const data =
+        const bytes =
             hexToBytes(hex);
 
 
         log(
             "TX HEX: " +
-            bytesToHex(data),
-            "data"
+            bytesToHex(bytes),
+            "tx"
         );
 
 
         /*
-         * XWatch AE01 pada scanner menunjukkan
-         * WRITE NO RESPONSE.
+         * AE01 pada log kamu:
+         * Properties = WRITE
+         * Write Type = WRITE REQUEST
          *
-         * Kita gunakan writeValueWithoutResponse
-         * jika tersedia.
+         * Jadi gunakan writeValueWithResponse().
          */
 
         if (
             typeof writeCharacteristic
-                .writeValueWithoutResponse ===
+                .writeValueWithResponse ===
             "function"
         ) {
 
             await writeCharacteristic
-                .writeValueWithoutResponse(
-                    data
-                );
+                .writeValueWithResponse(bytes);
 
         } else {
 
-            await writeCharacteristic
-                .writeValue(data);
+            /*
+             * Fallback untuk browser lama.
+             */
 
+            await writeCharacteristic
+                .writeValue(bytes);
         }
 
 
@@ -1339,51 +1031,16 @@ async function sendHex(hex) {
         );
 
 
-        return true;
-
-
     } catch (error) {
 
         console.error(error);
 
         log(
-            "Gagal TX: " +
-            error.message,
+            "TX ERROR: " +
+            getErrorMessage(error),
             "err"
         );
-
-        return false;
-
     }
-
-}
-
-
-/* =========================================================
-   TEST COMMAND
-   ========================================================= */
-
-async function testCommand() {
-
-    /*
-     * Command ini sengaja sederhana.
-     * Tujuannya bukan mengubah setting jam,
-     * tetapi melihat apakah AE01 menghasilkan
-     * respons melalui AE02.
-     *
-     * Kalau tidak ada respons, jangan panik.
-     * Itu justru informasi penting untuk
-     * membongkar protokol.
-     */
-
-    const test =
-        "01";
-
-    hexInput.value =
-        test;
-
-    await sendHex(test);
-
 }
 
 
@@ -1391,108 +1048,109 @@ async function testCommand() {
    DISCONNECT
    ========================================================= */
 
-function disconnectDevice() {
+function handleDisconnect() {
+
+    log(
+        "XWatch terputus.",
+        "err"
+    );
+
+    setStatus(
+        "DISCONNECTED",
+        false,
+        false
+    );
+
+    resetConnectionUI();
+}
+
+
+function resetConnectionUI() {
+
+    writeCharacteristic = null;
+    notifyCharacteristic = null;
+    targetService = null;
+    bluetoothServer = null;
+
+    sendBtn.disabled = true;
+    testBtn.disabled = true;
+
+    connectBtn.disabled = false;
+    disconnectBtn.disabled = true;
+}
+
+
+/* =========================================================
+   DISCONNECT BUTTON
+   ========================================================= */
+
+function disconnectXWatch() {
 
     try {
 
         if (
-            device &&
-            device.gatt &&
-            device.gatt.connected
+            bluetoothDevice &&
+            bluetoothDevice.gatt &&
+            bluetoothDevice.gatt.connected
         ) {
 
-            device.gatt.disconnect();
+            bluetoothDevice.gatt.disconnect();
 
+            log(
+                "Disconnect dilakukan."
+            );
         }
 
     } catch (error) {
 
         log(
-            "Error disconnect: " +
-            error.message,
+            "Disconnect error: " +
+            getErrorMessage(error),
             "err"
         );
-
     }
 
-}
+    resetConnectionUI();
 
-
-/* =========================================================
-   DISCONNECTED
-   ========================================================= */
-
-function handleDisconnected() {
-
-    log(
-        "XWatch terputus dari Bluetooth.",
-        "warn"
+    setStatus(
+        "DISCONNECTED",
+        false,
+        false
     );
-
-
-    setConnected(false);
-
-
-    targetService =
-        null;
-
-    writeCharacteristic =
-        null;
-
-    notifyCharacteristic =
-        null;
-
 }
 
 
 /* =========================================================
-   BUTTON STATE
+   ERROR MESSAGE
    ========================================================= */
 
-function updateButtons() {
+function getErrorMessage(error) {
 
-    sendBtn.disabled =
-        !writeCharacteristic;
-
-    testBtn.disabled =
-        !writeCharacteristic;
-
-}
-
-
-/* =========================================================
-   CLEAR LOG
-   ========================================================= */
-
-clearBtn.addEventListener(
-    "click",
-    () => {
-
-        logBox.innerHTML = "";
-
-        lastHex.textContent =
-            "—";
-
-        lastAscii.textContent =
-            "—";
-
+    if (!error) {
+        return "Unknown error";
     }
-);
+
+    if (error.message) {
+        return error.message;
+    }
+
+    return String(error);
+}
 
 
 /* =========================================================
    EVENTS
    ========================================================= */
 
-scanBtn.addEventListener(
+connectBtn.addEventListener(
     "click",
-    scanXWatch
+    connectXWatch
 );
 
 
 disconnectBtn.addEventListener(
     "click",
-    disconnectDevice
+    disconnectXWatch
 );
 
 
@@ -1500,42 +1158,68 @@ sendBtn.addEventListener(
     "click",
     async () => {
 
-        const value =
-            hexInput.value.trim();
-
-
-        if (!value) {
-
-            log(
-                "Masukkan HEX terlebih dahulu.",
-                "warn"
-            );
-
-            return;
-        }
-
-
-        await sendHex(value);
-
+        await sendHex(
+            hexInput.value
+        );
     }
 );
 
 
 testBtn.addEventListener(
     "click",
-    testCommand
+    async () => {
+
+        hexInput.value = "01";
+
+        await sendHex("01");
+    }
+);
+
+
+clearBtn.addEventListener(
+    "click",
+    () => {
+
+        logElement.innerHTML = "";
+
+        log(
+            "Log dibersihkan."
+        );
+    }
 );
 
 
 /* =========================================================
-   START
+   ENTER = SEND
    ========================================================= */
 
-checkBluetooth();
+hexInput.addEventListener(
+    "keydown",
+    async event => {
+
+        if (event.key === "Enter") {
+
+            event.preventDefault();
+
+            if (!sendBtn.disabled) {
+
+                await sendHex(
+                    hexInput.value
+                );
+            }
+        }
+    }
+);
+
+
+/* =========================================================
+   STARTUP
+   ========================================================= */
+
+checkBluetoothSupport();
 
 log(
-    "XWatch BLE Explorer siap.",
-    "ok"
+    "XWatch BLE Explorer siap."
 );
 
 log(
